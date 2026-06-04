@@ -6,409 +6,148 @@
 <title>グラニフリガー 細密点検記録 — SANEI</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap');
+:root{--bg:#f4f2ee;--surface:#fff;--surface2:#f8f7f4;--border:#ddd9d0;--border2:#c8c3b8;--text:#1a1916;--text2:#6b6760;--text3:#9e9a93;--accent:#1a4f8a;--accent-light:#e8eef7;--accent2:#c84b1a;--accent2-light:#fdf0eb;--success:#1a6b3a;--success-light:#e8f5ee;--radius:8px;--radius-lg:12px;--shadow:0 1px 3px rgba(0,0,0,.08),0 0 0 .5px rgba(0,0,0,.06)}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Noto Sans JP',sans-serif;font-size:14px;background:var(--bg);color:var(--text);min-height:100vh}
+.sidebar{position:fixed;top:0;left:0;bottom:0;width:260px;background:var(--text);color:#fff;display:flex;flex-direction:column;z-index:100;transition:transform .3s}
+.sidebar-header{padding:20px 20px 16px;border-bottom:.5px solid rgba(255,255,255,.12)}
+.sidebar-header .logo{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.12em;color:rgba(255,255,255,.45);margin-bottom:6px}
+.sidebar-header h1{font-size:15px;font-weight:500;line-height:1.4}
+.sidebar-nav{flex:1;overflow-y:auto;padding:12px 0}
+.nav-section{padding:8px 16px 4px;font-size:10px;letter-spacing:.1em;color:rgba(255,255,255,.35);font-family:'IBM Plex Mono',monospace}
+.nav-item{display:flex;align-items:center;gap:10px;padding:9px 20px;color:rgba(255,255,255,.65);cursor:pointer;font-size:13px;transition:all .15s;border-left:2px solid transparent}
+.nav-item:hover{color:#fff;background:rgba(255,255,255,.06)}
+.nav-item.active{color:#fff;border-left-color:#fff;background:rgba(255,255,255,.1)}
+.site-nav-item{display:flex;align-items:center;padding:8px 20px 8px 28px;gap:8px;cursor:pointer;color:rgba(255,255,255,.55);font-size:12px;transition:all .15s;border-left:2px solid transparent}
+.site-nav-item:hover{color:rgba(255,255,255,.9)}
+.site-nav-item.active{color:#fff;border-left-color:rgba(255,255,255,.5)}
+.site-nav-item .dot{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.3);flex-shrink:0}
+.site-nav-item.active .dot{background:#fff}
+.sidebar-footer{padding:12px 20px;border-top:.5px solid rgba(255,255,255,.1);font-size:11px;color:rgba(255,255,255,.3);font-family:'IBM Plex Mono',monospace}
+.main{margin-left:260px;min-height:100vh;padding:0 0 60px}
+.topbar{background:var(--surface);border-bottom:.5px solid var(--border);padding:14px 28px;display:flex;align-items:center;gap:12px;position:sticky;top:0;z-index:50}
+.topbar h2{font-size:16px;font-weight:500;flex:1}
+.content{padding:24px 28px}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:var(--radius);border:.5px solid var(--border2);background:var(--surface);color:var(--text);font-size:13px;font-family:'Noto Sans JP',sans-serif;cursor:pointer;transition:all .15s;white-space:nowrap}
+.btn:hover{background:var(--surface2)}
+.btn:active{transform:scale(.98)}
+.btn-primary{background:var(--accent);color:#fff;border-color:var(--accent)}
+.btn-primary:hover{background:#163f6e;border-color:#163f6e}
+.btn-danger{color:var(--accent2);border-color:#e8c4b8}
+.btn-danger:hover{background:var(--accent2-light)}
+.btn-sm{padding:5px 12px;font-size:12px}
+.card{background:var(--surface);border:.5px solid var(--border);border-radius:var(--radius-lg);overflow:hidden;box-shadow:var(--shadow);margin-bottom:12px}
+.card-head{padding:12px 16px;background:var(--surface2);border-bottom:.5px solid var(--border);display:flex;align-items:center;gap:10px;cursor:pointer;user-select:none}
+.card-head h3{font-size:13px;font-weight:500;flex:1}
+.card-head .chevron{font-size:14px;color:var(--text3);transition:transform .2s}
+.card-head.collapsed .chevron{transform:rotate(-90deg)}
+.card-body{padding:14px 16px}
+.card-body.hidden{display:none}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
+.field{display:flex;flex-direction:column;gap:4px}
+.field.full{grid-column:1/-1}
+label.lbl{font-size:11px;color:var(--text2);font-weight:500;letter-spacing:.03em}
+input[type=text],input[type=date],input[type=time],input[type=number],input[type=datetime-local],select,textarea{border:.5px solid var(--border2);border-radius:var(--radius);padding:7px 10px;font-size:13px;font-family:'Noto Sans JP',sans-serif;background:var(--surface);color:var(--text);width:100%;transition:border-color .15s,box-shadow .15s}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(26,79,138,.12)}
+textarea{resize:vertical;min-height:70px}
+.check-table{width:100%;border-collapse:collapse}
+.check-table tr{border-bottom:.5px solid var(--border)}
+.check-table tr:last-child{border-bottom:none}
+.check-table td{padding:7px 6px;vertical-align:middle}
+.no-cell{font-size:11px;color:var(--text3);font-family:'IBM Plex Mono',monospace;width:32px}
+.name-cell{font-size:13px}
+.status-cell{width:180px}
+.status-group{display:flex;gap:12px}
+.radio-lbl{display:flex;align-items:center;gap:4px;font-size:12px;cursor:pointer;color:var(--text2)}
+.radio-lbl input[type=radio]{width:auto;accent-color:var(--accent)}
+.memo-cell{width:200px}
+.memo-cell input{padding:5px 8px;font-size:12px}
+tr.row-ng{background:#fff8f6}
+tr.row-ng .name-cell{color:var(--accent2);font-weight:500}
+.mrow{display:flex;align-items:center;gap:10px;padding:7px 0;border-bottom:.5px solid var(--border)}
+.mrow:last-child{border-bottom:none}
+.mrow .mno{font-size:11px;color:var(--text3);font-family:'IBM Plex Mono',monospace;min-width:28px}
+.mrow .mname{flex:1;font-size:12px}
+.mrow .mval{display:flex;align-items:center;gap:6px;flex-shrink:0}
+.mrow .mval input{width:72px;padding:5px 8px;font-size:12px}
+.unit-lbl{font-size:11px;color:var(--text3);white-space:nowrap}
+.site-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px}
+.site-card{background:var(--surface);border:.5px solid var(--border);border-radius:var(--radius-lg);padding:16px 18px;cursor:pointer;transition:all .15s;box-shadow:var(--shadow)}
+.site-card:hover{border-color:var(--accent);box-shadow:0 2px 8px rgba(26,79,138,.12);transform:translateY(-1px)}
+.site-card .sc-name{font-size:15px;font-weight:500;margin-bottom:4px}
+.site-card .sc-meta{font-size:12px;color:var(--text2);line-height:1.8}
+.site-card .sc-footer{margin-top:12px;padding-top:10px;border-top:.5px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.badge{display:inline-flex;align-items:center;padding:2px 8px;border-radius:99px;font-size:11px;font-weight:500}
+.badge-ok{background:var(--success-light);color:var(--success)}
+.badge-ng{background:var(--accent2-light);color:var(--accent2)}
+.badge-info{background:var(--accent-light);color:var(--accent)}
+.hist-item{background:var(--surface);border:.5px solid var(--border);border-radius:var(--radius-lg);padding:14px 18px;margin-bottom:10px;display:flex;align-items:flex-start;gap:14px;box-shadow:var(--shadow)}
+.hist-item .hi-date{font-family:'IBM Plex Mono',monospace;font-size:13px;font-weight:500;white-space:nowrap;color:var(--accent)}
+.hist-item .hi-info{flex:1}
+.hist-item .hi-model{font-size:12px;color:var(--text2);margin-top:3px}
+.hist-item .hi-notes{font-size:12px;color:var(--text2);margin-top:6px;padding-top:6px;border-top:.5px solid var(--border)}
+.hist-item .hi-actions{display:flex;gap:6px;flex-shrink:0}
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:500;align-items:center;justify-content:center}
+.modal-overlay.open{display:flex}
+.modal-box{background:var(--surface);border-radius:var(--radius-lg);padding:24px;width:440px;max-width:95vw;box-shadow:0 8px 32px rgba(0,0,0,.2)}
+.modal-box h3{font-size:16px;font-weight:500;margin-bottom:16px}
+.modal-actions{display:flex;gap:8px;justify-content:flex-end;margin-top:20px}
+.toast{position:fixed;bottom:24px;right:24px;background:var(--text);color:#fff;padding:10px 18px;border-radius:var(--radius);font-size:13px;z-index:1000;opacity:0;transform:translateY(8px);transition:all .25s;pointer-events:none}
+.toast.show{opacity:1;transform:translateY(0)}
+.empty{text-align:center;padding:48px 24px;color:var(--text3)}
+.empty .empty-icon{font-size:48px;margin-bottom:12px;opacity:.4}
+.actions-bar{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px;padding-top:16px;border-top:.5px solid var(--border)}
+.section-title{font-size:11px;letter-spacing:.08em;color:var(--text3);font-family:'IBM Plex Mono',monospace;margin:16px 0 8px;text-transform:uppercase}
+.gas-setup{background:var(--accent-light);border:.5px solid var(--accent);border-radius:var(--radius-lg);padding:16px 20px;margin-bottom:20px}
+.gas-setup h3{font-size:14px;font-weight:500;color:var(--accent);margin-bottom:8px}
+.gas-setup p{font-size:12px;color:var(--text2);line-height:1.7}
+.gas-setup input{margin-top:8px}
+.hamburger{display:none;position:fixed;top:12px;left:12px;z-index:200;background:var(--text);color:#fff;border:none;border-radius:var(--radius);padding:8px 10px;font-size:18px;cursor:pointer}
+.loading-overlay{position:fixed;inset:0;background:rgba(255,255,255,.7);z-index:800;display:none;align-items:center;justify-content:center;font-size:14px;color:var(--text2)}
+.loading-overlay.show{display:flex}
+@media(max-width:768px){.sidebar{transform:translateX(-100%)}.sidebar.open{transform:translateX(0)}.main{margin-left:0}.hamburger{display:block}.grid2,.grid3{grid-template-columns:1fr}.content{padding:16px}.topbar{padding:12px 16px;padding-left:52px}.memo-cell{display:none}.check-table .no-cell{display:none}}
 
-:root {
-  --bg: #f4f2ee;
-  --surface: #ffffff;
-  --surface2: #f8f7f4;
-  --border: #ddd9d0;
-  --border2: #c8c3b8;
-  --text: #1a1916;
-  --text2: #6b6760;
-  --text3: #9e9a93;
-  --accent: #1a4f8a;
-  --accent-light: #e8eef7;
-  --accent2: #c84b1a;
-  --accent2-light: #fdf0eb;
-  --success: #1a6b3a;
-  --success-light: #e8f5ee;
-  --warn: #8a5a00;
-  --warn-light: #fdf5e0;
-  --radius: 8px;
-  --radius-lg: 12px;
-  --shadow: 0 1px 3px rgba(0,0,0,0.08), 0 0 0 0.5px rgba(0,0,0,0.06);
+/* ===== PDF印刷スタイル ===== */
+@media print{
+  body{background:#fff;font-size:10pt}
+  .sidebar,.topbar,.hamburger,.actions-bar,.btn,.toast,.modal-overlay,.loading-overlay,.gas-setup{display:none!important}
+  .main{margin-left:0!important;padding:0}
+  .content{padding:0}
+  #print-area{display:block!important}
+  .screen-only{display:none!important}
+  @page{size:A4;margin:10mm 12mm}
 }
-
-* { box-sizing: border-box; margin: 0; padding: 0; }
-
-body {
-  font-family: 'Noto Sans JP', sans-serif;
-  font-size: 14px;
-  background: var(--bg);
-  color: var(--text);
-  min-height: 100vh;
-}
-
-/* ── Layout ── */
-.sidebar {
-  position: fixed;
-  top: 0; left: 0; bottom: 0;
-  width: 260px;
-  background: var(--text);
-  color: #fff;
-  display: flex;
-  flex-direction: column;
-  z-index: 100;
-  transition: transform 0.3s;
-}
-.sidebar-header {
-  padding: 20px 20px 16px;
-  border-bottom: 0.5px solid rgba(255,255,255,0.12);
-}
-.sidebar-header .logo {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 11px;
-  letter-spacing: 0.12em;
-  color: rgba(255,255,255,0.45);
-  margin-bottom: 6px;
-}
-.sidebar-header h1 {
-  font-size: 15px;
-  font-weight: 500;
-  line-height: 1.4;
-  color: #fff;
-}
-.sidebar-nav {
-  flex: 1;
-  overflow-y: auto;
-  padding: 12px 0;
-}
-.nav-section {
-  padding: 8px 16px 4px;
-  font-size: 10px;
-  letter-spacing: 0.1em;
-  color: rgba(255,255,255,0.35);
-  font-family: 'IBM Plex Mono', monospace;
-}
-.nav-item {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 9px 20px;
-  color: rgba(255,255,255,0.65);
-  cursor: pointer;
-  font-size: 13px;
-  transition: all 0.15s;
-  border-left: 2px solid transparent;
-}
-.nav-item:hover { color: #fff; background: rgba(255,255,255,0.06); }
-.nav-item.active { color: #fff; border-left-color: #fff; background: rgba(255,255,255,0.1); }
-.nav-item .icon { font-size: 16px; opacity: 0.7; }
-.nav-item.active .icon { opacity: 1; }
-.site-nav-item {
-  display: flex;
-  align-items: center;
-  padding: 8px 20px 8px 28px;
-  gap: 8px;
-  cursor: pointer;
-  color: rgba(255,255,255,0.55);
-  font-size: 12px;
-  transition: all 0.15s;
-  border-left: 2px solid transparent;
-}
-.site-nav-item:hover { color: rgba(255,255,255,0.9); }
-.site-nav-item.active { color: #fff; border-left-color: rgba(255,255,255,0.5); }
-.site-nav-item .dot {
-  width: 6px; height: 6px;
-  border-radius: 50%;
-  background: rgba(255,255,255,0.3);
-  flex-shrink: 0;
-}
-.site-nav-item.active .dot { background: #fff; }
-.sidebar-footer {
-  padding: 12px 20px;
-  border-top: 0.5px solid rgba(255,255,255,0.1);
-  font-size: 11px;
-  color: rgba(255,255,255,0.3);
-  font-family: 'IBM Plex Mono', monospace;
-}
-
-.main {
-  margin-left: 260px;
-  min-height: 100vh;
-  padding: 0 0 60px;
-}
-.topbar {
-  background: var(--surface);
-  border-bottom: 0.5px solid var(--border);
-  padding: 14px 28px;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  position: sticky;
-  top: 0;
-  z-index: 50;
-}
-.topbar h2 { font-size: 16px; font-weight: 500; flex: 1; }
-.topbar .sub { font-size: 12px; color: var(--text2); margin-top: 1px; }
-
-.content { padding: 24px 28px; }
-
-/* ── Buttons ── */
-.btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 8px 16px;
-  border-radius: var(--radius);
-  border: 0.5px solid var(--border2);
-  background: var(--surface);
-  color: var(--text);
-  font-size: 13px;
-  font-family: 'Noto Sans JP', sans-serif;
-  cursor: pointer;
-  transition: all 0.15s;
-  white-space: nowrap;
-}
-.btn:hover { background: var(--surface2); border-color: var(--border2); }
-.btn:active { transform: scale(0.98); }
-.btn-primary {
-  background: var(--accent);
-  color: #fff;
-  border-color: var(--accent);
-}
-.btn-primary:hover { background: #163f6e; border-color: #163f6e; }
-.btn-danger { color: var(--accent2); border-color: #e8c4b8; }
-.btn-danger:hover { background: var(--accent2-light); }
-.btn-sm { padding: 5px 12px; font-size: 12px; }
-.btn-icon { padding: 7px; }
-
-/* ── Cards ── */
-.card {
-  background: var(--surface);
-  border: 0.5px solid var(--border);
-  border-radius: var(--radius-lg);
-  overflow: hidden;
-  box-shadow: var(--shadow);
-  margin-bottom: 12px;
-}
-.card-head {
-  padding: 12px 16px;
-  background: var(--surface2);
-  border-bottom: 0.5px solid var(--border);
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  cursor: pointer;
-  user-select: none;
-}
-.card-head h3 { font-size: 13px; font-weight: 500; flex: 1; }
-.card-head .chevron { font-size: 14px; color: var(--text3); transition: transform 0.2s; }
-.card-head.collapsed .chevron { transform: rotate(-90deg); }
-.card-body { padding: 14px 16px; }
-.card-body.hidden { display: none; }
-
-/* ── Forms ── */
-.grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-.grid3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; }
-.field { display: flex; flex-direction: column; gap: 4px; }
-.field.full { grid-column: 1 / -1; }
-label.lbl { font-size: 11px; color: var(--text2); font-weight: 500; letter-spacing: 0.03em; }
-input[type=text], input[type=date], input[type=time], input[type=number],
-input[type=datetime-local], select, textarea {
-  border: 0.5px solid var(--border2);
-  border-radius: var(--radius);
-  padding: 7px 10px;
-  font-size: 13px;
-  font-family: 'Noto Sans JP', sans-serif;
-  background: var(--surface);
-  color: var(--text);
-  width: 100%;
-  transition: border-color 0.15s, box-shadow 0.15s;
-}
-input:focus, select:focus, textarea:focus {
-  outline: none;
-  border-color: var(--accent);
-  box-shadow: 0 0 0 3px rgba(26,79,138,0.12);
-}
-textarea { resize: vertical; min-height: 70px; }
-
-/* ── Check rows ── */
-.check-table { width: 100%; border-collapse: collapse; }
-.check-table tr { border-bottom: 0.5px solid var(--border); }
-.check-table tr:last-child { border-bottom: none; }
-.check-table td { padding: 7px 6px; vertical-align: middle; }
-.no-cell { font-size: 11px; color: var(--text3); font-family: 'IBM Plex Mono', monospace; width: 32px; }
-.name-cell { font-size: 13px; }
-.status-cell { width: 180px; }
-.status-group { display: flex; gap: 12px; }
-.radio-lbl { display: flex; align-items: center; gap: 4px; font-size: 12px; cursor: pointer; color: var(--text2); }
-.radio-lbl input[type=radio] { width: auto; accent-color: var(--accent); }
-.memo-cell { width: 200px; }
-.memo-cell input { padding: 5px 8px; font-size: 12px; }
-
-/* abnormal row highlight */
-tr.row-ng { background: #fff8f6; }
-tr.row-ng .name-cell { color: var(--accent2); font-weight: 500; }
-
-/* ── Measure rows ── */
-.mrow { display: flex; align-items: center; gap: 10px; padding: 7px 0; border-bottom: 0.5px solid var(--border); }
-.mrow:last-child { border-bottom: none; }
-.mrow .mno { font-size: 11px; color: var(--text3); font-family: 'IBM Plex Mono', monospace; min-width: 28px; }
-.mrow .mname { flex: 1; font-size: 12px; }
-.mrow .mval { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
-.mrow .mval input { width: 72px; padding: 5px 8px; font-size: 12px; }
-.mrow .mval input.wide { width: 88px; }
-.unit-lbl { font-size: 11px; color: var(--text3); white-space: nowrap; }
-.yesno-group { display: flex; gap: 10px; }
-
-/* ── Site list ── */
-.site-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 12px; }
-.site-card {
-  background: var(--surface);
-  border: 0.5px solid var(--border);
-  border-radius: var(--radius-lg);
-  padding: 16px 18px;
-  cursor: pointer;
-  transition: all 0.15s;
-  box-shadow: var(--shadow);
-}
-.site-card:hover { border-color: var(--accent); box-shadow: 0 2px 8px rgba(26,79,138,0.12); transform: translateY(-1px); }
-.site-card .sc-name { font-size: 15px; font-weight: 500; margin-bottom: 4px; }
-.site-card .sc-meta { font-size: 12px; color: var(--text2); line-height: 1.8; }
-.site-card .sc-footer { margin-top: 12px; padding-top: 10px; border-top: 0.5px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
-.badge {
-  display: inline-flex;
-  align-items: center;
-  padding: 2px 8px;
-  border-radius: 99px;
-  font-size: 11px;
-  font-weight: 500;
-}
-.badge-ok { background: var(--success-light); color: var(--success); }
-.badge-ng { background: var(--accent2-light); color: var(--accent2); }
-.badge-info { background: var(--accent-light); color: var(--accent); }
-
-/* ── History list ── */
-.hist-item {
-  background: var(--surface);
-  border: 0.5px solid var(--border);
-  border-radius: var(--radius-lg);
-  padding: 14px 18px;
-  margin-bottom: 10px;
-  display: flex;
-  align-items: flex-start;
-  gap: 14px;
-  box-shadow: var(--shadow);
-}
-.hist-item .hi-date {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 13px;
-  font-weight: 500;
-  white-space: nowrap;
-  color: var(--accent);
-}
-.hist-item .hi-info { flex: 1; }
-.hist-item .hi-model { font-size: 12px; color: var(--text2); margin-top: 3px; }
-.hist-item .hi-notes { font-size: 12px; color: var(--text2); margin-top: 6px; padding-top: 6px; border-top: 0.5px solid var(--border); }
-.hist-item .hi-actions { display: flex; gap: 6px; flex-shrink: 0; }
-
-/* ── Tabs ── */
-.tab-row { display: flex; gap: 2px; margin-bottom: 16px; border-bottom: 0.5px solid var(--border); padding-bottom: 0; }
-.tab-btn {
-  padding: 8px 16px;
-  border: none;
-  background: none;
-  font-size: 13px;
-  font-family: 'Noto Sans JP', sans-serif;
-  color: var(--text2);
-  cursor: pointer;
-  border-bottom: 2px solid transparent;
-  margin-bottom: -0.5px;
-  transition: all 0.15s;
-}
-.tab-btn.active { color: var(--accent); border-bottom-color: var(--accent); font-weight: 500; }
-
-/* ── Modal ── */
-.modal-overlay {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.45);
-  z-index: 500;
-  align-items: center;
-  justify-content: center;
-}
-.modal-overlay.open { display: flex; }
-.modal-box {
-  background: var(--surface);
-  border-radius: var(--radius-lg);
-  padding: 24px;
-  width: 440px;
-  max-width: 95vw;
-  box-shadow: 0 8px 32px rgba(0,0,0,0.2);
-}
-.modal-box h3 { font-size: 16px; font-weight: 500; margin-bottom: 16px; }
-.modal-actions { display: flex; gap: 8px; justify-content: flex-end; margin-top: 20px; }
-
-/* ── Toast ── */
-.toast {
-  position: fixed;
-  bottom: 24px;
-  right: 24px;
-  background: var(--text);
-  color: #fff;
-  padding: 10px 18px;
-  border-radius: var(--radius);
-  font-size: 13px;
-  z-index: 1000;
-  opacity: 0;
-  transform: translateY(8px);
-  transition: all 0.25s;
-  pointer-events: none;
-}
-.toast.show { opacity: 1; transform: translateY(0); }
-
-/* ── Empty state ── */
-.empty {
-  text-align: center;
-  padding: 48px 24px;
-  color: var(--text3);
-}
-.empty .empty-icon { font-size: 48px; margin-bottom: 12px; opacity: 0.4; }
-.empty p { font-size: 14px; }
-.empty small { font-size: 12px; display: block; margin-top: 4px; }
-
-/* ── Misc ── */
-.actions-bar { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 16px; padding-top: 16px; border-top: 0.5px solid var(--border); }
-.section-title { font-size: 11px; letter-spacing: 0.08em; color: var(--text3); font-family: 'IBM Plex Mono', monospace; margin: 16px 0 8px; text-transform: uppercase; }
-.color-accent { color: var(--accent); }
-
-/* hamburger for mobile */
-.hamburger {
-  display: none;
-  position: fixed;
-  top: 12px;
-  left: 12px;
-  z-index: 200;
-  background: var(--text);
-  color: #fff;
-  border: none;
-  border-radius: var(--radius);
-  padding: 8px 10px;
-  font-size: 18px;
-  cursor: pointer;
-}
-
-@media (max-width: 768px) {
-  .sidebar { transform: translateX(-100%); }
-  .sidebar.open { transform: translateX(0); }
-  .main { margin-left: 0; }
-  .hamburger { display: block; }
-  .grid2, .grid3 { grid-template-columns: 1fr; }
-  .content { padding: 16px; }
-  .topbar { padding: 12px 16px; padding-left: 52px; }
-  .status-cell { width: auto; }
-  .memo-cell { display: none; }
-  .check-table .no-cell { display: none; }
-}
+#print-area{display:none}
+.pt{font-family:'Noto Sans JP',sans-serif;font-size:9pt;color:#000;line-height:1.4}
+.pt-title{text-align:center;font-size:13pt;font-weight:700;margin-bottom:4pt}
+.pt-subtitle{text-align:center;font-size:9pt;margin-bottom:8pt;color:#333}
+.pt-header{display:grid;grid-template-columns:1fr 1fr 1fr;gap:4pt;margin-bottom:8pt;border:1px solid #000;padding:4pt}
+.pt-header-item{font-size:8pt}
+.pt-header-item span{font-weight:500}
+.pt-table{width:100%;border-collapse:collapse;margin-bottom:8pt;font-size:8pt}
+.pt-table th{background:#e8e8e8;border:0.5px solid #999;padding:3pt 4pt;text-align:left;font-weight:500}
+.pt-table td{border:0.5px solid #ccc;padding:3pt 4pt;vertical-align:top}
+.pt-table .pt-no{width:24pt;text-align:center;color:#555}
+.pt-ng{background:#fff0ee;color:#c84b1a;font-weight:500}
+.pt-section{font-size:9pt;font-weight:700;margin:6pt 0 2pt;border-bottom:1px solid #333;padding-bottom:2pt}
+.pt-measure-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:4pt;margin-bottom:6pt}
+.pt-measure-item{border:.5px solid #ccc;padding:3pt 5pt;font-size:8pt}
+.pt-measure-item .pm-label{color:#555;font-size:7pt}
+.pt-measure-item .pm-val{font-weight:500;margin-top:1pt}
+.pt-op-table{width:100%;border-collapse:collapse;font-size:7.5pt;margin-bottom:6pt}
+.pt-op-table th{background:#e8e8e8;border:.5px solid #999;padding:2pt 3pt;font-weight:500;text-align:center}
+.pt-op-table td{border:.5px solid #ccc;padding:2pt 3pt;text-align:center}
+.pt-footer{margin-top:8pt;display:grid;grid-template-columns:1fr 1fr;gap:8pt}
+.pt-sign-box{border:1px solid #999;padding:6pt;min-height:40pt}
+.pt-sign-box .ps-label{font-size:8pt;color:#555;margin-bottom:4pt}
+.pt-notes-box{border:1px solid #999;padding:6pt;min-height:40pt;grid-column:1/-1}
 </style>
 </head>
 <body>
 
-<button class="hamburger" onclick="toggleSidebar()" aria-label="メニュー">☰</button>
+<button class="hamburger" onclick="toggleSidebar()">☰</button>
 
-<!-- Sidebar -->
 <nav class="sidebar" id="sidebar">
   <div class="sidebar-header">
     <div class="logo">SANEI CO., LTD.</div>
@@ -416,35 +155,34 @@ tr.row-ng .name-cell { color: var(--accent2); font-weight: 500; }
   </div>
   <div class="sidebar-nav">
     <div class="nav-section">MENU</div>
-    <div class="nav-item active" id="nav-home" onclick="showPage('home')">
-      <span class="icon">🏠</span> ダッシュボード
-    </div>
-    <div class="nav-item" id="nav-sites" onclick="showPage('sites')">
-      <span class="icon">🏢</span> 現場一覧
-    </div>
+    <div class="nav-item active" id="nav-home" onclick="showPage('home')">🏠 ダッシュボード</div>
+    <div class="nav-item" id="nav-sites" onclick="showPage('sites')">🏢 現場一覧</div>
+    <div class="nav-item" id="nav-settings" onclick="showPage('settings')">⚙️ API設定</div>
     <div class="nav-section" style="margin-top:8px">現場</div>
     <div id="sidebar-sites"></div>
   </div>
-  <div class="sidebar-footer">ver. 20250422</div>
+  <div class="sidebar-footer">ver. 20250604</div>
 </nav>
 
-<!-- Main -->
 <div class="main">
   <div class="topbar">
     <h2 id="topbar-title">ダッシュボード</h2>
     <div id="topbar-actions"></div>
   </div>
-  <div class="content" id="main-content"></div>
+  <div class="content screen-only" id="main-content"></div>
 </div>
 
-<!-- 現場登録モーダル -->
+<!-- 印刷エリア -->
+<div id="print-area"></div>
+
+<!-- モーダル類 -->
 <div class="modal-overlay" id="modal-site">
   <div class="modal-box">
     <h3>新規現場登録</h3>
     <div style="display:flex;flex-direction:column;gap:10px">
       <div class="field"><label class="lbl">現場名 / お客様名 *</label><input type="text" id="ns-name" placeholder="例: ○○農業協同組合"></div>
       <div class="field"><label class="lbl">所在地</label><input type="text" id="ns-loc" placeholder="例: 北海道○○市"></div>
-      <div class="field"><label class="lbl">備考</label><input type="text" id="ns-memo" placeholder="任意メモ"></div>
+      <div class="field"><label class="lbl">備考</label><input type="text" id="ns-memo"></div>
     </div>
     <div class="modal-actions">
       <button class="btn" onclick="closeModal('modal-site')">キャンセル</button>
@@ -453,7 +191,6 @@ tr.row-ng .name-cell { color: var(--accent2); font-weight: 500; }
   </div>
 </div>
 
-<!-- 削除確認モーダル -->
 <div class="modal-overlay" id="modal-confirm">
   <div class="modal-box">
     <h3 id="confirm-title">確認</h3>
@@ -465,267 +202,261 @@ tr.row-ng .name-cell { color: var(--accent2); font-weight: 500; }
   </div>
 </div>
 
+<div class="loading-overlay" id="loading">⏳ 処理中...</div>
 <div class="toast" id="toast"></div>
 
 <script>
-// ─── State ───────────────────────────────────────────────
-let sites = [];
-let records = {};
-let currentSite = null;
-let currentPage = 'home';
-let editingId = null;
+// ═══════════════════════════════════════════
+// CONFIG — GAS WebアプリのURLをここに貼る
+// ═══════════════════════════════════════════
+let GAS_URL = localStorage.getItem('gf_gas_url') || '';
 
-// ─── Data definitions ────────────────────────────────────
-const ELEC_ITEMS = [
-  {no:2, name:'キャビネットBOX内の異物・ゴミ'},
-  {no:3, name:'コネクター・端子・ねじのゆるみ'},
-  {no:4, name:'部品の変色・変形・劣化など'},
-  {no:5, name:'電線の変色・変形・劣化など'},
-  {no:6, name:'スイッチ動作・接点'},
-  {no:7, name:'ディスプレイ表示'},
-  {no:8, name:'運転ランプ・異常ランプ点灯'},
-  {no:9, name:'温度コントローラー'},
-];
-const MECH_ITEMS = [
-  {no:10, name:'フレキシブルダクト（蛇腹ダクト）・ベルト'},
-  {no:11, name:'エアフィルター'},
-  {no:12, name:'フィルターBOX・目詰まり検出器'},
-  {no:13, name:'ドレン板・ドレンホース'},
-  {no:14, name:'マノメーターUチューブ・静圧計'},
-  {no:15, name:'温度センサー'},
-  {no:16, name:'本体外観（汚れ・穴あき）'},
-  {no:17, name:'本体設置状態'},
-  {no:18, name:'ドレンホース処理'},
-  {no:19, name:'静圧計パッキン劣化'},
-  {no:20, name:'惰性回転中の異音'},
-  {no:21, name:'オイル交換'},
-  {no:22, name:'加温ヒーター'},
-  {no:23, name:'コンデンサー本体'},
-  {no:24, name:'コンデンサーファン（インバータ型式）'},
-  {no:25, name:'コンデンサー汚れ'},
-  {no:26, name:'レシーバータンク'},
-  {no:27, name:'フィルタードライヤー'},
-  {no:28, name:'膨張弁'},
-  {no:29, name:'錆（ハンドバルブ等）'},
-  {no:30, name:'本体外観汚れ'},
-  {no:31, name:'底板の錆'},
-];
-const REFRIG_ITEMS = [
-  {no:32, name:'高圧・低圧圧力', dual:true, labels:['高圧','低圧'], unit:'bar'},
-  {no:33, name:'冷媒量', single:true, unit:'kg'},
-  {no:35, name:'吐出配管温度', single:true, unit:'℃'},
-  {no:36, name:'吸入配管温度', single:true, unit:'℃'},
-  {no:37, name:'膨張弁直後配管温度', single:true, unit:'℃'},
-  {no:38, name:'逆流防止弁温度（一次側/二次側）', dual:true, labels:['一次側','二次側'], unit:'℃'},
-  {no:39, name:'高圧・低圧圧力（運転中）', dual:true, labels:['高圧','低圧'], unit:'bar'},
-  {no:40, name:'高圧異常停止圧力値', single:true, unit:'bar'},
-  {no:41, name:'冷媒ガス漏れ', yesno:true},
-];
-const VOLT_ITEMS = [
-  {no:63, name:'主電源電圧（待機中）R-S/S-T/R-T', triple:true, unit:'V'},
-  {no:64, name:'制御電源電圧（待機中）', single:true, unit:'V'},
-  {no:65, name:'主電源電圧（運転中）R-S/S-T/R-T', triple:true, unit:'V'},
-  {no:66, name:'制御電源電圧（運転中）', single:true, unit:'V'},
-  {no:67, name:'総消費電流 R相/S相/T相', triple:true, unit:'A'},
-  {no:68, name:'漏れ電流値', single:true, unit:'mA'},
-  {no:69, name:'クランクケースヒーター', single:true, unit:'A'},
-  {no:70, name:'主ファンモーター（低速）', rated:true, unit:'A'},
-  {no:71, name:'主ファンモーター（高速）', rated:true, unit:'A'},
-  {no:72, name:'コンプレッサー（100%起動時）', rated:true, unit:'A'},
-  {no:73, name:'コンデンサーファン1（下段）', rated:true, unit:'A'},
-  {no:74, name:'コンデンサーファン2（上段）', rated:true, unit:'A'},
-];
-const OP_CONDITIONS = [
-  {no:51, label:'No.51 一次側温度＝外気－5℃'},
-  {no:52, label:'No.52 一次側温度＝外気－10℃'},
-  {no:53, label:'No.53 一次側温度＝外気－15℃'},
-  {no:54, label:'No.54 No.53設定で温度差8℃'},
-];
+// ═══════════════════════════════════════════
+// Data definitions
+// ═══════════════════════════════════════════
+const ELEC_ITEMS=[{no:2,name:'キャビネットBOX内の異物・ゴミ'},{no:3,name:'コネクター・端子・ねじのゆるみ'},{no:4,name:'部品の変色・変形・劣化など'},{no:5,name:'電線の変色・変形・劣化など'},{no:6,name:'スイッチ動作・接点'},{no:7,name:'ディスプレイ表示'},{no:8,name:'運転ランプ・異常ランプ点灯'},{no:9,name:'温度コントローラー'}];
+const MECH_ITEMS=[{no:10,name:'フレキシブルダクト（蛇腹ダクト）・ベルト'},{no:11,name:'エアフィルター'},{no:12,name:'フィルターBOX・目詰まり検出器'},{no:13,name:'ドレン板・ドレンホース'},{no:14,name:'マノメーターUチューブ・静圧計'},{no:15,name:'温度センサー'},{no:16,name:'本体外観（汚れ・穴あき）'},{no:17,name:'本体設置状態'},{no:18,name:'ドレンホース処理'},{no:19,name:'静圧計パッキン劣化'},{no:20,name:'惰性回転中の異音'},{no:21,name:'オイル交換'},{no:22,name:'加温ヒーター'},{no:23,name:'コンデンサー本体'},{no:24,name:'コンデンサーファン（インバータ型式）'},{no:25,name:'コンデンサー汚れ'},{no:26,name:'レシーバータンク'},{no:27,name:'フィルタードライヤー'},{no:28,name:'膨張弁'},{no:29,name:'錆（ハンドバルブ等）'},{no:30,name:'本体外観汚れ'},{no:31,name:'底板の錆'}];
+const REFRIG_ITEMS=[{no:32,name:'高圧・低圧圧力',dual:true,labels:['高圧','低圧'],unit:'bar'},{no:33,name:'冷媒量',single:true,unit:'kg'},{no:35,name:'吐出配管温度',single:true,unit:'℃'},{no:36,name:'吸入配管温度',single:true,unit:'℃'},{no:37,name:'膨張弁直後配管温度',single:true,unit:'℃'},{no:38,name:'逆流防止弁温度（一次側/二次側）',dual:true,labels:['一次側','二次側'],unit:'℃'},{no:39,name:'高圧・低圧圧力（運転中）',dual:true,labels:['高圧','低圧'],unit:'bar'},{no:40,name:'高圧異常停止圧力値',single:true,unit:'bar'},{no:41,name:'冷媒ガス漏れ',yesno:true}];
+const VOLT_ITEMS=[{no:63,name:'主電源電圧（待機中）R-S/S-T/R-T',triple:true,unit:'V'},{no:64,name:'制御電源電圧（待機中）',single:true,unit:'V'},{no:65,name:'主電源電圧（運転中）R-S/S-T/R-T',triple:true,unit:'V'},{no:66,name:'制御電源電圧（運転中）',single:true,unit:'V'},{no:67,name:'総消費電流 R相/S相/T相',triple:true,unit:'A'},{no:68,name:'漏れ電流値',single:true,unit:'mA'},{no:69,name:'クランクケースヒーター',single:true,unit:'A'},{no:70,name:'主ファンモーター（低速）',rated:true,unit:'A'},{no:71,name:'主ファンモーター（高速）',rated:true,unit:'A'},{no:72,name:'コンプレッサー（100%起動時）',rated:true,unit:'A'},{no:73,name:'コンデンサーファン1（下段）',rated:true,unit:'A'},{no:74,name:'コンデンサーファン2（上段）',rated:true,unit:'A'}];
+const OP_CONDITIONS=[{no:51,label:'No.51 一次側温度＝外気－5℃'},{no:52,label:'No.52 一次側温度＝外気－10℃'},{no:53,label:'No.53 一次側温度＝外気－15℃'},{no:54,label:'No.54 No.53設定で温度差8℃'}];
 
-// ─── Storage ─────────────────────────────────────────────
-function save() {
+// ═══════════════════════════════════════════
+// State
+// ═══════════════════════════════════════════
+let sites=[], records={}, currentSite=null, editingId=null;
+
+// ═══════════════════════════════════════════
+// GAS API
+// ═══════════════════════════════════════════
+async function api(action, body={}) {
+  if (!GAS_URL) { toast('⚠ GAS URLが設定されていません。API設定を確認してください'); return null; }
+  showLoading(true);
   try {
-    localStorage.setItem('gf_sites', JSON.stringify(sites));
-    localStorage.setItem('gf_records', JSON.stringify(records));
-  } catch(e) {}
-}
-function load() {
-  try {
-    const s = localStorage.getItem('gf_sites');
-    const r = localStorage.getItem('gf_records');
-    if (s) sites = JSON.parse(s);
-    if (r) records = JSON.parse(r);
-  } catch(e) {}
+    const url = GAS_URL + '?action=' + action;
+    const res = await fetch(url, {
+      method: 'POST',
+      body: JSON.stringify({action, ...body}),
+    });
+    const data = await res.json();
+    if (data.error) { toast('エラー: ' + data.error); return null; }
+    return data;
+  } catch(e) {
+    toast('通信エラー: ' + e.message);
+    return null;
+  } finally {
+    showLoading(false);
+  }
 }
 
-// ─── UI helpers ──────────────────────────────────────────
+function showLoading(v) { document.getElementById('loading').classList.toggle('show', v); }
+
+// ═══════════════════════════════════════════
+// UI helpers
+// ═══════════════════════════════════════════
 function toast(msg) {
-  const el = document.getElementById('toast');
-  el.textContent = msg;
-  el.classList.add('show');
-  setTimeout(() => el.classList.remove('show'), 2800);
+  const el=document.getElementById('toast');
+  el.textContent=msg; el.classList.add('show');
+  setTimeout(()=>el.classList.remove('show'),2800);
 }
-function openModal(id) { document.getElementById(id).classList.add('open'); }
-function closeModal(id) { document.getElementById(id).classList.remove('open'); }
-function toggleSidebar() { document.getElementById('sidebar').classList.toggle('open'); }
-function closeSidebarIfMobile() {
-  if (window.innerWidth <= 768) document.getElementById('sidebar').classList.remove('open');
-}
-
-function confirm2(title, msg, cb) {
-  document.getElementById('confirm-title').textContent = title;
-  document.getElementById('confirm-msg').textContent = msg;
-  const btn = document.getElementById('confirm-ok');
-  btn.onclick = () => { closeModal('modal-confirm'); cb(); };
+function openModal(id){document.getElementById(id).classList.add('open')}
+function closeModal(id){document.getElementById(id).classList.remove('open')}
+function toggleSidebar(){document.getElementById('sidebar').classList.toggle('open')}
+function closeSidebarIfMobile(){if(window.innerWidth<=768)document.getElementById('sidebar').classList.remove('open')}
+function confirm2(title,msg,cb){
+  document.getElementById('confirm-title').textContent=title;
+  document.getElementById('confirm-msg').textContent=msg;
+  document.getElementById('confirm-ok').onclick=()=>{closeModal('modal-confirm');cb()};
   openModal('modal-confirm');
 }
-
-function setTopbar(title, actionsHTML='') {
-  document.getElementById('topbar-title').textContent = title;
-  document.getElementById('topbar-actions').innerHTML = actionsHTML;
+function setTopbar(title,html=''){
+  document.getElementById('topbar-title').textContent=title;
+  document.getElementById('topbar-actions').innerHTML=html;
 }
-function navActive(id) {
-  document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
-  const el = document.getElementById(id);
-  if (el) el.classList.add('active');
-  document.querySelectorAll('.site-nav-item').forEach(el => el.classList.remove('active'));
+function navActive(id){
+  document.querySelectorAll('.nav-item').forEach(el=>el.classList.remove('active'));
+  const el=document.getElementById(id); if(el) el.classList.add('active');
+  document.querySelectorAll('.site-nav-item').forEach(el=>el.classList.remove('active'));
 }
-
-// ─── Sidebar sites ────────────────────────────────────────
-function renderSidebarSites() {
-  const c = document.getElementById('sidebar-sites');
-  c.innerHTML = sites.map(s => `
-    <div class="site-nav-item ${currentSite===s.id?'active':''}" onclick="openSite('${s.id}')">
-      <div class="dot"></div>
-      <span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${s.name}</span>
-    </div>`).join('') || '<div style="padding:6px 28px;font-size:12px;color:rgba(255,255,255,0.25)">登録なし</div>';
+function renderSidebarSites(){
+  const c=document.getElementById('sidebar-sites');
+  c.innerHTML=sites.map(s=>`<div class="site-nav-item ${currentSite===s.id?'active':''}" onclick="openSite('${s.id}')"><div class="dot"></div><span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${s.name}</span></div>`).join('')||'<div style="padding:6px 28px;font-size:12px;color:rgba(255,255,255,.25)">登録なし</div>';
 }
 
-// ─── Pages ───────────────────────────────────────────────
-function showPage(page, siteId) {
-  currentPage = page;
+// ═══════════════════════════════════════════
+// Pages
+// ═══════════════════════════════════════════
+async function showPage(page, siteId) {
   closeSidebarIfMobile();
-  if (page === 'home') renderHome();
-  else if (page === 'sites') renderSitesPage();
-  else if (page === 'form') renderFormPage(siteId);
-  else if (page === 'history') renderHistoryPage(siteId);
+  if (page==='home') await renderHome();
+  else if (page==='sites') await renderSitesPage();
+  else if (page==='settings') renderSettings();
+  else if (page==='form') renderFormPage(siteId);
+  else if (page==='history') await renderHistoryPage(siteId);
 }
 
-// HOME
-function renderHome() {
+async function renderHome(){
   navActive('nav-home');
-  const totalSites = sites.length;
-  const totalRecs = Object.values(records).reduce((s,r)=>s+r.length,0);
-  const allChecks = Object.values(records).flatMap(r=>r).flatMap(r=>Object.values(r.checks||{}));
-  const ngCount = allChecks.filter(v=>v==='abnormal').length;
-  const recentRecs = Object.values(records).flatMap(r=>r)
-    .sort((a,b)=>(b.date||'').localeCompare(a.date||'')).slice(0,5);
+  // load all sites first
+  const res = await api('getSites');
+  if (!res) return;
+  sites = res.sites||[];
+  renderSidebarSites();
 
-  setTopbar('ダッシュボード', '<button class="btn btn-primary" onclick="openModal(\'modal-site\')">＋ 新規現場登録</button>');
-  document.getElementById('main-content').innerHTML = `
+  let totalRecs=0, ngCount=0;
+  const recentRecs=[];
+  for(const s of sites){
+    const r2=await api('getRecords',{siteId:s.id});
+    if(r2){
+      records[s.id]=r2.records||[];
+      totalRecs+=records[s.id].length;
+      records[s.id].forEach(r=>{
+        ngCount+=Object.values(r.checks||{}).filter(v=>v==='abnormal').length;
+        recentRecs.push({...r, siteName:s.name});
+      });
+    }
+  }
+  recentRecs.sort((a,b)=>(b.date||'').localeCompare(a.date||'')).splice(5);
+
+  setTopbar('ダッシュボード','<button class="btn btn-primary" onclick="openModal(\'modal-site\')">＋ 新規現場登録</button>');
+  document.getElementById('main-content').innerHTML=`
     <div class="grid3" style="margin-bottom:20px">
-      <div class="card" style="padding:16px 20px;cursor:default">
-        <div style="font-size:11px;color:var(--text3);margin-bottom:6px;font-family:\'IBM Plex Mono\',monospace">SITES</div>
-        <div style="font-size:28px;font-weight:700;color:var(--accent)">${totalSites}</div>
-        <div style="font-size:12px;color:var(--text2);margin-top:2px">登録現場数</div>
-      </div>
-      <div class="card" style="padding:16px 20px;cursor:default">
-        <div style="font-size:11px;color:var(--text3);margin-bottom:6px;font-family:\'IBM Plex Mono\',monospace">RECORDS</div>
-        <div style="font-size:28px;font-weight:700;color:var(--accent)">${totalRecs}</div>
-        <div style="font-size:12px;color:var(--text2);margin-top:2px">総点検記録数</div>
-      </div>
-      <div class="card" style="padding:16px 20px;cursor:default;${ngCount>0?'border-color:#e8c4b8':''}">
-        <div style="font-size:11px;color:var(--text3);margin-bottom:6px;font-family:\'IBM Plex Mono\',monospace">ABNORMAL</div>
-        <div style="font-size:28px;font-weight:700;color:${ngCount>0?'var(--accent2)':'var(--success)'}">${ngCount}</div>
-        <div style="font-size:12px;color:var(--text2);margin-top:2px">異常検出件数（累計）</div>
-      </div>
+      <div class="card" style="padding:16px 20px;cursor:default"><div style="font-size:11px;color:var(--text3);margin-bottom:6px;font-family:'IBM Plex Mono',monospace">SITES</div><div style="font-size:28px;font-weight:700;color:var(--accent)">${sites.length}</div><div style="font-size:12px;color:var(--text2)">登録現場数</div></div>
+      <div class="card" style="padding:16px 20px;cursor:default"><div style="font-size:11px;color:var(--text3);margin-bottom:6px;font-family:'IBM Plex Mono',monospace">RECORDS</div><div style="font-size:28px;font-weight:700;color:var(--accent)">${totalRecs}</div><div style="font-size:12px;color:var(--text2)">総点検記録数</div></div>
+      <div class="card" style="padding:16px 20px;cursor:default;${ngCount>0?'border-color:#e8c4b8':''}"><div style="font-size:11px;color:var(--text3);margin-bottom:6px;font-family:'IBM Plex Mono',monospace">ABNORMAL</div><div style="font-size:28px;font-weight:700;color:${ngCount>0?'var(--accent2)':'var(--success)'}">${ngCount}</div><div style="font-size:12px;color:var(--text2)">異常検出件数（累計）</div></div>
     </div>
     <div class="section-title">最近の点検記録</div>
-    ${recentRecs.length ? recentRecs.map(r=>{
-      const site = sites.find(s=>(records[s.id]||[]).some(x=>x.id===r.id));
-      const ngItems = Object.entries(r.checks||{}).filter(([,v])=>v==='abnormal').length;
-      return `<div class="hist-item">
-        <div>
-          <div class="hi-date">${r.date||'—'}</div>
-          <div style="font-size:11px;color:var(--text3);margin-top:2px">${site?.name||'—'}</div>
-        </div>
-        <div class="hi-info">
-          <div style="font-size:13px">担当: ${r.staff||'—'} / 型式: ${r.model||'—'}</div>
-          <div class="hi-model">製造No. ${r.serial||'—'}</div>
-          ${ngItems>0?`<div style="margin-top:4px"><span class="badge badge-ng">異常 ${ngItems}件</span></div>`:
-          `<div style="margin-top:4px"><span class="badge badge-ok">異常なし</span></div>`}
-        </div>
-      </div>`;
-    }).join('') : '<div class="empty"><div class="empty-icon">📋</div><p>まだ記録がありません</p><small>現場を登録して点検記録を追加してください</small></div>'}
+    ${recentRecs.length?recentRecs.map(r=>{
+      const ng=Object.entries(r.checks||{}).filter(([,v])=>v==='abnormal').length;
+      return `<div class="hist-item"><div><div class="hi-date">${r.date||'—'}</div><div style="font-size:11px;color:var(--text3);margin-top:2px">${r.siteName}</div></div><div class="hi-info"><div style="font-size:13px">担当: ${r.staff||'—'} / 型式: ${r.model||'—'}</div>${ng>0?`<div style="margin-top:4px"><span class="badge badge-ng">異常 ${ng}件</span></div>`:`<div style="margin-top:4px"><span class="badge badge-ok">異常なし</span></div>`}</div></div>`;
+    }).join(''):'<div class="empty"><div class="empty-icon">📋</div><p>まだ記録がありません</p></div>'}
   `;
 }
 
-// SITES PAGE
-function renderSitesPage() {
+async function renderSitesPage(){
   navActive('nav-sites');
-  setTopbar('現場一覧', '<button class="btn btn-primary" onclick="openModal(\'modal-site\')">＋ 新規現場登録</button>');
-  const c = document.getElementById('main-content');
-  if (!sites.length) {
-    c.innerHTML = '<div class="empty"><div class="empty-icon">🏢</div><p>現場が登録されていません</p><small>「新規現場登録」から追加してください</small></div>';
-    return;
-  }
-  c.innerHTML = `<div class="site-grid">${sites.map(s => {
-    const recs = records[s.id]||[];
-    const last = recs.length ? recs[recs.length-1].date : '未実施';
-    const ng = recs.flatMap(r=>Object.values(r.checks||{})).filter(v=>v==='abnormal').length;
-    return `<div class="site-card" onclick="openSite('${s.id}')">
-      <div class="sc-name">${s.name}</div>
-      <div class="sc-meta">
-        📍 ${s.loc||'所在地未設定'}<br>
-        最終点検: ${last}<br>
-        記録数: ${recs.length}件
-      </div>
-      <div class="sc-footer">
-        <span class="badge ${ng>0?'badge-ng':'badge-ok'}">${ng>0?`異常 ${ng}件`:'異常なし'}</span>
-        <button class="btn btn-sm btn-danger" onclick="event.stopPropagation();deleteSite('${s.id}')">削除</button>
-      </div>
-    </div>`;
+  const res=await api('getSites'); if(!res) return;
+  sites=res.sites||[]; renderSidebarSites();
+  setTopbar('現場一覧','<button class="btn btn-primary" onclick="openModal(\'modal-site\')">＋ 新規現場登録</button>');
+  const c=document.getElementById('main-content');
+  if(!sites.length){c.innerHTML='<div class="empty"><div class="empty-icon">🏢</div><p>現場が登録されていません</p></div>';return;}
+  c.innerHTML=`<div class="site-grid">${sites.map(s=>{
+    const recs=records[s.id]||[];
+    const ng=recs.flatMap(r=>Object.values(r.checks||{})).filter(v=>v==='abnormal').length;
+    return `<div class="site-card" onclick="openSite('${s.id}')"><div class="sc-name">${s.name}</div><div class="sc-meta">📍 ${s.loc||'所在地未設定'}</div><div class="sc-footer"><span class="badge ${ng>0?'badge-ng':'badge-ok'}">${ng>0?`異常 ${ng}件`:'異常なし'}</span><button class="btn btn-sm btn-danger" onclick="event.stopPropagation();deleteSite('${s.id}')">削除</button></div></div>`;
   }).join('')}</div>`;
 }
 
-function openSite(id) {
-  currentSite = id;
-  renderSidebarSites();
-  showPage('history', id);
+function renderSettings(){
+  navActive('nav-settings');
+  setTopbar('API設定');
+  document.getElementById('main-content').innerHTML=`
+    <div class="card" style="max-width:560px">
+      <div class="card-head"><h3>🔗 Google Apps Script URL設定</h3></div>
+      <div class="card-body">
+        <p style="font-size:13px;color:var(--text2);margin-bottom:12px;line-height:1.8">Google Apps ScriptのウェブアプリURLを入力すると、データがGoogleスプレッドシートに保存され、どの端末からでも共有できます。</p>
+        <div class="field">
+          <label class="lbl">GAS ウェブアプリURL</label>
+          <input type="text" id="gas-url-input" value="${GAS_URL}" placeholder="https://script.google.com/macros/s/...">
+        </div>
+        <div style="margin-top:12px;display:flex;gap:8px">
+          <button class="btn btn-primary" onclick="saveGasUrl()">保存する</button>
+          <button class="btn" onclick="testGasUrl()">接続テスト</button>
+        </div>
+        <div style="margin-top:20px;border-top:.5px solid var(--border);padding-top:16px">
+          <p style="font-size:12px;font-weight:500;margin-bottom:8px">📋 設定手順</p>
+          <ol style="font-size:12px;color:var(--text2);line-height:2;padding-left:16px">
+            <li>Google ドライブで「新しいスプレッドシート」を作成</li>
+            <li>メニュー「拡張機能」→「Apps Script」を開く</li>
+            <li>ダウンロードした <code>gas_code.gs</code> の内容を貼り付けて保存</li>
+            <li>「デプロイ」→「新しいデプロイ」→「ウェブアプリ」を選択</li>
+            <li>「アクセスできるユーザー」を <strong>全員</strong> に設定してデプロイ</li>
+            <li>表示されたURLをコピーしてここに貼り付ける</li>
+          </ol>
+        </div>
+      </div>
+    </div>`;
 }
 
-function deleteSite(id) {
-  const s = sites.find(x=>x.id===id);
-  confirm2('現場を削除', `「${s.name}」と全ての点検記録を削除しますか？`, () => {
-    sites = sites.filter(x=>x.id!==id);
-    delete records[id];
-    if (currentSite===id) currentSite=null;
-    save();
-    renderSidebarSites();
-    renderSitesPage();
-    toast('削除しました');
+function saveGasUrl(){
+  const url=document.getElementById('gas-url-input').value.trim();
+  GAS_URL=url; localStorage.setItem('gf_gas_url',url);
+  toast('✓ URLを保存しました');
+}
+async function testGasUrl(){
+  const url=document.getElementById('gas-url-input').value.trim();
+  if(!url){toast('URLを入力してください');return;}
+  GAS_URL=url;
+  const res=await api('getSites');
+  if(res) toast('✓ 接続成功！');
+}
+
+async function openSite(id){
+  currentSite=id;
+  renderSidebarSites();
+  await renderHistoryPage(id);
+}
+
+async function deleteSite(id){
+  const s=sites.find(x=>x.id===id);
+  confirm2('現場を削除',`「${s.name}」と全記録を削除しますか？`,async()=>{
+    await api('deleteSite',{id});
+    toast('削除しました'); await renderSitesPage();
   });
 }
 
-// FORM PAGE
-function renderFormPage(siteId) {
-  if (siteId) currentSite = siteId;
-  const site = sites.find(s=>s.id===currentSite);
+async function renderHistoryPage(siteId){
+  if(siteId) currentSite=siteId;
+  const site=sites.find(s=>s.id===currentSite);
   renderSidebarSites();
-  setTopbar(`点検入力 — ${site?.name||''}`, `
-    <button class="btn" onclick="showPage('history','${currentSite}')">← 履歴に戻る</button>
-  `);
-
-  document.getElementById('main-content').innerHTML = `
-    <!-- 基本情報 -->
-    <div class="card">
-      <div class="card-head" onclick="toggleCard(this)">
-        <span>📋</span><h3>基本情報</h3><span class="chevron">▾</span>
+  const res=await api('getRecords',{siteId:currentSite}); if(!res) return;
+  records[currentSite]=res.records||[];
+  const recs=records[currentSite].slice().reverse();
+  setTopbar(`${site?.name||''}`,`<button class="btn btn-primary" onclick="startNewRecord()">＋ 新規点検記録</button>`);
+  const c=document.getElementById('main-content');
+  if(!recs.length){c.innerHTML='<div class="empty"><div class="empty-icon">📋</div><p>点検記録がまだありません</p></div>';return;}
+  c.innerHTML=recs.map(r=>{
+    const ng=Object.entries(r.checks||{}).filter(([,v])=>v==='abnormal');
+    return `<div class="hist-item">
+      <div><div class="hi-date">${r.date||'—'}</div><div style="font-size:11px;color:var(--text3);margin-top:2px">${r.serial||'—'}</div></div>
+      <div class="hi-info">
+        <div style="font-size:13px;font-weight:500">${r.model||'型式未入力'}</div>
+        <div class="hi-model">担当: ${r.staff||'—'}</div>
+        ${ng.length?`<div style="margin-top:5px">${ng.map(([no])=>`<span class="badge badge-ng" style="margin-right:4px;font-size:10px">異常 No.${no}</span>`).join('')}</div>`:`<div style="margin-top:5px"><span class="badge badge-ok">異常なし</span></div>`}
+        ${r.notes?`<div class="hi-notes">📝 ${r.notes}</div>`:''}
       </div>
+      <div class="hi-actions">
+        <button class="btn btn-sm" onclick="printRecord('${r.id}')">🖨 印刷</button>
+        <button class="btn btn-sm" onclick="editRecord('${r.id}')">編集</button>
+        <button class="btn btn-sm btn-danger" onclick="deleteRecord('${r.id}')">削除</button>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function startNewRecord(){editingId=null;renderFormPage(currentSite)}
+function editRecord(rid){editingId=rid;renderFormPage(currentSite)}
+async function deleteRecord(rid){
+  confirm2('記録を削除','この点検記録を削除しますか？',async()=>{
+    await api('deleteRecord',{id:rid});
+    toast('削除しました'); await renderHistoryPage(currentSite);
+  });
+}
+
+// ═══════════════════════════════════════════
+// Form
+// ═══════════════════════════════════════════
+function renderFormPage(siteId){
+  if(siteId) currentSite=siteId;
+  const site=sites.find(s=>s.id===currentSite);
+  renderSidebarSites();
+  setTopbar(`点検入力 — ${site?.name||''}`,`<button class="btn" onclick="renderHistoryPage('${currentSite}')">← 履歴に戻る</button>`);
+  document.getElementById('main-content').innerHTML=`
+    <div class="card">
+      <div class="card-head" onclick="toggleCard(this)"><span>📋</span><h3>基本情報</h3><span class="chevron">▾</span></div>
       <div class="card-body">
         <div class="grid3">
           <div class="field"><label class="lbl">点検実施日 *</label><input type="date" id="f_date"></div>
-          <div class="field"><label class="lbl">担当者</label><input type="text" id="f_staff" placeholder="担当者名"></div>
+          <div class="field"><label class="lbl">担当者</label><input type="text" id="f_staff"></div>
           <div class="field"><label class="lbl">運転時間積算値</label><input type="text" id="f_runtime" placeholder="時間"></div>
           <div class="field"><label class="lbl">機械型式</label><input type="text" id="f_model" placeholder="例: KK220"></div>
           <div class="field"><label class="lbl">製造No.</label><input type="text" id="f_serial"></div>
@@ -734,128 +465,83 @@ function renderFormPage(siteId) {
         </div>
       </div>
     </div>
-
-    <!-- 電気系 -->
     <div class="card">
-      <div class="card-head" onclick="toggleCard(this)">
-        <span>⚡</span><h3>電気系点検 (No.2〜9)</h3><span class="chevron">▾</span>
-      </div>
-      <div class="card-body" style="padding:0 16px">
-        <table class="check-table" id="elec-table"></table>
-      </div>
+      <div class="card-head" onclick="toggleCard(this)"><span>⚡</span><h3>電気系点検 (No.2〜9)</h3><span class="chevron">▾</span></div>
+      <div class="card-body" style="padding:0 16px"><table class="check-table" id="elec-table"></table></div>
     </div>
-
-    <!-- 機械系 -->
     <div class="card">
-      <div class="card-head" onclick="toggleCard(this)">
-        <span>🔧</span><h3>機械系点検 (No.10〜31)</h3><span class="chevron">▾</span>
-      </div>
-      <div class="card-body" style="padding:0 16px">
-        <table class="check-table" id="mech-table"></table>
-      </div>
+      <div class="card-head" onclick="toggleCard(this)"><span>🔧</span><h3>機械系点検 (No.10〜31)</h3><span class="chevron">▾</span></div>
+      <div class="card-body" style="padding:0 16px"><table class="check-table" id="mech-table"></table></div>
     </div>
-
-    <!-- 冷凍回路 -->
     <div class="card">
-      <div class="card-head" onclick="toggleCard(this)">
-        <span>❄️</span><h3>冷凍回路 (No.32〜41)</h3><span class="chevron">▾</span>
-      </div>
+      <div class="card-head" onclick="toggleCard(this)"><span>❄️</span><h3>冷凍回路 (No.32〜41)</h3><span class="chevron">▾</span></div>
       <div class="card-body" id="refrig-body"></div>
     </div>
-
-    <!-- 電源電圧・電流 -->
     <div class="card">
-      <div class="card-head" onclick="toggleCard(this)">
-        <span>📊</span><h3>電源電圧・電流値 (No.63〜77)</h3><span class="chevron">▾</span>
-      </div>
+      <div class="card-head" onclick="toggleCard(this)"><span>📊</span><h3>電源電圧・電流値 (No.63〜77)</h3><span class="chevron">▾</span></div>
       <div class="card-body" id="volt-body"></div>
     </div>
-
-    <!-- 運転状況記録 -->
     <div class="card">
-      <div class="card-head" onclick="toggleCard(this)">
-        <span>▶️</span><h3>運転状況記録 (No.51〜54)</h3><span class="chevron">▾</span>
-      </div>
+      <div class="card-head" onclick="toggleCard(this)"><span>▶️</span><h3>運転状況記録 (No.51〜54)</h3><span class="chevron">▾</span></div>
       <div class="card-body" id="op-body"></div>
     </div>
-
-    <!-- 特記事項 -->
     <div class="card">
-      <div class="card-head" onclick="toggleCard(this)">
-        <span>📝</span><h3>特記事項・作業時間</h3><span class="chevron">▾</span>
-      </div>
+      <div class="card-head" onclick="toggleCard(this)"><span>📝</span><h3>特記事項・作業時間</h3><span class="chevron">▾</span></div>
       <div class="card-body">
         <div class="grid2">
           <div class="field"><label class="lbl">作業開始</label><input type="time" id="f_start"></div>
           <div class="field"><label class="lbl">作業終了</label><input type="time" id="f_end"></div>
-          <div class="field full"><label class="lbl">特記事項</label><textarea id="f_notes" placeholder="異常内容・対応内容など"></textarea></div>
+          <div class="field full"><label class="lbl">特記事項</label><textarea id="f_notes"></textarea></div>
         </div>
       </div>
     </div>
-
     <div class="actions-bar">
       <button class="btn btn-primary" onclick="saveRecord()">💾 保存する</button>
       <button class="btn" onclick="exportCSV()">📥 CSVエクスポート</button>
-      <button class="btn btn-danger" onclick="clearForm()">🗑 クリア</button>
-    </div>
-  `;
-
-  buildCheckTable('elec-table', ELEC_ITEMS);
-  buildCheckTable('mech-table', MECH_ITEMS);
-  buildRefrig();
-  buildVolt();
-  buildOps();
-
-  document.getElementById('f_date').value = new Date().toISOString().slice(0,10);
-  if (editingId) loadRecordIntoForm(editingId);
+      <button class="btn btn-danger" onclick="confirm2('クリア','入力内容をリセットしますか？',()=>renderFormPage(currentSite))">🗑 クリア</button>
+    </div>`;
+  buildCheckTable('elec-table',ELEC_ITEMS);
+  buildCheckTable('mech-table',MECH_ITEMS);
+  buildRefrig(); buildVolt(); buildOps();
+  document.getElementById('f_date').value=new Date().toISOString().slice(0,10);
+  if(editingId) loadRecordIntoForm(editingId);
 }
 
-function buildCheckTable(id, items) {
-  const t = document.getElementById(id);
-  t.innerHTML = items.map(it => `
+function buildCheckTable(id,items){
+  document.getElementById(id).innerHTML=items.map(it=>`
     <tr id="row${it.no}">
       <td class="no-cell">${it.no}</td>
       <td class="name-cell">${it.name}</td>
-      <td class="status-cell">
-        <div class="status-group">
-          <label class="radio-lbl"><input type="radio" name="chk${it.no}" value="normal" onchange="updateRowColor(${it.no})"> 正常</label>
-          <label class="radio-lbl"><input type="radio" name="chk${it.no}" value="abnormal" onchange="updateRowColor(${it.no})"> 異常</label>
-          <label class="radio-lbl"><input type="radio" name="chk${it.no}" value="-" checked onchange="updateRowColor(${it.no})"> —</label>
-        </div>
-      </td>
+      <td class="status-cell"><div class="status-group">
+        <label class="radio-lbl"><input type="radio" name="chk${it.no}" value="normal" onchange="updateRowColor(${it.no})"> 正常</label>
+        <label class="radio-lbl"><input type="radio" name="chk${it.no}" value="abnormal" onchange="updateRowColor(${it.no})"> 異常</label>
+        <label class="radio-lbl"><input type="radio" name="chk${it.no}" value="-" checked onchange="updateRowColor(${it.no})"> —</label>
+      </div></td>
       <td class="memo-cell"><input type="text" id="memo${it.no}" placeholder="対応内容"></td>
     </tr>`).join('');
 }
-
-function updateRowColor(no) {
-  const row = document.getElementById('row'+no);
-  if (!row) return;
-  const v = document.querySelector(`input[name="chk${no}"]:checked`)?.value;
-  row.className = v === 'abnormal' ? 'row-ng' : '';
+function updateRowColor(no){
+  const row=document.getElementById('row'+no); if(!row) return;
+  const v=document.querySelector(`input[name="chk${no}"]:checked`)?.value;
+  row.className=v==='abnormal'?'row-ng':'';
 }
-
-function buildRefrig() {
-  const c = document.getElementById('refrig-body');
-  c.innerHTML = REFRIG_ITEMS.map(it => {
-    if (it.dual) return `<div class="mrow"><span class="mno">${it.no}</span><span class="mname">${it.name}</span><div class="mval"><input type="number" id="r${it.no}_1" step="0.1" placeholder="${it.labels[0]}" class="wide"><span class="unit-lbl">${it.unit}</span><input type="number" id="r${it.no}_2" step="0.1" placeholder="${it.labels[1]}" class="wide"><span class="unit-lbl">${it.unit}</span></div></div>`;
-    if (it.yesno) return `<div class="mrow"><span class="mno">${it.no}</span><span class="mname">${it.name}</span><div class="mval yesno-group"><label class="radio-lbl"><input type="radio" name="r${it.no}" value="有"> 有</label><label class="radio-lbl"><input type="radio" name="r${it.no}" value="無" checked> 無</label></div></div>`;
-    return `<div class="mrow"><span class="mno">${it.no}</span><span class="mname">${it.name}</span><div class="mval"><input type="number" id="r${it.no}" step="0.1"><span class="unit-lbl">${it.unit}</span></div></div>`;
+function buildRefrig(){
+  document.getElementById('refrig-body').innerHTML=REFRIG_ITEMS.map(it=>{
+    if(it.dual) return `<div class="mrow"><span class="mno">${it.no}</span><span class="mname">${it.name}</span><div class="mval"><input type="number" id="r${it.no}_1" step="0.1" placeholder="${it.labels[0]}" style="width:80px"><span class="unit-lbl">${it.unit}</span><input type="number" id="r${it.no}_2" step="0.1" placeholder="${it.labels[1]}" style="width:80px"><span class="unit-lbl">${it.unit}</span></div></div>`;
+    if(it.yesno) return `<div class="mrow"><span class="mno">${it.no}</span><span class="mname">${it.name}</span><div class="mval"><label class="radio-lbl"><input type="radio" name="r${it.no}" value="有"> 有</label><label class="radio-lbl"><input type="radio" name="r${it.no}" value="無" checked> 無</label></div></div>`;
+    return `<div class="mrow"><span class="mno">${it.no}</span><span class="mname">${it.name}</span><div class="mval"><input type="number" id="r${it.no}" step="0.1" style="width:80px"><span class="unit-lbl">${it.unit}</span></div></div>`;
   }).join('');
 }
-
-function buildVolt() {
-  const c = document.getElementById('volt-body');
-  c.innerHTML = VOLT_ITEMS.map(it => {
-    if (it.triple) return `<div class="mrow"><span class="mno">${it.no}</span><span class="mname">${it.name}</span><div class="mval"><input type="number" id="v${it.no}_1" step="0.1" style="width:64px"><input type="number" id="v${it.no}_2" step="0.1" style="width:64px"><input type="number" id="v${it.no}_3" step="0.1" style="width:64px"><span class="unit-lbl">${it.unit}</span></div></div>`;
-    if (it.rated) return `<div class="mrow"><span class="mno">${it.no}</span><span class="mname">${it.name}</span><div class="mval"><span class="unit-lbl">実測</span><input type="number" id="v${it.no}_m" step="0.1" style="width:64px"><span class="unit-lbl">定格</span><input type="number" id="v${it.no}_r" step="0.1" style="width:64px"><span class="unit-lbl">${it.unit}</span></div></div>`;
-    return `<div class="mrow"><span class="mno">${it.no}</span><span class="mname">${it.name}</span><div class="mval"><input type="number" id="v${it.no}" step="0.1"><span class="unit-lbl">${it.unit}</span></div></div>`;
+function buildVolt(){
+  document.getElementById('volt-body').innerHTML=VOLT_ITEMS.map(it=>{
+    if(it.triple) return `<div class="mrow"><span class="mno">${it.no}</span><span class="mname">${it.name}</span><div class="mval"><input type="number" id="v${it.no}_1" step="0.1" style="width:60px"><input type="number" id="v${it.no}_2" step="0.1" style="width:60px"><input type="number" id="v${it.no}_3" step="0.1" style="width:60px"><span class="unit-lbl">${it.unit}</span></div></div>`;
+    if(it.rated) return `<div class="mrow"><span class="mno">${it.no}</span><span class="mname">${it.name}</span><div class="mval"><span class="unit-lbl">実測</span><input type="number" id="v${it.no}_m" step="0.1" style="width:64px"><span class="unit-lbl">定格</span><input type="number" id="v${it.no}_r" step="0.1" style="width:64px"><span class="unit-lbl">${it.unit}</span></div></div>`;
+    return `<div class="mrow"><span class="mno">${it.no}</span><span class="mname">${it.name}</span><div class="mval"><input type="number" id="v${it.no}" step="0.1" style="width:80px"><span class="unit-lbl">${it.unit}</span></div></div>`;
   }).join('');
 }
-
-function buildOps() {
-  const c = document.getElementById('op-body');
-  c.innerHTML = OP_CONDITIONS.map(op => `
-    <div style="margin-bottom:20px;padding-bottom:16px;border-bottom:0.5px solid var(--border)">
+function buildOps(){
+  document.getElementById('op-body').innerHTML=OP_CONDITIONS.map(op=>`
+    <div style="margin-bottom:20px;padding-bottom:16px;border-bottom:.5px solid var(--border)">
       <div style="font-size:13px;font-weight:500;margin-bottom:10px;color:var(--accent)">${op.label}</div>
       <div class="grid3">
         <div class="field"><label class="lbl">日時</label><input type="datetime-local" id="op${op.no}_dt"></div>
@@ -873,226 +559,191 @@ function buildOps() {
       </div>
     </div>`).join('');
 }
-
-function toggleCard(head) {
-  const body = head.nextElementSibling;
+function toggleCard(head){
+  head.nextElementSibling.classList.toggle('hidden');
   head.classList.toggle('collapsed');
-  body.classList.toggle('hidden');
 }
 
-// ─── Gather / Load form ──────────────────────────────────
-function gatherForm() {
-  const checks = {}, memos = {};
-  [...ELEC_ITEMS, ...MECH_ITEMS].forEach(it => {
-    const v = document.querySelector(`input[name="chk${it.no}"]:checked`);
-    checks[it.no] = v ? v.value : '-';
-    memos[it.no] = document.getElementById('memo'+it.no)?.value || '';
+// ═══════════════════════════════════════════
+// Gather / Load
+// ═══════════════════════════════════════════
+function gatherForm(){
+  const checks={},memos={};
+  [...ELEC_ITEMS,...MECH_ITEMS].forEach(it=>{
+    const v=document.querySelector(`input[name="chk${it.no}"]:checked`);
+    checks[it.no]=v?v.value:'-';
+    memos[it.no]=document.getElementById('memo'+it.no)?.value||'';
   });
-  const refrig = {};
-  REFRIG_ITEMS.forEach(it => {
-    if (it.dual) refrig[it.no] = {v1: document.getElementById('r'+it.no+'_1')?.value||'', v2: document.getElementById('r'+it.no+'_2')?.value||''};
-    else if (it.yesno) { const v = document.querySelector(`input[name="r${it.no}"]:checked`); refrig[it.no] = v ? v.value : '無'; }
-    else refrig[it.no] = document.getElementById('r'+it.no)?.value || '';
+  const refrig={};
+  REFRIG_ITEMS.forEach(it=>{
+    if(it.dual) refrig[it.no]={v1:document.getElementById('r'+it.no+'_1')?.value||'',v2:document.getElementById('r'+it.no+'_2')?.value||''};
+    else if(it.yesno){const v=document.querySelector(`input[name="r${it.no}"]:checked`);refrig[it.no]=v?v.value:'無';}
+    else refrig[it.no]=document.getElementById('r'+it.no)?.value||'';
   });
-  const voltage = {};
-  VOLT_ITEMS.forEach(it => {
-    if (it.triple) voltage[it.no] = {v1:document.getElementById('v'+it.no+'_1')?.value||'', v2:document.getElementById('v'+it.no+'_2')?.value||'', v3:document.getElementById('v'+it.no+'_3')?.value||''};
-    else if (it.rated) voltage[it.no] = {m:document.getElementById('v'+it.no+'_m')?.value||'', r:document.getElementById('v'+it.no+'_r')?.value||''};
-    else voltage[it.no] = document.getElementById('v'+it.no)?.value || '';
+  const voltage={};
+  VOLT_ITEMS.forEach(it=>{
+    if(it.triple) voltage[it.no]={v1:document.getElementById('v'+it.no+'_1')?.value||'',v2:document.getElementById('v'+it.no+'_2')?.value||'',v3:document.getElementById('v'+it.no+'_3')?.value||''};
+    else if(it.rated) voltage[it.no]={m:document.getElementById('v'+it.no+'_m')?.value||'',r:document.getElementById('v'+it.no+'_r')?.value||''};
+    else voltage[it.no]=document.getElementById('v'+it.no)?.value||'';
   });
-  const ops = {};
-  OP_CONDITIONS.forEach(op => {
-    ops[op.no] = {dt:'',wx:'',ot:'',oh:'',st:'',ct:'',out:'',hp:'',lp:'',comp:'',af:'',drain:''};
-    Object.keys(ops[op.no]).forEach(k => { const el = document.getElementById('op'+op.no+'_'+k); if(el) ops[op.no][k] = el.value; });
+  const ops={};
+  OP_CONDITIONS.forEach(op=>{
+    ops[op.no]={};
+    ['dt','wx','ot','oh','st','ct','out','hp','lp','comp','af','drain'].forEach(k=>{const el=document.getElementById('op'+op.no+'_'+k);if(el)ops[op.no][k]=el.value;});
   });
-  return {
-    id: editingId || Date.now().toString(),
-    date: document.getElementById('f_date')?.value || '',
-    staff: document.getElementById('f_staff')?.value || '',
-    model: document.getElementById('f_model')?.value || '',
-    serial: document.getElementById('f_serial')?.value || '',
-    year: document.getElementById('f_year')?.value || '',
-    drawing: document.getElementById('f_drawing')?.value || '',
-    runtime: document.getElementById('f_runtime')?.value || '',
-    start: document.getElementById('f_start')?.value || '',
-    end: document.getElementById('f_end')?.value || '',
-    notes: document.getElementById('f_notes')?.value || '',
-    checks, memos, refrig, voltage, ops
-  };
+  return {id:editingId||Date.now().toString(),date:document.getElementById('f_date')?.value||'',staff:document.getElementById('f_staff')?.value||'',model:document.getElementById('f_model')?.value||'',serial:document.getElementById('f_serial')?.value||'',year:document.getElementById('f_year')?.value||'',drawing:document.getElementById('f_drawing')?.value||'',runtime:document.getElementById('f_runtime')?.value||'',start:document.getElementById('f_start')?.value||'',end:document.getElementById('f_end')?.value||'',notes:document.getElementById('f_notes')?.value||'',checks,memos,refrig,voltage,ops};
+}
+function loadRecordIntoForm(rid){
+  const rec=(records[currentSite]||[]).find(r=>r.id===rid); if(!rec) return;
+  ['date','staff','model','serial','year','drawing','runtime','start','end','notes'].forEach(k=>{const el=document.getElementById('f_'+k);if(el)el.value=rec[k]||'';});
+  Object.entries(rec.checks||{}).forEach(([no,val])=>{const r=document.querySelector(`input[name="chk${no}"][value="${val}"]`);if(r){r.checked=true;updateRowColor(parseInt(no));}});
+  Object.entries(rec.memos||{}).forEach(([no,val])=>{const el=document.getElementById('memo'+no);if(el)el.value=val;});
+  Object.entries(rec.refrig||{}).forEach(([no,val])=>{
+    if(typeof val==='object'&&val.v1!==undefined){const a=document.getElementById('r'+no+'_1');const b=document.getElementById('r'+no+'_2');if(a)a.value=val.v1;if(b)b.value=val.v2;}
+    else if(val==='有'||val==='無'){const r=document.querySelector(`input[name="r${no}"][value="${val}"]`);if(r)r.checked=true;}
+    else{const el=document.getElementById('r'+no);if(el)el.value=val;}
+  });
+  Object.entries(rec.voltage||{}).forEach(([no,val])=>{
+    if(typeof val==='object'&&val.v1!==undefined){['1','2','3'].forEach(k=>{const el=document.getElementById('v'+no+'_'+k);if(el)el.value=val['v'+k];});}
+    else if(typeof val==='object'&&val.m!==undefined){['m','r'].forEach(k=>{const el=document.getElementById('v'+no+'_'+k);if(el)el.value=val[k];});}
+    else{const el=document.getElementById('v'+no);if(el)el.value=val;}
+  });
+  Object.entries(rec.ops||{}).forEach(([no,op])=>{Object.entries(op).forEach(([k,v])=>{const el=document.getElementById('op'+no+'_'+k);if(el)el.value=v;});});
 }
 
-function loadRecordIntoForm(rid) {
-  const rec = (records[currentSite]||[]).find(r=>r.id===rid);
-  if (!rec) return;
-  ['date','staff','model','serial','year','drawing','runtime','start','end','notes'].forEach(k => {
-    const el = document.getElementById('f_'+k); if (el) el.value = rec[k]||'';
-  });
-  Object.entries(rec.checks||{}).forEach(([no,val]) => {
-    const r = document.querySelector(`input[name="chk${no}"][value="${val}"]`);
-    if (r) { r.checked = true; updateRowColor(parseInt(no)); }
-  });
-  Object.entries(rec.memos||{}).forEach(([no,val]) => { const el = document.getElementById('memo'+no); if(el) el.value=val; });
-  Object.entries(rec.refrig||{}).forEach(([no,val]) => {
-    if (typeof val === 'object' && val.v1 !== undefined) {
-      const a = document.getElementById('r'+no+'_1'); const b = document.getElementById('r'+no+'_2');
-      if(a) a.value=val.v1; if(b) b.value=val.v2;
-    } else if (val === '有' || val === '無') {
-      const r = document.querySelector(`input[name="r${no}"][value="${val}"]`); if(r) r.checked=true;
-    } else { const el = document.getElementById('r'+no); if(el) el.value=val; }
-  });
-  Object.entries(rec.voltage||{}).forEach(([no,val]) => {
-    if (typeof val === 'object' && val.v1 !== undefined) {
-      ['v1','v2','v3'].forEach(k => { const el=document.getElementById('v'+no+'_'+k.slice(1)); if(el) el.value=val[k]; });
-    } else if (typeof val === 'object' && val.m !== undefined) {
-      ['m','r'].forEach(k => { const el=document.getElementById('v'+no+'_'+k); if(el) el.value=val[k]; });
-    } else { const el=document.getElementById('v'+no); if(el) el.value=val; }
-  });
-  Object.entries(rec.ops||{}).forEach(([no,op]) => {
-    Object.entries(op).forEach(([k,v]) => { const el=document.getElementById('op'+no+'_'+k); if(el) el.value=v; });
-  });
-}
-
-function saveRecord() {
-  const date = document.getElementById('f_date')?.value;
-  if (!date) { toast('⚠ 点検実施日を入力してください'); return; }
-  const rec = gatherForm();
-  if (!records[currentSite]) records[currentSite] = [];
-  const idx = records[currentSite].findIndex(r=>r.id===rec.id);
-  if (idx >= 0) records[currentSite][idx] = rec;
-  else records[currentSite].push(rec);
-  editingId = null;
-  save();
+async function saveRecord(){
+  const date=document.getElementById('f_date')?.value;
+  if(!date){toast('⚠ 点検実施日を入力してください');return;}
+  const rec=gatherForm();
+  const res=await api('saveRecord',{siteId:currentSite,record:rec});
+  if(!res) return;
+  editingId=null;
   toast('✓ 保存しました');
-  setTimeout(() => showPage('history', currentSite), 600);
+  setTimeout(()=>renderHistoryPage(currentSite),600);
 }
 
-function clearForm() {
-  confirm2('フォームをクリア', '入力内容をすべてリセットしますか？', () => {
-    editingId = null;
-    renderFormPage(currentSite);
-  });
+function exportCSV(){
+  const rec=gatherForm();
+  const site=sites.find(s=>s.id===currentSite);
+  let csv='項目No.,点検項目,結果,対応内容\n';
+  [...ELEC_ITEMS,...MECH_ITEMS].forEach(it=>{ csv+=`${it.no},"${it.name}","${rec.checks[it.no]||'—'}","${rec.memos[it.no]||''}"\n`; });
+  const blob=new Blob(['\ufeff'+csv],{type:'text/csv;charset=utf-8'});
+  const a=document.createElement('a'); a.href=URL.createObjectURL(blob);
+  a.download=`点検記録_${site?.name||''}_${rec.date||'日付未定'}.csv`; a.click();
+  toast('📥 CSVエクスポート完了');
 }
 
-function exportCSV() {
-  const rec = gatherForm();
-  const site = sites.find(s=>s.id===currentSite);
-  let csv = '項目No.,点検項目,結果,対応内容\n';
-  [...ELEC_ITEMS,...MECH_ITEMS].forEach(it => {
-    csv += `${it.no},"${it.name}","${rec.checks[it.no]||'—'}","${rec.memos[it.no]||''}"\n`;
-  });
-  csv += '\n冷凍回路測定値\n';
-  REFRIG_ITEMS.forEach(it => {
-    const v = rec.refrig[it.no];
-    const val = typeof v==='object' ? (v.v1||'')+'/'+(v.v2||'') : (v||'');
-    csv += `${it.no},"${it.name}","${val}"\n`;
-  });
-  csv += '\n電源電圧・電流値\n';
-  VOLT_ITEMS.forEach(it => {
-    const v = rec.voltage[it.no];
-    const val = typeof v==='object' ? Object.values(v).join('/') : (v||'');
-    csv += `${it.no},"${it.name}","${val}"\n`;
-  });
-  const blob = new Blob(['\ufeff'+csv], {type:'text/csv;charset=utf-8'});
-  const a = document.createElement('a');
-  a.href = URL.createObjectURL(blob);
-  a.download = `点検記録_${site?.name||''}_${rec.date||'日付未定'}.csv`;
-  a.click();
-  toast('📥 CSVをエクスポートしました');
-}
+// ═══════════════════════════════════════════
+// PDF印刷
+// ═══════════════════════════════════════════
+function printRecord(rid){
+  const rec=(records[currentSite]||[]).find(r=>r.id===rid); if(!rec) return;
+  const site=sites.find(s=>s.id===currentSite);
+  const allItems=[...ELEC_ITEMS,...MECH_ITEMS];
+  const ngItems=allItems.filter(it=>rec.checks[it.no]==='abnormal');
 
-// HISTORY PAGE
-function renderHistoryPage(siteId) {
-  if (siteId) currentSite = siteId;
-  const site = sites.find(s=>s.id===currentSite);
-  renderSidebarSites();
-  setTopbar(`${site?.name||''}`, `<button class="btn btn-primary" onclick="startNewRecord()">＋ 新規点検記録</button>`);
+  const checkRows=allItems.map(it=>{
+    const v=rec.checks[it.no]||'-';
+    const isNg=v==='abnormal';
+    return `<tr class="${isNg?'pt-ng':''}"><td class="pt-no">${it.no}</td><td>${it.name}</td><td style="text-align:center;width:50pt">${v==='normal'?'正常':v==='abnormal'?'<b>異常</b>':'—'}</td><td style="width:120pt">${rec.memos[it.no]||''}</td></tr>`;
+  }).join('');
 
-  const recs = (records[currentSite]||[]).slice().reverse();
-  const c = document.getElementById('main-content');
+  const refrigRows=REFRIG_ITEMS.map(it=>{
+    const v=rec.refrig?.[it.no];
+    let val='';
+    if(it.dual) val=`${v?.v1||'—'} / ${v?.v2||'—'} ${it.unit}`;
+    else if(it.yesno) val=v||'無';
+    else val=v?`${v} ${it.unit}`:'—';
+    return `<div class="pt-measure-item"><div class="pm-label">No.${it.no} ${it.name}</div><div class="pm-val">${val}</div></div>`;
+  }).join('');
 
-  if (!recs.length) {
-    c.innerHTML = `
-      <div style="margin-bottom:16px">
-        <span class="badge badge-info" style="font-size:12px">📍 ${site?.loc||'所在地未設定'}</span>
-        ${site?.memo?`<span style="font-size:12px;color:var(--text2);margin-left:8px">${site.memo}</span>`:''}
+  const voltRows=VOLT_ITEMS.map(it=>{
+    const v=rec.voltage?.[it.no];
+    let val='';
+    if(it.triple) val=`${v?.v1||'—'} / ${v?.v2||'—'} / ${v?.v3||'—'} ${it.unit}`;
+    else if(it.rated) val=`実測:${v?.m||'—'} / 定格:${v?.r||'—'} ${it.unit}`;
+    else val=v?`${v} ${it.unit}`:'—';
+    return `<div class="pt-measure-item"><div class="pm-label">No.${it.no} ${it.name}</div><div class="pm-val">${val}</div></div>`;
+  }).join('');
+
+  const opTable=OP_CONDITIONS.map(op=>{
+    const o=rec.ops?.[op.no]||{};
+    return `<tr><td style="text-align:left;padding:2pt 4pt">${op.label}</td><td>${o.dt||'—'}</td><td>${o.wx||'—'}</td><td>${o.ot||'—'}</td><td>${o.oh||'—'}</td><td>${o.st||'—'}</td><td>${o.ct||'—'}</td><td>${o.out||'—'}</td><td>${o.hp||'—'}</td><td>${o.lp||'—'}</td><td>${o.comp||'—'}%</td></tr>`;
+  }).join('');
+
+  document.getElementById('print-area').innerHTML=`
+    <div class="pt">
+      <div class="pt-title">穀物冷却装置グラニフリガー 細密点検記録表</div>
+      <div class="pt-subtitle">GRANIFRIGOR® Grain Cooler &amp; Grain Cooling System — SANEI 株式会社サンエー</div>
+      <div class="pt-header">
+        <div class="pt-header-item">お客様名：<span>${site?.name||''}</span></div>
+        <div class="pt-header-item">所在地：<span>${site?.loc||''}</span></div>
+        <div class="pt-header-item">点検実施日：<span>${rec.date||''}</span></div>
+        <div class="pt-header-item">担当者：<span>${rec.staff||''}</span></div>
+        <div class="pt-header-item">機械型式：<span>${rec.model||''}</span></div>
+        <div class="pt-header-item">製造No.：<span>${rec.serial||''}</span></div>
+        <div class="pt-header-item">製造年：<span>${rec.year||''}</span></div>
+        <div class="pt-header-item">図番：<span>${rec.drawing||''}</span></div>
+        <div class="pt-header-item">運転時間積算値：<span>${rec.runtime||''} 時間</span></div>
       </div>
-      <div class="empty"><div class="empty-icon">📋</div><p>点検記録がまだありません</p><small>「新規点検記録」から追加してください</small></div>`;
-    return;
-  }
 
-  c.innerHTML = `
-    <div style="margin-bottom:16px;display:flex;align-items:center;gap:10px">
-      <span class="badge badge-info">📍 ${site?.loc||'所在地未設定'}</span>
-      <span style="font-size:12px;color:var(--text2)">${recs.length}件の記録</span>
-    </div>
-    ${recs.map(r => {
-      const ng = Object.entries(r.checks||{}).filter(([,v])=>v==='abnormal');
-      return `<div class="hist-item">
-        <div>
-          <div class="hi-date">${r.date||'—'}</div>
-          <div style="font-size:11px;color:var(--text3);margin-top:2px">No.${r.serial||'—'}</div>
+      <div class="pt-section">■ 点検項目（電気系・機械系）</div>
+      <table class="pt-table">
+        <thead><tr><th style="width:24pt">No.</th><th>点検項目</th><th style="width:50pt;text-align:center">結果</th><th style="width:120pt">対応内容・説明</th></tr></thead>
+        <tbody>${checkRows}</tbody>
+      </table>
+
+      <div class="pt-section">■ 冷凍回路 測定値</div>
+      <div class="pt-measure-grid">${refrigRows}</div>
+
+      <div class="pt-section">■ 電源電圧・電流値</div>
+      <div class="pt-measure-grid">${voltRows}</div>
+
+      <div class="pt-section">■ 運転状況記録</div>
+      <table class="pt-op-table">
+        <thead><tr><th>条件</th><th>日時</th><th>天候</th><th>外気温℃</th><th>湿度%</th><th>設定温度℃</th><th>制御温度℃</th><th>出側℃</th><th>高圧bar</th><th>低圧bar</th><th>コンプ%</th></tr></thead>
+        <tbody>${opTable}</tbody>
+      </table>
+
+      <div class="pt-footer">
+        <div class="pt-notes-box">
+          <div class="ps-label">特記事項</div>
+          <div style="margin-top:4pt;font-size:9pt">${rec.notes||''}</div>
         </div>
-        <div class="hi-info">
-          <div style="font-size:13px;font-weight:500">${r.model||'型式未入力'}</div>
-          <div class="hi-model">担当: ${r.staff||'—'}</div>
-          ${ng.length?`<div style="margin-top:5px">${ng.map(([no])=>`<span class="badge badge-ng" style="margin-right:4px;font-size:10px">異常 No.${no}</span>`).join('')}</div>`:
-          `<div style="margin-top:5px"><span class="badge badge-ok">異常なし</span></div>`}
-          ${r.notes?`<div class="hi-notes">📝 ${r.notes}</div>`:''}
-        </div>
-        <div class="hi-actions">
-          <button class="btn btn-sm" onclick="editRecord('${r.id}')">編集</button>
-          <button class="btn btn-sm btn-danger" onclick="deleteRecord('${r.id}')">削除</button>
-        </div>
-      </div>`;
-    }).join('')}`;
+        <div class="pt-sign-box"><div class="ps-label">作業時間：${rec.start||'—'} 〜 ${rec.end||'—'}</div></div>
+        <div class="pt-sign-box"><div class="ps-label">お客様確認サイン</div></div>
+      </div>
+      <div style="margin-top:6pt;font-size:7pt;color:#999;text-align:right">ver. 20250604 / www.silo.jp</div>
+    </div>`;
+  window.print();
 }
 
-function startNewRecord() {
-  editingId = null;
-  showPage('form', currentSite);
-}
-
-function editRecord(rid) {
-  editingId = rid;
-  showPage('form', currentSite);
-}
-
-function deleteRecord(rid) {
-  confirm2('記録を削除', 'この点検記録を削除しますか？', () => {
-    records[currentSite] = (records[currentSite]||[]).filter(r=>r.id!==rid);
-    save();
-    renderHistoryPage(currentSite);
-    toast('削除しました');
-  });
-}
-
-// ─── Site management ─────────────────────────────────────
-function addSite() {
-  const name = document.getElementById('ns-name').value.trim();
-  if (!name) { alert('現場名を入力してください'); return; }
-  const site = {
-    id: Date.now().toString(),
-    name,
-    loc: document.getElementById('ns-loc').value,
-    memo: document.getElementById('ns-memo').value,
-    created: new Date().toLocaleDateString('ja-JP')
-  };
-  sites.push(site);
-  records[site.id] = [];
-  save();
+// ═══════════════════════════════════════════
+// Site management
+// ═══════════════════════════════════════════
+async function addSite(){
+  const name=document.getElementById('ns-name').value.trim();
+  if(!name){alert('現場名を入力してください');return;}
+  const res=await api('addSite',{name,loc:document.getElementById('ns-loc').value,memo:document.getElementById('ns-memo').value});
+  if(!res) return;
   closeModal('modal-site');
-  document.getElementById('ns-name').value = '';
-  document.getElementById('ns-loc').value = '';
-  document.getElementById('ns-memo').value = '';
-  renderSidebarSites();
+  ['ns-name','ns-loc','ns-memo'].forEach(id=>document.getElementById(id).value='');
   toast('✓ 現場を登録しました');
-  openSite(site.id);
+  // refresh & open
+  const sres=await api('getSites'); if(!sres) return;
+  sites=sres.sites||[]; renderSidebarSites();
+  openSite(res.id);
 }
 
-// ─── Init ─────────────────────────────────────────────────
-load();
-renderSidebarSites();
-showPage('home');
+// ═══════════════════════════════════════════
+// Init
+// ═══════════════════════════════════════════
+if(!GAS_URL){
+  // GAS未設定ならAPI設定ページへ
+  setTimeout(()=>showPage('settings'),100);
+} else {
+  showPage('home');
+}
 </script>
 </body>
 </html>
