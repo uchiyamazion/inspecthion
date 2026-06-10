@@ -417,7 +417,8 @@ async function renderHistoryPage(siteId){
         ${r.notes?`<div class="hi-notes">📝 ${r.notes}</div>`:''}
       </div>
       <div class="hi-actions">
-        <button class="btn btn-sm" onclick="printRecord('${r.id}')">🖨 印刷/PDF</button>
+        <button class="btn btn-sm" onclick="printRecord('${r.id}','print')">🖨 印刷</button>
+        <button class="btn btn-sm" onclick="printRecord('${r.id}','pdf')">📄 PDF</button>
         <button class="btn btn-sm" onclick="editRecord('${r.id}')">編集</button>
         <button class="btn btn-sm btn-danger" onclick="deleteRecord('${r.id}')">削除</button>
       </div>
@@ -650,7 +651,7 @@ function exportCSV(){
 }
 
 // ═══ PDF PRINT ═══
-function printRecord(rid){
+function printRecord(rid, mode='print'){
   const rec=(records[currentSite]||[]).find(r=>r.id===rid); if(!rec) return;
   const site=sites.find(s=>s.id===currentSite);
   const allItems=[...ELEC_ITEMS,...MECH_ITEMS];
@@ -766,7 +767,24 @@ function printRecord(rid){
   </div>
   <div style="margin-top:4pt;font-size:6.5pt;color:#999;text-align:right">ver. 20250610 / www.silo.jp</div>
 </div>`;
-  window.print();
+  if(mode==='pdf'){
+    // PDF保存: 印刷ダイアログで「PDFに保存」を選択するよう案内
+    const style = document.createElement('style');
+    style.id = 'pdf-hint-style';
+    style.textContent = '@media print{#pdf-hint{display:none!important}}';
+    document.head.appendChild(style);
+    const hint = document.createElement('div');
+    hint.id = 'pdf-hint';
+    hint.style.cssText = 'position:fixed;top:12px;left:50%;transform:translateX(-50%);background:#1a4f8a;color:#fff;padding:10px 20px;border-radius:8px;font-size:13px;z-index:9999;font-family:sans-serif';
+    hint.textContent = '印刷画面で「PDFに保存」を選択してください';
+    document.body.appendChild(hint);
+    setTimeout(()=>{
+      window.print();
+      setTimeout(()=>{ hint.remove(); style.remove(); },1000);
+    },300);
+  } else {
+    window.print();
+  }
 }
 
 // ═══ SITE MGMT ═══
