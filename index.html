@@ -118,13 +118,11 @@ textarea{resize:vertical;min-height:60px}
    PDF印刷スタイル
 ══════════════════════════════════════ */
 @media print{
-  body,html{margin:0;padding:0;background:#fff}
-  .sidebar,.topbar,.hamburger,.actions-bar,.btn,.toast,.modal-overlay,.loading-overlay{display:none!important}
-  .main{margin-left:0!important;padding:0!important}
-  .content{padding:0!important;display:none!important}
-  #print-area{display:block!important}
-  @page{size:A4 portrait;margin:8mm 10mm}
-  .page-break{page-break-before:always}
+  *{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important}
+  html,body{margin:0!important;padding:0!important;background:#fff!important;height:auto!important}
+  .sidebar,.topbar,.hamburger,.actions-bar,.btn,.toast,.modal-overlay,.loading-overlay,.main{display:none!important}
+  #print-area{display:block!important;margin:0!important;padding:0!important}
+  @page{size:A4 portrait;margin:10mm 12mm}
 }
 #print-area{display:none}
 
