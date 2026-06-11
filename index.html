@@ -328,8 +328,8 @@ async function renderHistory(siteId){
         ${r.notes?`<div class="hi-notes">📝 ${r.notes}</div>`:''}
       </div>
       <div class="hi-actions">
-        <button class="btn btn-sm" onclick="doPrint('${r.id}','print')">🖨 印刷</button>
-        <button class="btn btn-sm" onclick="doPrint('${r.id}','pdf')">📄 PDF</button>
+        <button class="btn btn-sm" onclick="doPrint('${r.id}','print','${currentSite}')">🖨 印刷</button>
+        <button class="btn btn-sm" onclick="doPrint('${r.id}','pdf','${currentSite}')">📄 PDF</button>
         <button class="btn btn-sm" onclick="editRec('${r.id}')">編集</button>
         <button class="btn btn-sm btn-danger" onclick="delRec('${r.id}')">削除</button>
       </div>
@@ -473,13 +473,26 @@ async function saveRec(){
 }
 
 // ══ PDF・印刷 ══
-async function doPrint(rid,mode){
+async function doPrint(rid,mode,siteId){
+  if(siteId) currentSite=siteId;
   if(!sites.length){const res=await api('getSites');if(res)sites=res.sites||[];}
   const rec=(records[currentSite]||[]).find(r=>r.id===rid);if(!rec)return;
   let site=sites.find(s=>s.id===currentSite);
   if(!site){const res=await api('getSites');if(res){sites=res.sites||[];site=sites.find(s=>s.id===currentSite);}}
-  const siteName = site ? site.name : '';
-  const siteLoc = site ? site.loc : '';
+  // sitesが取れても一致しない場合、全件検索
+  if(!site && sites.length){site=sites[0];}
+  // recordsからsiteIdを逆引き
+  if(!site){
+    for(const [sid,recs] of Object.entries(records)){
+      if(recs.some(r=>r.id===rid)){
+        const res2=await api('getSites');
+        if(res2){sites=res2.sites||[];site=sites.find(s=>s.id===sid);currentSite=sid;}
+        break;
+      }
+    }
+  }
+  const siteName = site ? (site.name||'') : '';
+  const siteLoc = site ? (site.loc||'') : '';
   const allItems=[...ELEC,...MECH,...CTRL];
 
   const checkRows=allItems.map(it=>{
