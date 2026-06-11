@@ -117,7 +117,7 @@ textarea{resize:vertical;min-height:60px}
   .sidebar,.topbar,.hamburger,.actions-bar,.btn,.toast,.modal-overlay,.loading-overlay,.main,.content{display:none!important}
   #print-area{display:block!important;margin:0!important;padding:0!important}
   @page{size:A4 portrait;margin:8mm 10mm}
-  .pt-page-break{page-break-before:always!important;break-before:page!important}
+  .pt-page-break{page-break-before:always!important;break-before:page!important;display:block!important;height:0!important}
   .pt-no-break{page-break-inside:avoid!important;break-inside:avoid!important}
 }
 #print-area{display:none}
@@ -505,51 +505,49 @@ function doPrint(rid,mode){
   <div class="pt-subtitle">GRANIFRIGOR® Grain Cooler &amp; Grain Cooling System</div>
   <div class="pt-company">SANEI 株式会社サンエー</div>`;
 
-  document.getElementById('print-area').innerHTML=`<div class="pt" style="margin:0;padding:0;background:#fff">
+  // 各ページを独立したdivで構築してからまとめてセット
+  const page1=`<div class="pt" style="margin:0;padding:0;background:#fff;page-break-after:always;break-after:page">
+    ${titleBlock}${headerHtml}
+    <div class="pt-sec">■ 点検項目</div>
+    <div style="display:flex;border:.5px solid #999;border-top:none">
+      <div style="writing-mode:vertical-rl;background:#d9d9d9;font-size:6.5pt;font-weight:700;padding:3pt 2pt;border-right:.5px solid #999;text-align:center;min-width:13pt">電気系</div>
+      <table class="pt-table" style="flex:1"><thead><tr><th style="width:14pt">No.</th><th>点検項目</th><th style="width:28pt">結果</th><th>メモ・対応内容</th></tr></thead><tbody>${elecRows}</tbody></table>
+    </div>
+    <div style="display:flex;border:.5px solid #999;border-top:none">
+      <div style="writing-mode:vertical-rl;background:#d9d9d9;font-size:6.5pt;font-weight:700;padding:3pt 2pt;border-right:.5px solid #999;text-align:center;min-width:13pt">機械系</div>
+      <table class="pt-table" style="flex:1"><tbody>${mechRows}</tbody></table>
+    </div>
+    <div style="display:flex;border:.5px solid #999;border-top:none">
+      <div style="writing-mode:vertical-rl;background:#d9d9d9;font-size:6.5pt;font-weight:700;padding:3pt 2pt;border-right:.5px solid #999;text-align:center;min-width:13pt">制御系</div>
+      <table class="pt-table" style="flex:1"><tbody>${ctrlRows}</tbody></table>
+    </div>
+  </div>`;
 
-  <!-- ══ 1ページ目: ヘッダー＋電気系・機械系・制御系点検項目 ══ -->
-  ${titleBlock}
-  ${headerHtml}
-  <div class="pt-sec">■ 点検項目</div>
-  <div style="display:flex;border:.5px solid #999;border-top:none">
-    <div style="writing-mode:vertical-rl;background:#d9d9d9;font-size:6.5pt;font-weight:700;padding:3pt 2pt;border-right:.5px solid #999;text-align:center;min-width:13pt">電気系</div>
-    <table class="pt-table" style="flex:1"><thead><tr><th style="width:14pt">No.</th><th>点検項目</th><th style="width:28pt">結果</th><th>メモ・対応内容</th></tr></thead><tbody>${elecRows}</tbody></table>
-  </div>
-  <div style="display:flex;border:.5px solid #999;border-top:none">
-    <div style="writing-mode:vertical-rl;background:#d9d9d9;font-size:6.5pt;font-weight:700;padding:3pt 2pt;border-right:.5px solid #999;text-align:center;min-width:13pt">機械系</div>
-    <table class="pt-table" style="flex:1"><tbody>${mechRows}</tbody></table>
-  </div>
-  <div style="display:flex;border:.5px solid #999;border-top:none">
-    <div style="writing-mode:vertical-rl;background:#d9d9d9;font-size:6.5pt;font-weight:700;padding:3pt 2pt;border-right:.5px solid #999;text-align:center;min-width:13pt">制御系</div>
-    <table class="pt-table" style="flex:1"><tbody>${ctrlRows}</tbody></table>
-  </div>
+  const page2=`<div class="pt" style="margin:0;padding:0;background:#fff;page-break-after:always;break-after:page">
+    ${titleBlock}${headerHtml}
+    <div class="pt-sec">■ 冷凍回路 測定値 (No.32〜41)</div>
+    <table class="pt-mea"><tbody>${refRows}</tbody></table>
+    <div class="pt-sec">■ 電源電圧・電流値 (No.63〜77)</div>
+    <table class="pt-mea"><tbody>${vRows}</tbody></table>
+    <div class="pt-sec">■ 絶縁測定値 (No.78〜88)</div>
+    <table class="pt-ins"><thead><tr><th style="width:14pt">No.</th><th style="text-align:left;padding:2pt 4pt">測定箇所</th><th style="width:38pt">2MΩ</th><th style="width:38pt">4MΩ</th><th style="width:38pt">6MΩ</th><th>メモ</th></tr></thead><tbody>${insRows}</tbody></table>
+    <div class="pt-sec">■ 測定・校正 (No.56〜62)</div>
+    ${measHtml}
+  </div>`;
 
-  <!-- ══ 2ページ目: 冷凍回路・電圧電流・絶縁・測定校正 ══ -->
-  <div class="pt-page-break"></div>
-  ${titleBlock}
-  ${headerHtml}
-  <div class="pt-sec">■ 冷凍回路 測定値 (No.32〜41)</div>
-  <table class="pt-mea"><tbody>${refRows}</tbody></table>
-  <div class="pt-sec">■ 電源電圧・電流値 (No.63〜77)</div>
-  <table class="pt-mea"><tbody>${vRows}</tbody></table>
-  <div class="pt-sec">■ 絶縁測定値 (No.78〜88)</div>
-  <table class="pt-ins"><thead><tr><th style="width:14pt">No.</th><th style="text-align:left;padding:2pt 4pt">測定箇所</th><th style="width:38pt">2MΩ</th><th style="width:38pt">4MΩ</th><th style="width:38pt">6MΩ</th><th>メモ</th></tr></thead><tbody>${insRows}</tbody></table>
-  <div class="pt-sec">■ 測定・校正 (No.56〜62)</div>
-  ${measHtml}
+  const page3=`<div class="pt" style="margin:0;padding:0;background:#fff">
+    ${titleBlock}${headerHtml}
+    <div class="pt-sec">■ 運転状況記録 (No.51〜54)</div>
+    <table class="pt-op"><thead><tr><th>条件</th><th>日時</th><th>天候</th><th>外気温℃</th><th>湿度%</th><th>設定温度℃</th><th>制御温度℃</th><th>出側℃</th><th>高圧bar</th><th>低圧bar</th><th>コンプ%</th><th>メモ</th></tr></thead><tbody>${opRows}</tbody></table>
+    <div class="pt-foot">
+      <div class="pt-sign"><div class="sl">作業時間</div><div style="margin-top:3pt">${rec.start||'—'} 〜 ${rec.end||'—'}</div></div>
+      <div class="pt-sign"><div class="sl">お客様確認サイン</div></div>
+      <div class="pt-notes"><div class="sl">特記事項</div><div style="margin-top:3pt">${rec.notes||''}</div></div>
+    </div>
+    <div style="margin-top:3pt;font-size:6pt;color:#999;text-align:right">ver. 20250611 / www.silo.jp</div>
+  </div>`;
 
-  <!-- ══ 3ページ目: 運転状況記録＋フッター ══ -->
-  <div class="pt-page-break"></div>
-  ${titleBlock}
-  ${headerHtml}
-  <div class="pt-sec">■ 運転状況記録 (No.51〜54)</div>
-  <table class="pt-op"><thead><tr><th>条件</th><th>日時</th><th>天候</th><th>外気温℃</th><th>湿度%</th><th>設定温度℃</th><th>制御温度℃</th><th>出側℃</th><th>高圧bar</th><th>低圧bar</th><th>コンプ%</th><th>メモ</th></tr></thead><tbody>${opRows}</tbody></table>
-  <div class="pt-foot">
-    <div class="pt-sign"><div class="sl">作業時間</div><div style="margin-top:3pt">${rec.start||'—'} 〜 ${rec.end||'—'}</div></div>
-    <div class="pt-sign"><div class="sl">お客様確認サイン</div></div>
-    <div class="pt-notes"><div class="sl">特記事項</div><div style="margin-top:3pt">${rec.notes||''}</div></div>
-  </div>
-  <div style="margin-top:3pt;font-size:6pt;color:#999;text-align:right">ver. 20250611 / www.silo.jp</div>
-</div>`;
+  document.getElementById('print-area').innerHTML = page1 + page2 + page3;
 
   if(mode==='pdf'){
     const hint=document.createElement('div');
