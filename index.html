@@ -478,6 +478,8 @@ async function doPrint(rid,mode){
   const rec=(records[currentSite]||[]).find(r=>r.id===rid);if(!rec)return;
   let site=sites.find(s=>s.id===currentSite);
   if(!site){const res=await api('getSites');if(res){sites=res.sites||[];site=sites.find(s=>s.id===currentSite);}}
+  const siteName = site ? site.name : '';
+  const siteLoc = site ? site.loc : '';
   const allItems=[...ELEC,...MECH,...CTRL];
 
   const checkRows=allItems.map(it=>{
@@ -497,8 +499,8 @@ async function doPrint(rid,mode){
   const opRows=OPS.map(op=>{const o=rec.ops?.[op.no]||{};return `<tr><td style="text-align:left;padding:1pt 3pt;font-size:5.5pt">${op.label}</td><td>${o.dt||'—'}</td><td>${o.wx||'—'}</td><td>${o.ot||'—'}</td><td>${o.oh||'—'}</td><td>${o.st||'—'}</td><td>${o.ct||'—'}</td><td>${o.out||'—'}</td><td>${o.hp||'—'}</td><td>${o.lp||'—'}</td><td>${o.comp?o.comp+'%':'—'}</td><td style="text-align:left;font-size:5.5pt">${o.memo||''}</td></tr>`;}).join('');
 
   const headerHtml=`<table class="pt-h">
-    <tr><td class="hl">お客様名</td><td colspan="3">${site?.name||''} 殿</td><td class="hl">点検実施日</td><td>${rec.date||''}</td></tr>
-    <tr><td class="hl">所在地</td><td colspan="3">${site?.loc||''}</td><td class="hl">担当者</td><td>${rec.staff||''}</td></tr>
+    <tr><td class="hl">お客様名</td><td colspan="3">${siteName} 殿</td><td class="hl">点検実施日</td><td>${rec.date||''}</td></tr>
+    <tr><td class="hl">所在地</td><td colspan="3">${siteLoc}</td><td class="hl">担当者</td><td>${rec.staff||''}</td></tr>
     <tr><td class="hl">機械型式</td><td>${rec.model||''}</td><td class="hl">製造No.</td><td>${rec.serial||''}</td><td class="hl">製造年</td><td>${rec.year||''}</td></tr>
     <tr><td class="hl">図番</td><td>${rec.drawing||''}</td><td class="hl">運転時間積算値</td><td colspan="3">${rec.runtime||''} 時間</td></tr>
   </table>`;
