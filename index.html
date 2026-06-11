@@ -473,9 +473,11 @@ async function saveRec(){
 }
 
 // ══ PDF・印刷 ══
-function doPrint(rid,mode){
+async function doPrint(rid,mode){
+  if(!sites.length){const res=await api('getSites');if(res)sites=res.sites||[];}
   const rec=(records[currentSite]||[]).find(r=>r.id===rid);if(!rec)return;
-  const site=sites.find(s=>s.id===currentSite);
+  let site=sites.find(s=>s.id===currentSite);
+  if(!site){const res=await api('getSites');if(res){sites=res.sites||[];site=sites.find(s=>s.id===currentSite);}}
   const allItems=[...ELEC,...MECH,...CTRL];
 
   const checkRows=allItems.map(it=>{
