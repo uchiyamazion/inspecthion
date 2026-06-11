@@ -553,8 +553,18 @@ function doPrint(rid,mode){
     const hint=document.createElement('div');
     hint.style.cssText='position:fixed;top:16px;left:50%;transform:translateX(-50%);background:#1a4f8a;color:#fff;padding:10px 20px;border-radius:8px;font-size:13px;z-index:9999';
     hint.textContent='印刷画面で「PDFに保存」を選択してください';
+    hint.setAttribute('data-noprint','1');
+    hint.style.cssText+='pointer-events:none';
     document.body.appendChild(hint);
-    setTimeout(()=>{window.print();setTimeout(()=>hint.remove(),1500);},300);
+    // hintを印刷から除外
+    const noprint=document.createElement('style');
+    noprint.id='noprint-hint';
+    noprint.textContent='[data-noprint]{display:none!important}';
+    document.head.appendChild(noprint);
+    setTimeout(()=>{
+      window.print();
+      setTimeout(()=>{hint.remove();noprint.remove();},1500);
+    },300);
   } else {
     window.print();
   }
