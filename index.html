@@ -16,10 +16,10 @@ body{font-family:'Noto Sans JP',sans-serif;font-size:14px;background:var(--bg);c
 .sidebar-nav{flex:1;overflow-y:auto;padding:12px 0}
 .nav-section{padding:8px 16px 4px;font-size:10px;letter-spacing:.1em;color:rgba(255,255,255,.35);font-family:'IBM Plex Mono',monospace}
 .nav-item{display:flex;align-items:center;gap:10px;padding:9px 20px;color:rgba(255,255,255,.65);cursor:pointer;font-size:13px;transition:all .15s;border-left:2px solid transparent}
-.nav-item:hover{color:#fff;background:rgba(255,255,255,.06)}
+.nav-item:hover,.nav-item:active{color:#fff;background:rgba(255,255,255,.1)}
 .nav-item.active{color:#fff;border-left-color:#fff;background:rgba(255,255,255,.1)}
-.site-nav-item{display:flex;align-items:center;padding:8px 20px 8px 28px;gap:8px;cursor:pointer;color:rgba(255,255,255,.55);font-size:12px;transition:all .15s;border-left:2px solid transparent}
-.site-nav-item:hover{color:rgba(255,255,255,.9)}
+.site-nav-item{display:flex;align-items:center;padding:8px 20px 8px 28px;gap:8px;cursor:pointer;color:rgba(255,255,255,.55);font-size:12px;border-left:2px solid transparent}
+.site-nav-item:hover,.site-nav-item:active{color:#fff}
 .site-nav-item.active{color:#fff;border-left-color:rgba(255,255,255,.5)}
 .site-nav-item .dot{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.3);flex-shrink:0}
 .site-nav-item.active .dot{background:#fff}
@@ -28,16 +28,15 @@ body{font-family:'Noto Sans JP',sans-serif;font-size:14px;background:var(--bg);c
 .topbar{background:var(--surface);border-bottom:.5px solid var(--border);padding:14px 28px;display:flex;align-items:center;gap:12px;position:sticky;top:0;z-index:50}
 .topbar h2{font-size:16px;font-weight:500;flex:1}
 .content{padding:24px 28px}
-.btn{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:var(--radius);border:.5px solid var(--border2);background:var(--surface);color:var(--text);font-size:13px;font-family:'Noto Sans JP',sans-serif;cursor:pointer;transition:all .15s;white-space:nowrap}
-.btn:hover{background:var(--surface2)}
-.btn:active{transform:scale(.98)}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:var(--radius);border:.5px solid var(--border2);background:var(--surface);color:var(--text);font-size:13px;font-family:'Noto Sans JP',sans-serif;cursor:pointer;transition:all .15s;white-space:nowrap;-webkit-tap-highlight-color:transparent}
+.btn:hover,.btn:active{background:var(--surface2)}
 .btn-primary{background:var(--accent);color:#fff;border-color:var(--accent)}
-.btn-primary:hover{background:#163f6e}
+.btn-primary:hover,.btn-primary:active{background:#163f6e}
 .btn-danger{color:var(--accent2);border-color:#e8c4b8}
-.btn-danger:hover{background:var(--accent2-light)}
+.btn-danger:hover,.btn-danger:active{background:var(--accent2-light)}
 .btn-sm{padding:5px 12px;font-size:12px}
 .card{background:var(--surface);border:.5px solid var(--border);border-radius:var(--radius-lg);overflow:hidden;box-shadow:var(--shadow);margin-bottom:12px}
-.card-head{padding:12px 16px;background:var(--surface2);border-bottom:.5px solid var(--border);display:flex;align-items:center;gap:10px;cursor:pointer;user-select:none}
+.card-head{padding:12px 16px;background:var(--surface2);border-bottom:.5px solid var(--border);display:flex;align-items:center;gap:10px;cursor:pointer;user-select:none;-webkit-tap-highlight-color:transparent}
 .card-head h3{font-size:13px;font-weight:500;flex:1}
 .card-head .chevron{font-size:14px;color:var(--text3);transition:transform .2s}
 .card-head.collapsed .chevron{transform:rotate(-90deg)}
@@ -48,38 +47,33 @@ body{font-family:'Noto Sans JP',sans-serif;font-size:14px;background:var(--bg);c
 .field{display:flex;flex-direction:column;gap:4px}
 .field.full{grid-column:1/-1}
 label.lbl{font-size:11px;color:var(--text2);font-weight:500;letter-spacing:.03em}
-input[type=text],input[type=date],input[type=time],input[type=number],input[type=datetime-local],select,textarea{border:.5px solid var(--border2);border-radius:var(--radius);padding:7px 10px;font-size:13px;font-family:'Noto Sans JP',sans-serif;background:var(--surface);color:var(--text);width:100%;transition:border-color .15s,box-shadow .15s}
-input:focus,select:focus,textarea:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(26,79,138,.12)}
+input[type=text],input[type=date],input[type=time],input[type=number],input[type=datetime-local],select,textarea{border:.5px solid var(--border2);border-radius:var(--radius);padding:7px 10px;font-size:13px;font-family:'Noto Sans JP',sans-serif;background:var(--surface);color:var(--text);width:100%;transition:border-color .15s}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--accent)}
 textarea{resize:vertical;min-height:60px}
-/* check rows */
-.check-row{display:grid;grid-template-columns:32px 1fr auto auto;align-items:center;gap:8px;padding:8px 0;border-bottom:.5px solid var(--border)}
+.check-row{display:grid;grid-template-columns:28px 1fr auto 160px;align-items:center;gap:8px;padding:7px 0;border-bottom:.5px solid var(--border)}
 .check-row:last-child{border-bottom:none}
 .check-row.ng{background:#fff8f6}
 .check-row .cn{font-size:11px;color:var(--text3);font-family:'IBM Plex Mono',monospace;text-align:center}
 .check-row .cname{font-size:13px}
 .check-row.ng .cname{color:var(--accent2);font-weight:500}
-.status-group{display:flex;gap:10px;flex-shrink:0}
-.radio-lbl{display:flex;align-items:center;gap:4px;font-size:12px;cursor:pointer;color:var(--text2);white-space:nowrap}
+.status-group{display:flex;gap:8px;flex-shrink:0}
+.radio-lbl{display:flex;align-items:center;gap:4px;font-size:12px;cursor:pointer;color:var(--text2);white-space:nowrap;-webkit-tap-highlight-color:transparent}
 .radio-lbl input[type=radio]{width:auto;accent-color:var(--accent)}
-.memo-input{width:180px;padding:5px 8px;font-size:12px}
-/* measure rows */
-.mrow{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:.5px solid var(--border)}
+.memo-input{padding:5px 8px;font-size:12px}
+.mrow{display:flex;align-items:center;gap:8px;padding:7px 0;border-bottom:.5px solid var(--border)}
 .mrow:last-child{border-bottom:none}
 .mrow .mno{font-size:11px;color:var(--text3);font-family:'IBM Plex Mono',monospace;min-width:28px}
 .mrow .mname{flex:1;font-size:12px}
-.mrow .mval{display:flex;align-items:center;gap:6px;flex-shrink:0}
-.mrow .mval input{width:72px;padding:5px 8px;font-size:12px}
-.mrow .mmemo{width:160px;padding:5px 8px;font-size:12px}
+.mrow .mval{display:flex;align-items:center;gap:5px;flex-shrink:0}
+.mrow .mval input{width:68px;padding:5px 8px;font-size:12px}
+.mrow .mmemo{padding:5px 8px;font-size:12px;width:140px}
 .unit-lbl{font-size:11px;color:var(--text3);white-space:nowrap}
-/* insulation rows */
-.ins-row{display:grid;grid-template-columns:32px 1fr 70px 70px 70px 160px;align-items:center;gap:6px;padding:7px 0;border-bottom:.5px solid var(--border);font-size:12px}
+.ins-row{display:grid;grid-template-columns:28px 1fr 64px 64px 64px 130px;align-items:center;gap:6px;padding:6px 0;border-bottom:.5px solid var(--border);font-size:12px}
 .ins-row:last-child{border-bottom:none}
-.ins-row .ihead{font-weight:500;font-size:11px;color:var(--text2)}
 .ins-row input{padding:4px 6px;font-size:12px}
-/* site / history */
-.site-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px}
-.site-card{background:var(--surface);border:.5px solid var(--border);border-radius:var(--radius-lg);padding:16px 18px;cursor:pointer;transition:all .15s;box-shadow:var(--shadow)}
-.site-card:hover{border-color:var(--accent);transform:translateY(-1px)}
+.site-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px}
+.site-card{background:var(--surface);border:.5px solid var(--border);border-radius:var(--radius-lg);padding:16px 18px;cursor:pointer;transition:all .15s;box-shadow:var(--shadow);-webkit-tap-highlight-color:transparent}
+.site-card:hover,.site-card:active{border-color:var(--accent)}
 .site-card .sc-name{font-size:15px;font-weight:500;margin-bottom:4px}
 .site-card .sc-meta{font-size:12px;color:var(--text2);line-height:1.8}
 .site-card .sc-footer{margin-top:12px;padding-top:10px;border-top:.5px solid var(--border);display:flex;align-items:center;justify-content:space-between}
@@ -87,12 +81,12 @@ textarea{resize:vertical;min-height:60px}
 .badge-ok{background:var(--success-light);color:var(--success)}
 .badge-ng{background:var(--accent2-light);color:var(--accent2)}
 .badge-info{background:var(--accent-light);color:var(--accent)}
-.hist-item{background:var(--surface);border:.5px solid var(--border);border-radius:var(--radius-lg);padding:14px 18px;margin-bottom:10px;display:flex;align-items:flex-start;gap:14px;box-shadow:var(--shadow)}
+.hist-item{background:var(--surface);border:.5px solid var(--border);border-radius:var(--radius-lg);padding:14px 18px;margin-bottom:10px;display:flex;align-items:flex-start;gap:12px;box-shadow:var(--shadow)}
 .hist-item .hi-date{font-family:'IBM Plex Mono',monospace;font-size:13px;font-weight:500;white-space:nowrap;color:var(--accent)}
 .hist-item .hi-info{flex:1}
 .hist-item .hi-model{font-size:12px;color:var(--text2);margin-top:3px}
 .hist-item .hi-notes{font-size:12px;color:var(--text2);margin-top:6px;padding-top:6px;border-top:.5px solid var(--border)}
-.hist-item .hi-actions{display:flex;gap:6px;flex-shrink:0}
+.hist-item .hi-actions{display:flex;gap:5px;flex-shrink:0;flex-wrap:wrap;justify-content:flex-end}
 .modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:500;align-items:center;justify-content:center}
 .modal-overlay.open{display:flex}
 .modal-box{background:var(--surface);border-radius:var(--radius-lg);padding:24px;width:440px;max-width:95vw;box-shadow:0 8px 32px rgba(0,0,0,.2)}
@@ -104,65 +98,71 @@ textarea{resize:vertical;min-height:60px}
 .empty .empty-icon{font-size:48px;margin-bottom:12px;opacity:.4}
 .actions-bar{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px;padding-top:16px;border-top:.5px solid var(--border)}
 .section-title{font-size:11px;letter-spacing:.08em;color:var(--text3);font-family:'IBM Plex Mono',monospace;margin:16px 0 8px;text-transform:uppercase}
-.loading-overlay{position:fixed;inset:0;background:rgba(255,255,255,.7);z-index:800;display:none;align-items:center;justify-content:center;font-size:14px;color:var(--text2)}
+.loading-overlay{position:fixed;inset:0;background:rgba(255,255,255,.75);z-index:800;display:none;align-items:center;justify-content:center;font-size:14px;color:var(--text2);flex-direction:column;gap:12px}
 .loading-overlay.show{display:flex}
+.spinner{width:32px;height:32px;border:3px solid var(--border);border-top-color:var(--accent);border-radius:50%;animation:spin .8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
 .hamburger{display:none;position:fixed;top:12px;left:12px;z-index:200;background:var(--text);color:#fff;border:none;border-radius:var(--radius);padding:8px 10px;font-size:18px;cursor:pointer}
 @media(max-width:768px){
   .sidebar{transform:translateX(-100%)}.sidebar.open{transform:translateX(0)}.main{margin-left:0}.hamburger{display:block}
   .grid2,.grid3{grid-template-columns:1fr}.content{padding:16px}.topbar{padding:12px 16px;padding-left:52px}
-  .check-row{grid-template-columns:24px 1fr}.check-row .status-group{flex-wrap:wrap}.memo-input{width:120px}
-  .ins-row{grid-template-columns:24px 1fr 60px 60px 60px}
+  .check-row{grid-template-columns:24px 1fr auto}.check-row .memo-input{display:none}
+  .ins-row{grid-template-columns:24px 1fr 56px 56px 56px}
+  .hist-item{flex-direction:column}.hist-item .hi-actions{width:100%}
 }
-
-/* ══════════════════════════════════════
-   PDF印刷スタイル
-══════════════════════════════════════ */
+/* ══ 印刷 ══ */
 @media print{
   *{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important}
-  html,body{margin:0!important;padding:0!important;background:#fff!important;height:auto!important}
-  .sidebar,.topbar,.hamburger,.actions-bar,.btn,.toast,.modal-overlay,.loading-overlay,.main{display:none!important}
+  html,body{margin:0!important;padding:0!important;background:#fff!important}
+  .sidebar,.topbar,.hamburger,.actions-bar,.btn,.toast,.modal-overlay,.loading-overlay,.main,.content{display:none!important}
   #print-area{display:block!important;margin:0!important;padding:0!important}
-  @page{size:A4 portrait;margin:10mm 12mm}
+  @page{size:A4 portrait;margin:8mm 10mm}
 }
 #print-area{display:none}
-
-/* PDF書式 */
-.pdf{font-family:'Noto Sans JP',sans-serif;font-size:8.5pt;color:#000;line-height:1.35;background:#fff}
-.pdf{font-family:'Noto Sans JP',sans-serif;font-size:8pt;color:#000;line-height:1.3;background:#fff}
-.pdf-title{text-align:center;font-size:11pt;font-weight:700;margin-bottom:1pt}
-.pdf-subtitle{text-align:center;font-size:7.5pt;margin-bottom:1pt}
-.pdf-company{text-align:right;font-size:7.5pt;margin-bottom:2pt}
-.pdf-header-table{width:100%;border-collapse:collapse;margin-bottom:4pt;font-size:7.5pt}
-.pdf-header-table td{border:.5px solid #aaa;padding:2pt 4pt;vertical-align:middle}
-.pdf-header-table .lh{background:#d9d9d9;font-weight:500;width:65pt;white-space:nowrap}
-.pdf-section{font-size:7.5pt;font-weight:700;background:#d9d9d9;color:#000;padding:2pt 5pt;margin:4pt 0 0;border:.5px solid #aaa}
-.pdf-check-table{width:100%;border-collapse:collapse;font-size:7.5pt}
-.pdf-check-table th{background:#d9d9d9;border:.5px solid #aaa;padding:2pt 3pt;font-weight:500;text-align:center}
-.pdf-check-table td{border:.5px solid #aaa;padding:2pt 3pt;vertical-align:middle}
-.pdf-check-table .td-no{text-align:center;width:16pt;color:#333;font-size:7pt}
-.pdf-check-table .td-result{text-align:center;width:30pt}
-.pdf-ng td{background:#fff0ee}
-.pdf-ng .td-name{color:#c84b1a;font-weight:500}
-.pdf-measure-table{width:100%;border-collapse:collapse;font-size:7.5pt}
-.pdf-measure-table td{border:.5px solid #aaa;padding:2pt 4pt;vertical-align:middle}
-.pdf-measure-table .pm-label{background:#f2f2f2;white-space:nowrap;width:auto}
-.pdf-measure-table .pm-val{font-weight:500}
-.pdf-measure-table .pm-memo{color:#555;font-size:6.5pt}
-.pdf-ins-table{width:100%;border-collapse:collapse;font-size:7pt}
-.pdf-ins-table th{background:#d9d9d9;border:.5px solid #aaa;padding:2pt 3pt;font-weight:500;text-align:center}
-.pdf-ins-table td{border:.5px solid #aaa;padding:2pt 3pt;text-align:center;vertical-align:middle}
-.pdf-op-table{width:100%;border-collapse:collapse;font-size:6.5pt}
-.pdf-op-table th{background:#d9d9d9;border:.5px solid #aaa;padding:2pt 2pt;font-weight:500;text-align:center}
-.pdf-op-table td{border:.5px solid #aaa;padding:2pt 2pt;text-align:center}
-.pdf-footer-grid{display:grid;grid-template-columns:1fr 1fr;gap:4pt;margin-top:4pt;font-size:7.5pt}
-.pdf-sign-box{border:.5px solid #aaa;padding:4pt;min-height:30pt}
-.pdf-sign-box .psl{font-size:7pt;color:#555;margin-bottom:3pt;font-weight:500}
-.pdf-notes-full{border:.5px solid #aaa;padding:4pt;min-height:22pt;margin-top:4pt;font-size:7.5pt;grid-column:1/-1}
+/* ══ PDF書式（元書式に準拠） ══ */
+.pt{font-family:'Noto Sans JP',sans-serif;font-size:7.5pt;color:#000;line-height:1.3}
+.pt-title{text-align:center;font-size:11pt;font-weight:700;margin-bottom:1pt}
+.pt-subtitle{text-align:center;font-size:7pt;margin-bottom:1pt}
+.pt-company{text-align:right;font-size:7pt;margin-bottom:3pt}
+/* ヘッダー */
+.pt-h{width:100%;border-collapse:collapse;font-size:7.5pt;margin-bottom:4pt}
+.pt-h td{border:.5px solid #999;padding:2pt 4pt;vertical-align:middle}
+.pt-h .hl{background:#d9d9d9;font-weight:500;white-space:nowrap;width:58pt}
+/* セクション見出し */
+.pt-sec{font-size:7.5pt;font-weight:700;background:#d9d9d9;padding:2pt 5pt;border:.5px solid #999;margin:4pt 0 0}
+/* 点検項目テーブル（左端に縦ラベル） */
+.pt-wrap{display:flex;border:.5px solid #999;margin-bottom:0}
+.pt-label-col{writing-mode:vertical-rl;text-orientation:mixed;background:#d9d9d9;font-size:7pt;font-weight:700;padding:4pt 2pt;text-align:center;border-right:.5px solid #999;white-space:nowrap;min-width:14pt}
+.pt-table{width:100%;border-collapse:collapse;font-size:7pt}
+.pt-table th{background:#d9d9d9;border:.5px solid #999;padding:2pt 3pt;font-weight:500;text-align:center}
+.pt-table td{border:.5px solid #bbb;padding:2pt 3pt;vertical-align:middle}
+.pt-table .tno{text-align:center;width:14pt;color:#555;font-size:6.5pt}
+.pt-table .tres{text-align:center;width:28pt}
+.pt-ng td{background:#fff0ee}
+.pt-ng .tname{color:#c84b1a;font-weight:500}
+/* 測定値テーブル */
+.pt-mea{width:100%;border-collapse:collapse;font-size:7pt}
+.pt-mea td{border:.5px solid #bbb;padding:2pt 4pt;vertical-align:middle}
+.pt-mea .ml{background:#f0f0f0;white-space:nowrap;width:auto}
+.pt-mea .mv{font-weight:500}
+.pt-mea .mm{font-size:6pt;color:#777}
+/* 絶縁 */
+.pt-ins{width:100%;border-collapse:collapse;font-size:7pt}
+.pt-ins th{background:#d9d9d9;border:.5px solid #999;padding:2pt 3pt;font-weight:500;text-align:center}
+.pt-ins td{border:.5px solid #bbb;padding:2pt 3pt;text-align:center}
+/* 運転状況 */
+.pt-op{width:100%;border-collapse:collapse;font-size:6pt}
+.pt-op th{background:#d9d9d9;border:.5px solid #999;padding:2pt 2pt;font-weight:500;text-align:center}
+.pt-op td{border:.5px solid #bbb;padding:2pt 2pt;text-align:center}
+/* フッター */
+.pt-foot{display:grid;grid-template-columns:1fr 1fr;gap:3pt;margin-top:4pt}
+.pt-sign{border:.5px solid #999;padding:3pt;min-height:28pt;font-size:7pt}
+.pt-sign .sl{font-size:6.5pt;color:#555;font-weight:500;margin-bottom:2pt}
+.pt-notes{border:.5px solid #999;padding:3pt;min-height:20pt;margin-top:3pt;font-size:7pt;grid-column:1/-1}
 </style>
 </head>
 <body>
 <button class="hamburger" onclick="toggleSidebar()">☰</button>
-
 <nav class="sidebar" id="sidebar">
   <div class="sidebar-header">
     <div class="logo">SANEI CO., LTD.</div>
@@ -170,25 +170,19 @@ textarea{resize:vertical;min-height:60px}
   </div>
   <div class="sidebar-nav">
     <div class="nav-section">MENU</div>
-    <div class="nav-item active" id="nav-home" onclick="showPage('home')">🏠 ダッシュボード</div>
-    <div class="nav-item" id="nav-sites" onclick="showPage('sites')">🏢 現場一覧</div>
-    <div class="nav-item" id="nav-settings" onclick="showPage('settings')">⚙️ API設定</div>
+    <div class="nav-item active" id="nav-home" onclick="gotoPage('home')">🏠 ダッシュボード</div>
+    <div class="nav-item" id="nav-sites" onclick="gotoPage('sites')">🏢 現場一覧</div>
+    <div class="nav-item" id="nav-settings" onclick="gotoPage('settings')">⚙️ API設定</div>
     <div class="nav-section" style="margin-top:8px">現場</div>
     <div id="sidebar-sites"></div>
   </div>
-  <div class="sidebar-footer">ver. 20250610</div>
+  <div class="sidebar-footer">ver. 20250611</div>
 </nav>
-
 <div class="main">
-  <div class="topbar">
-    <h2 id="topbar-title">ダッシュボード</h2>
-    <div id="topbar-actions"></div>
-  </div>
+  <div class="topbar"><h2 id="topbar-title">ダッシュボード</h2><div id="topbar-actions"></div></div>
   <div class="content" id="main-content"></div>
 </div>
-
 <div id="print-area"></div>
-
 <div class="modal-overlay" id="modal-site">
   <div class="modal-box">
     <h3>新規現場登録</h3>
@@ -203,7 +197,6 @@ textarea{resize:vertical;min-height:60px}
     </div>
   </div>
 </div>
-
 <div class="modal-overlay" id="modal-confirm">
   <div class="modal-box">
     <h3 id="confirm-title">確認</h3>
@@ -214,196 +207,112 @@ textarea{resize:vertical;min-height:60px}
     </div>
   </div>
 </div>
-
-<div class="loading-overlay" id="loading">⏳ 処理中...</div>
+<div class="loading-overlay" id="loading"><div class="spinner"></div>処理中...</div>
 <div class="toast" id="toast"></div>
-
 <script>
-// ═══ CONFIG ═══
-let GAS_URL = 'https://script.google.com/macros/s/AKfycbzGhzIf74QQc2qG3VWWZvsERs2z2z3cSAPzCNZxiwk-cJhnKbpJgLpEbshVp3kTSe9t/exec';
+const GAS_URL='https://script.google.com/macros/s/AKfycbzGhzIf74QQc2qG3VWWZvsERs2z2z3cSAPzCNZxiwk-cJhnKbpJgLpEbshVp3kTSe9t/exec';
+const ELEC=[{no:2,name:'キャビネットBOX内の異物・ゴミ'},{no:3,name:'コネクター・端子・ねじのゆるみ'},{no:4,name:'部品の変色・変形・劣化など'},{no:5,name:'電線の変色・変形・劣化など'},{no:6,name:'スイッチ動作・接点'},{no:7,name:'ディスプレイ表示'},{no:8,name:'運転ランプ・異常ランプ点灯'},{no:9,name:'温度コントローラー'}];
+const MECH=[{no:10,name:'フレキシブルダクト（蛇腹ダクト）・ベルト'},{no:11,name:'エアフィルター'},{no:12,name:'フィルターBOX・目詰まり検出器'},{no:13,name:'ドレン板・ドレンホース'},{no:14,name:'マノメーターUチューブ・静圧計'},{no:15,name:'温度センサー'},{no:16,name:'本体外観（汚れ・穴あき）'},{no:17,name:'本体設置状態'},{no:18,name:'ドレンホース処理'},{no:19,name:'静圧計パッキン劣化'},{no:20,name:'惰性回転中の異音'},{no:21,name:'オイル交換'},{no:22,name:'加温ヒーター'},{no:23,name:'コンデンサー本体'},{no:24,name:'コンデンサーファン（インバータ型式 VLT・FC）'},{no:25,name:'コンデンサー汚れ'},{no:26,name:'レシーバータンク'},{no:27,name:'フィルタードライヤー'},{no:28,name:'膨張弁'},{no:29,name:'錆（ハンドバルブ等）'},{no:30,name:'本体外観汚れ'},{no:31,name:'底板の錆（エバポレータ二次側）'}];
+const CTRL=[{no:42,name:'パラメータ設定値'},{no:43,name:'キー入力・タッチパネル入力'},{no:44,name:'手動：送風ファン制御'},{no:45,name:'手動：モーターバルブ制御'},{no:46,name:'手動：エアフラップ制御'},{no:47,name:'手動：INV制御'},{no:48,name:'手動：コンプレッサー制御'},{no:49,name:'手動：コンデンサーファン連動'},{no:50,name:'手動：ハイグロサーム・ヒーター制御'}];
+const REFRIG=[{no:32,name:'高圧・低圧圧力',dual:true,labels:['高圧','低圧'],unit:'bar'},{no:33,name:'冷媒量',single:true,unit:'kg'},{no:35,name:'吐出配管温度（No.52条件）',single:true,unit:'℃'},{no:36,name:'吸入配管温度（No.52条件）',single:true,unit:'℃'},{no:37,name:'膨張弁直後配管温度（No.52条件）',single:true,unit:'℃'},{no:38,name:'逆流防止弁温度（一次側/二次側）',dual:true,labels:['一次側','二次側'],unit:'℃'},{no:39,name:'高圧・低圧圧力（No.52条件）',dual:true,labels:['高圧','低圧'],unit:'bar'},{no:40,name:'高圧異常停止圧力値',single:true,unit:'bar'},{no:41,name:'冷媒ガス漏れ/オイル漏れ',yesno:true}];
+const VOLT=[{no:63,name:'主電源電圧（待機中）R-S/S-T/R-T',triple:true,unit:'V'},{no:64,name:'制御電源電圧（待機中）',single:true,unit:'V'},{no:65,name:'主電源電圧（運転中）R-S/S-T/R-T',triple:true,unit:'V'},{no:66,name:'制御電源電圧（運転中）',single:true,unit:'V'},{no:67,name:'総消費電流 R相/S相/T相',triple:true,unit:'A'},{no:68,name:'漏れ電流値（ヒーター100%時）',single:true,unit:'mA'},{no:69,name:'クランクケースヒーター',single:true,unit:'A'},{no:70,name:'主ファンモーター（低速時）',rated:true,unit:'A'},{no:71,name:'主ファンモーター（高速時）',rated:true,unit:'A'},{no:72,name:'コンプレッサー（100%起動時）',rated:true,unit:'A'},{no:73,name:'コンデンサーファン1（下段）',rated:true,unit:'A'},{no:74,name:'コンデンサーファン2（上段）',rated:true,unit:'A'},{no:75,name:'コンデンサーファン3（KK400/500のみ）',rated:true,unit:'A'},{no:76,name:'コンデンサーファン4（KK400/500のみ）',rated:true,unit:'A'},{no:77,name:'コンプレッサー2（KK220or容量制御時）',rated:true,unit:'A'}];
+const INS=[{no:78,name:'主ファンモーター'},{no:79,name:'コンプレッサー'},{no:80,name:'コンプレッサー2（KK220型のみ）'},{no:81,name:'電気ヒーター1'},{no:82,name:'電気ヒーター2'},{no:83,name:'電気ヒーター3'},{no:84,name:'電気ヒーター4（KK400/500のみ）'},{no:85,name:'コンデンサーファン1（下段）'},{no:86,name:'コンデンサーファン2（上段）'},{no:87,name:'コンデンサーファン3（KK400/500のみ）'},{no:88,name:'コンデンサーファン4（KK400/500のみ）'}];
+const MEAS=[{no:56,name:'日時・天候・外気温度・湿度'},{no:57,name:'測温誤差（大気開放・外気運転全風量）吸気/排気',dual2:true,labels:['吸気','排気'],unit:'℃'},{no:58,name:'温度校正値（一次側/出側）',dual2:true,labels:['一次側','出側'],unit:'℃'},{no:61,name:'湿度制御（3℃差設定時の湿度）',pct:true},{no:62,name:'湿度制御（8℃差設定時の湿度）',pct:true}];
+const OPS=[{no:51,label:'No.51 一次側温度＝外気－5℃'},{no:52,label:'No.52 一次側温度＝外気－10℃'},{no:53,label:'No.53 一次側温度＝外気－15℃'},{no:54,label:'No.54 No.53設定で温度差8℃'}];
+let sites=[],records={},currentSite=null,editingId=null;
 
-// ═══ ITEMS ═══
-const ELEC_ITEMS=[
-  {no:2,name:'キャビネットBOX内の異物・ゴミ'},
-  {no:3,name:'コネクター・端子・ねじのゆるみ'},
-  {no:4,name:'部品の変色・変形・劣化など'},
-  {no:5,name:'電線の変色・変形・劣化など'},
-  {no:6,name:'スイッチ動作・接点'},
-  {no:7,name:'ディスプレイ表示'},
-  {no:8,name:'運転ランプ・異常ランプ点灯'},
-  {no:9,name:'温度コントローラー'},
-];
-const MECH_ITEMS=[
-  {no:10,name:'フレキシブルダクト（蛇腹ダクト）・ベルト'},
-  {no:11,name:'エアフィルター'},
-  {no:12,name:'フィルターBOX・目詰まり検出器'},
-  {no:13,name:'ドレン板・ドレンホース'},
-  {no:14,name:'マノメーターUチューブ・静圧計'},
-  {no:15,name:'温度センサー'},
-  {no:16,name:'本体外観（汚れ・穴あき）'},
-  {no:17,name:'本体設置状態'},
-  {no:18,name:'ドレンホース処理'},
-  {no:19,name:'静圧計パッキン劣化'},
-  {no:20,name:'惰性回転中の異音'},
-  {no:21,name:'オイル交換'},
-  {no:22,name:'加温ヒーター'},
-  {no:23,name:'コンデンサー本体'},
-  {no:24,name:'コンデンサーファン（インバータ型式 VLT・FC）'},
-  {no:25,name:'コンデンサー汚れ'},
-  {no:26,name:'レシーバータンク'},
-  {no:27,name:'フィルタードライヤー'},
-  {no:28,name:'膨張弁'},
-  {no:29,name:'錆（ハンドバルブ等）'},
-  {no:30,name:'本体外観汚れ'},
-  {no:31,name:'底板の錆（エバポレータ二次側）'},
-];
-const REFRIG_ITEMS=[
-  {no:32,name:'高圧・低圧圧力',dual:true,labels:['高圧','低圧'],unit:'bar'},
-  {no:33,name:'冷媒量',single:true,unit:'kg'},
-  {no:35,name:'吐出配管温度（No.52条件）',single:true,unit:'℃'},
-  {no:36,name:'吸入配管温度（No.52条件）',single:true,unit:'℃'},
-  {no:37,name:'膨張弁直後配管温度（No.52条件）',single:true,unit:'℃'},
-  {no:38,name:'逆流防止弁温度（一次側 / 二次側）',dual:true,labels:['一次側','二次側'],unit:'℃'},
-  {no:39,name:'高圧・低圧圧力（No.52条件）',dual:true,labels:['高圧','低圧'],unit:'bar'},
-  {no:40,name:'高圧異常停止圧力値',single:true,unit:'bar'},
-  {no:41,name:'冷媒ガス漏れ / オイル漏れ',yesno:true},
-];
-const VOLT_ITEMS=[
-  {no:63,name:'主電源電圧（待機中）R-S / S-T / R-T',triple:true,unit:'V'},
-  {no:64,name:'制御電源電圧（待機中）',single:true,unit:'V'},
-  {no:65,name:'主電源電圧（運転中）R-S / S-T / R-T',triple:true,unit:'V'},
-  {no:66,name:'制御電源電圧（運転中）',single:true,unit:'V'},
-  {no:67,name:'総消費電流 R相 / S相 / T相',triple:true,unit:'A'},
-  {no:68,name:'漏れ電流値（ヒーター100%時）',single:true,unit:'mA'},
-  {no:69,name:'クランクケースヒーター',single:true,unit:'A'},
-  {no:70,name:'主ファンモーター（低速時）',rated:true,unit:'A'},
-  {no:71,name:'主ファンモーター（高速時）',rated:true,unit:'A'},
-  {no:72,name:'コンプレッサー（100%起動時）',rated:true,unit:'A'},
-  {no:73,name:'コンデンサーファン1（下段）',rated:true,unit:'A'},
-  {no:74,name:'コンデンサーファン2（上段）',rated:true,unit:'A'},
-  {no:75,name:'コンデンサーファン3（KK400/500のみ）',rated:true,unit:'A'},
-  {no:76,name:'コンデンサーファン4（KK400/500のみ）',rated:true,unit:'A'},
-  {no:77,name:'コンプレッサー2（KK220or容量制御時）',rated:true,unit:'A'},
-];
-const INS_ITEMS=[
-  {no:78,name:'主ファンモーター'},
-  {no:79,name:'コンプレッサー'},
-  {no:80,name:'コンプレッサー2（KK220型のみ）'},
-  {no:81,name:'電気ヒーター1'},
-  {no:82,name:'電気ヒーター2'},
-  {no:83,name:'電気ヒーター3'},
-  {no:84,name:'電気ヒーター4（KK400/500のみ）'},
-  {no:85,name:'コンデンサーファン1（下段）'},
-  {no:86,name:'コンデンサーファン2（上段）'},
-  {no:87,name:'コンデンサーファン3（KK400/500のみ）'},
-  {no:88,name:'コンデンサーファン4（KK400/500のみ）'},
-];
-const OP_CONDITIONS=[
-  {no:51,label:'No.51 一次側温度＝外気－5℃'},
-  {no:52,label:'No.52 一次側温度＝外気－10℃'},
-  {no:53,label:'No.53 一次側温度＝外気－15℃'},
-  {no:54,label:'No.54 No.53設定で温度差8℃'},
-];
-
-// ═══ STATE ═══
-let sites=[], records={}, currentSite=null, editingId=null;
-
-// ═══ API ═══
-async function api(action, body={}) {
-  if (!GAS_URL) { toast('⚠ GAS URLが設定されていません'); return null; }
-  showLoading(true);
-  try {
-    const res = await fetch(GAS_URL, {method:'POST', body:JSON.stringify({action,...body})});
-    const data = await res.json();
-    if (data.error) { toast('エラー: '+data.error); return null; }
-    return data;
-  } catch(e) { toast('通信エラー: '+e.message); return null; }
-  finally { showLoading(false); }
+async function api(action,body={}){
+  showLoad(true);
+  try{
+    const r=await fetch(GAS_URL,{method:'POST',body:JSON.stringify({action,...body})});
+    const d=await r.json();
+    if(d.error){toast('エラー: '+d.error);return null;}
+    return d;
+  }catch(e){toast('通信エラー: '+e.message);return null;}
+  finally{showLoad(false);}
 }
-function showLoading(v){document.getElementById('loading').classList.toggle('show',v)}
-
-// ═══ UI ═══
+function showLoad(v){document.getElementById('loading').classList.toggle('show',v)}
 function toast(msg){const el=document.getElementById('toast');el.textContent=msg;el.classList.add('show');setTimeout(()=>el.classList.remove('show'),2800)}
 function openModal(id){document.getElementById(id).classList.add('open')}
 function closeModal(id){document.getElementById(id).classList.remove('open')}
 function toggleSidebar(){document.getElementById('sidebar').classList.toggle('open')}
-function closeSidebarIfMobile(){if(window.innerWidth<=768)document.getElementById('sidebar').classList.remove('open')}
-function confirm2(title,msg,cb){document.getElementById('confirm-title').textContent=title;document.getElementById('confirm-msg').textContent=msg;document.getElementById('confirm-ok').onclick=()=>{closeModal('modal-confirm');cb()};openModal('modal-confirm')}
-function setTopbar(title,html=''){document.getElementById('topbar-title').textContent=title;document.getElementById('topbar-actions').innerHTML=html}
-function navActive(id){document.querySelectorAll('.nav-item').forEach(el=>el.classList.remove('active'));const el=document.getElementById(id);if(el)el.classList.add('active');document.querySelectorAll('.site-nav-item').forEach(el=>el.classList.remove('active'))}
-function renderSidebarSites(){document.getElementById('sidebar-sites').innerHTML=sites.map(s=>`<div class="site-nav-item ${currentSite===s.id?'active':''}" onclick="openSite('${s.id}')"><div class="dot"></div><span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${s.name}</span></div>`).join('')||'<div style="padding:6px 28px;font-size:12px;color:rgba(255,255,255,.25)">登録なし</div>'}
+function closeMobile(){if(window.innerWidth<=768)document.getElementById('sidebar').classList.remove('open')}
+function confirm2(t,m,cb){document.getElementById('confirm-title').textContent=t;document.getElementById('confirm-msg').textContent=m;document.getElementById('confirm-ok').onclick=()=>{closeModal('modal-confirm');cb()};openModal('modal-confirm')}
+function setTop(title,html=''){document.getElementById('topbar-title').textContent=title;document.getElementById('topbar-actions').innerHTML=html}
+function navAct(id){document.querySelectorAll('.nav-item').forEach(e=>e.classList.remove('active'));document.getElementById(id)?.classList.add('active');document.querySelectorAll('.site-nav-item').forEach(e=>e.classList.remove('active'))}
+function renderSideNav(){document.getElementById('sidebar-sites').innerHTML=sites.map(s=>`<div class="site-nav-item ${currentSite===s.id?'active':''}" onclick="openSite('${s.id}')"><div class="dot"></div><span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${s.name}</span></div>`).join('')||'<div style="padding:6px 28px;font-size:12px;color:rgba(255,255,255,.25)">登録なし</div>'}
+function toggleCard(h){h.nextElementSibling.classList.toggle('hidden');h.classList.toggle('collapsed')}
 
-// ═══ PAGES ═══
-async function showPage(page,siteId){
-  closeSidebarIfMobile();
+async function gotoPage(page,siteId){
+  closeMobile();
   if(page==='home') await renderHome();
-  else if(page==='sites') await renderSitesPage();
+  else if(page==='sites') await renderSites();
   else if(page==='settings') renderSettings();
-  else if(page==='form') renderFormPage(siteId);
-  else if(page==='history') await renderHistoryPage(siteId);
+  else if(page==='form') renderForm(siteId);
+  else if(page==='history') await renderHistory(siteId);
 }
 
 async function renderHome(){
-  navActive('nav-home');
-  const res=await api('getSites'); if(!res) return;
-  sites=res.sites||[]; renderSidebarSites();
-  let totalRecs=0,ngCount=0; const recentRecs=[];
+  navAct('nav-home');
+  const res=await api('getSites');if(!res)return;
+  sites=res.sites||[];renderSideNav();
+  let total=0,ngTotal=0;const recent=[];
   for(const s of sites){
     const r2=await api('getRecords',{siteId:s.id});
-    if(r2){records[s.id]=r2.records||[];totalRecs+=records[s.id].length;records[s.id].forEach(r=>{ngCount+=Object.values(r.checks||{}).filter(v=>v==='abnormal').length;recentRecs.push({...r,siteName:s.name});})}
+    if(r2){records[s.id]=r2.records||[];total+=records[s.id].length;records[s.id].forEach(r=>{ngTotal+=Object.values(r.checks||{}).filter(v=>v==='abnormal').length;recent.push({...r,siteName:s.name,siteId:s.id});})}
   }
-  recentRecs.sort((a,b)=>(b.date||'').localeCompare(a.date||'')).splice(5);
-  setTopbar('ダッシュボード','<button class="btn btn-primary" onclick="openModal(\'modal-site\')">＋ 新規現場登録</button>');
+  recent.sort((a,b)=>(b.date||'').localeCompare(a.date||'')).splice(5);
+  setTop('ダッシュボード','<button class="btn btn-primary" onclick="openModal(\'modal-site\')">＋ 新規現場登録</button>');
   document.getElementById('main-content').innerHTML=`
     <div class="grid3" style="margin-bottom:20px">
-      <div class="card" style="padding:16px 20px;cursor:default"><div style="font-size:11px;color:var(--text3);margin-bottom:6px;font-family:'IBM Plex Mono',monospace">SITES</div><div style="font-size:28px;font-weight:700;color:var(--accent)">${sites.length}</div><div style="font-size:12px;color:var(--text2)">登録現場数</div></div>
-      <div class="card" style="padding:16px 20px;cursor:default"><div style="font-size:11px;color:var(--text3);margin-bottom:6px;font-family:'IBM Plex Mono',monospace">RECORDS</div><div style="font-size:28px;font-weight:700;color:var(--accent)">${totalRecs}</div><div style="font-size:12px;color:var(--text2)">総点検記録数</div></div>
-      <div class="card" style="padding:16px 20px;cursor:default;${ngCount>0?'border-color:#e8c4b8':''}"><div style="font-size:11px;color:var(--text3);margin-bottom:6px;font-family:'IBM Plex Mono',monospace">ABNORMAL</div><div style="font-size:28px;font-weight:700;color:${ngCount>0?'var(--accent2)':'var(--success)'}">${ngCount}</div><div style="font-size:12px;color:var(--text2)">異常検出件数（累計）</div></div>
+      <div class="card" style="padding:16px;cursor:default"><div style="font-size:10px;color:var(--text3);margin-bottom:4px;font-family:'IBM Plex Mono',monospace">SITES</div><div style="font-size:26px;font-weight:700;color:var(--accent)">${sites.length}</div><div style="font-size:12px;color:var(--text2)">登録現場数</div></div>
+      <div class="card" style="padding:16px;cursor:default"><div style="font-size:10px;color:var(--text3);margin-bottom:4px;font-family:'IBM Plex Mono',monospace">RECORDS</div><div style="font-size:26px;font-weight:700;color:var(--accent)">${total}</div><div style="font-size:12px;color:var(--text2)">総点検記録数</div></div>
+      <div class="card" style="padding:16px;cursor:default;${ngTotal>0?'border-color:#e8c4b8':''}"><div style="font-size:10px;color:var(--text3);margin-bottom:4px;font-family:'IBM Plex Mono',monospace">ABNORMAL</div><div style="font-size:26px;font-weight:700;color:${ngTotal>0?'var(--accent2)':'var(--success)'}">${ngTotal}</div><div style="font-size:12px;color:var(--text2)">異常検出（累計）</div></div>
     </div>
+    ${sites.length?`<div class="section-title">現場一覧（タップして記録へ）</div>
+    <div class="site-grid" style="margin-bottom:20px">${sites.map(s=>{const recs=records[s.id]||[];const ng=recs.flatMap(r=>Object.values(r.checks||{})).filter(v=>v==='abnormal').length;return `<div class="site-card" onclick="openSite('${s.id}')"><div class="sc-name">${s.name}</div><div class="sc-meta">📍 ${s.loc||'所在地未設定'}</div><div class="sc-footer"><span class="badge ${ng>0?'badge-ng':'badge-ok'}">${ng>0?`異常 ${ng}件`:'異常なし'}</span><span style="font-size:12px;color:var(--text2)">${recs.length}件 →</span></div></div>`;}).join('')}</div>`:''}
     <div class="section-title">最近の点検記録</div>
-    ${recentRecs.length?recentRecs.map(r=>{const ng=Object.values(r.checks||{}).filter(v=>v==='abnormal').length;return `<div class="hist-item"><div><div class="hi-date">${r.date||'—'}</div><div style="font-size:11px;color:var(--text3);margin-top:2px">${r.siteName}</div></div><div class="hi-info"><div style="font-size:13px">担当: ${r.staff||'—'} / 型式: ${r.model||'—'}</div>${ng>0?`<div style="margin-top:4px"><span class="badge badge-ng">異常 ${ng}件</span></div>`:`<div style="margin-top:4px"><span class="badge badge-ok">異常なし</span></div>`}</div></div>`;}).join(''):'<div class="empty"><div class="empty-icon">📋</div><p>まだ記録がありません</p></div>'}`;
+    ${recent.length?recent.map(r=>{const ng=Object.values(r.checks||{}).filter(v=>v==='abnormal').length;return `<div class="hist-item" onclick="openSite('${r.siteId}')" style="cursor:pointer"><div><div class="hi-date">${r.date||'—'}</div><div style="font-size:11px;color:var(--text3);margin-top:2px">${r.siteName}</div></div><div class="hi-info"><div style="font-size:13px">担当: ${r.staff||'—'} / 型式: ${r.model||'—'}</div>${ng>0?`<div style="margin-top:4px"><span class="badge badge-ng">異常 ${ng}件</span></div>`:`<div style="margin-top:4px"><span class="badge badge-ok">異常なし</span></div>`}</div></div>`;}).join(''):'<div class="empty"><div class="empty-icon">📋</div><p>まだ記録がありません</p><small>現場を登録して点検記録を追加してください</small></div>'}`;
 }
 
-async function renderSitesPage(){
-  navActive('nav-sites');
-  const res=await api('getSites'); if(!res) return;
-  sites=res.sites||[]; renderSidebarSites();
-  setTopbar('現場一覧','<button class="btn btn-primary" onclick="openModal(\'modal-site\')">＋ 新規現場登録</button>');
+async function renderSites(){
+  navAct('nav-sites');
+  const res=await api('getSites');if(!res)return;
+  sites=res.sites||[];renderSideNav();
+  setTop('現場一覧','<button class="btn btn-primary" onclick="openModal(\'modal-site\')">＋ 新規現場登録</button>');
   const c=document.getElementById('main-content');
   if(!sites.length){c.innerHTML='<div class="empty"><div class="empty-icon">🏢</div><p>現場が登録されていません</p></div>';return;}
-  c.innerHTML=`<div class="site-grid">${sites.map(s=>{const recs=records[s.id]||[];const ng=recs.flatMap(r=>Object.values(r.checks||{})).filter(v=>v==='abnormal').length;return `<div class="site-card" onclick="openSite('${s.id}')"><div class="sc-name">${s.name}</div><div class="sc-meta">📍 ${s.loc||'所在地未設定'}</div><div class="sc-footer"><span class="badge ${ng>0?'badge-ng':'badge-ok'}">${ng>0?`異常 ${ng}件`:'異常なし'}</span><button class="btn btn-sm btn-danger" onclick="event.stopPropagation();deleteSite('${s.id}')">削除</button></div></div>`;}).join('')}</div>`;
+  c.innerHTML=`<div class="site-grid">${sites.map(s=>{const recs=records[s.id]||[];const ng=recs.flatMap(r=>Object.values(r.checks||{})).filter(v=>v==='abnormal').length;return `<div class="site-card" onclick="openSite('${s.id}')"><div class="sc-name">${s.name}</div><div class="sc-meta">📍 ${s.loc||'所在地未設定'}</div><div class="sc-footer"><span class="badge ${ng>0?'badge-ng':'badge-ok'}">${ng>0?`異常 ${ng}件`:'異常なし'}</span><button class="btn btn-sm btn-danger" onclick="event.stopPropagation();delSite('${s.id}')">削除</button></div></div>`;}).join('')}</div>`;
 }
 
 function renderSettings(){
-  navActive('nav-settings');
-  setTopbar('API設定');
+  navAct('nav-settings');
+  setTop('API設定');
   document.getElementById('main-content').innerHTML=`
     <div class="card" style="max-width:560px">
       <div class="card-head"><h3>🔗 Google Apps Script URL設定</h3></div>
       <div class="card-body">
-        <p style="font-size:13px;color:var(--text2);margin-bottom:12px;line-height:1.8">Google Apps ScriptのウェブアプリURLを入力すると、データがGoogleスプレッドシートに保存され、どの端末からでも共有できます。</p>
+        <p style="font-size:13px;color:var(--text2);margin-bottom:12px;line-height:1.8">現在のGAS URLが埋め込まれています。変更する場合のみ入力してください。</p>
         <div class="field"><label class="lbl">GAS ウェブアプリURL</label><input type="text" id="gas-url-input" value="${GAS_URL}" placeholder="https://script.google.com/macros/s/..."></div>
         <div style="margin-top:12px;display:flex;gap:8px">
-          <button class="btn btn-primary" onclick="saveGasUrl()">保存する</button>
-          <button class="btn" onclick="testGasUrl()">接続テスト</button>
+          <button class="btn" onclick="testGas()">接続テスト</button>
         </div>
       </div>
     </div>`;
 }
-function saveGasUrl(){const url=document.getElementById('gas-url-input').value.trim();GAS_URL=url;localStorage.setItem('gf_gas_url',url);toast('✓ URLを保存しました')}
-async function testGasUrl(){const url=document.getElementById('gas-url-input').value.trim();if(!url){toast('URLを入力してください');return;}GAS_URL=url;const res=await api('getSites');if(res)toast('✓ 接続成功！')}
+async function testGas(){const res=await api('getSites');if(res)toast('✓ 接続成功！')}
 
-async function openSite(id){currentSite=id;renderSidebarSites();await renderHistoryPage(id)}
-async function deleteSite(id){const s=sites.find(x=>x.id===id);confirm2('現場を削除',`「${s.name}」と全記録を削除しますか？`,async()=>{await api('deleteSite',{id});toast('削除しました');await renderSitesPage()})}
+async function openSite(id){currentSite=id;renderSideNav();await renderHistory(id)}
+async function delSite(id){const s=sites.find(x=>x.id===id);confirm2('現場を削除',`「${s.name}」と全記録を削除しますか？`,async()=>{await api('deleteSite',{id});toast('削除しました');await renderSites()})}
 
-async function renderHistoryPage(siteId){
-  if(siteId) currentSite=siteId;
+async function renderHistory(siteId){
+  if(siteId)currentSite=siteId;
   const site=sites.find(s=>s.id===currentSite);
-  renderSidebarSites();
-  const res=await api('getRecords',{siteId:currentSite}); if(!res) return;
+  renderSideNav();
+  const res=await api('getRecords',{siteId:currentSite});if(!res)return;
   records[currentSite]=res.records||[];
   const recs=records[currentSite].slice().reverse();
-  setTopbar(`${site?.name||''}`,`<button class="btn btn-primary" onclick="startNewRecord()">＋ 新規点検記録</button>`);
+  setTop(site?.name||'',`<button class="btn btn-primary" onclick="startNew()">＋ 新規点検記録</button>`);
   const c=document.getElementById('main-content');
   if(!recs.length){c.innerHTML='<div class="empty"><div class="empty-icon">📋</div><p>点検記録がまだありません</p></div>';return;}
   c.innerHTML=recs.map(r=>{
@@ -413,51 +322,52 @@ async function renderHistoryPage(siteId){
       <div class="hi-info">
         <div style="font-size:13px;font-weight:500">${r.model||'型式未入力'}</div>
         <div class="hi-model">担当: ${r.staff||'—'}</div>
-        ${ng.length?`<div style="margin-top:5px">${ng.map(([no])=>`<span class="badge badge-ng" style="margin-right:4px;font-size:10px">異常 No.${no}</span>`).join('')}</div>`:`<div style="margin-top:5px"><span class="badge badge-ok">異常なし</span></div>`}
+        ${ng.length?`<div style="margin-top:4px">${ng.map(([n])=>`<span class="badge badge-ng" style="margin-right:3px;font-size:10px">異常 No.${n}</span>`).join('')}</div>`:`<div style="margin-top:4px"><span class="badge badge-ok">異常なし</span></div>`}
         ${r.notes?`<div class="hi-notes">📝 ${r.notes}</div>`:''}
       </div>
       <div class="hi-actions">
-        <button class="btn btn-sm" onclick="printRecord('${r.id}','print')">🖨 印刷</button>
-        <button class="btn btn-sm" onclick="printRecord('${r.id}','pdf')">📄 PDF</button>
-        <button class="btn btn-sm" onclick="editRecord('${r.id}')">編集</button>
-        <button class="btn btn-sm btn-danger" onclick="deleteRecord('${r.id}')">削除</button>
+        <button class="btn btn-sm" onclick="doPrint('${r.id}','print')">🖨 印刷</button>
+        <button class="btn btn-sm" onclick="doPrint('${r.id}','pdf')">📄 PDF</button>
+        <button class="btn btn-sm" onclick="editRec('${r.id}')">編集</button>
+        <button class="btn btn-sm btn-danger" onclick="delRec('${r.id}')">削除</button>
       </div>
     </div>`;
   }).join('');
 }
 
-function startNewRecord(){editingId=null;renderFormPage(currentSite)}
-function editRecord(rid){editingId=rid;renderFormPage(currentSite)}
-async function deleteRecord(rid){confirm2('記録を削除','この点検記録を削除しますか？',async()=>{await api('deleteRecord',{id:rid});toast('削除しました');await renderHistoryPage(currentSite)})}
+function startNew(){editingId=null;renderForm(currentSite)}
+function editRec(rid){editingId=rid;renderForm(currentSite)}
+async function delRec(rid){confirm2('記録を削除','この点検記録を削除しますか？',async()=>{await api('deleteRecord',{id:rid});toast('削除しました');await renderHistory(currentSite)})}
 
-// ═══ FORM ═══
-function renderFormPage(siteId){
-  if(siteId) currentSite=siteId;
+function renderForm(siteId){
+  if(siteId)currentSite=siteId;
   const site=sites.find(s=>s.id===currentSite);
-  renderSidebarSites();
-  setTopbar(`点検入力 — ${site?.name||''}`,`<button class="btn" onclick="renderHistoryPage('${currentSite}')">← 履歴に戻る</button>`);
+  renderSideNav();
+  setTop(`点検入力 — ${site?.name||''}`,`<button class="btn" onclick="renderHistory('${currentSite}')">← 戻る</button>`);
   document.getElementById('main-content').innerHTML=`
     <div class="card">
       <div class="card-head" onclick="toggleCard(this)"><span>📋</span><h3>基本情報</h3><span class="chevron">▾</span></div>
-      <div class="card-body">
-        <div class="grid3">
-          <div class="field"><label class="lbl">点検実施日 *</label><input type="date" id="f_date"></div>
-          <div class="field"><label class="lbl">担当者</label><input type="text" id="f_staff"></div>
-          <div class="field"><label class="lbl">運転時間積算値</label><input type="text" id="f_runtime" placeholder="時間"></div>
-          <div class="field"><label class="lbl">機械型式</label><input type="text" id="f_model" placeholder="例: KK220"></div>
-          <div class="field"><label class="lbl">製造No.</label><input type="text" id="f_serial"></div>
-          <div class="field"><label class="lbl">製造年</label><input type="text" id="f_year"></div>
-          <div class="field"><label class="lbl">図番</label><input type="text" id="f_drawing"></div>
-        </div>
-      </div>
+      <div class="card-body"><div class="grid3">
+        <div class="field"><label class="lbl">点検実施日 *</label><input type="date" id="f_date"></div>
+        <div class="field"><label class="lbl">担当者</label><input type="text" id="f_staff"></div>
+        <div class="field"><label class="lbl">運転時間積算値</label><input type="text" id="f_runtime" placeholder="時間"></div>
+        <div class="field"><label class="lbl">機械型式</label><input type="text" id="f_model" placeholder="例: KK220"></div>
+        <div class="field"><label class="lbl">製造No.</label><input type="text" id="f_serial"></div>
+        <div class="field"><label class="lbl">製造年</label><input type="text" id="f_year"></div>
+        <div class="field"><label class="lbl">図番</label><input type="text" id="f_drawing"></div>
+      </div></div>
     </div>
     <div class="card">
       <div class="card-head" onclick="toggleCard(this)"><span>⚡</span><h3>電気系点検 (No.2〜9)</h3><span class="chevron">▾</span></div>
-      <div class="card-body" id="elec-body" style="padding:8px 16px"></div>
+      <div class="card-body" id="elec-body" style="padding:6px 16px"></div>
     </div>
     <div class="card">
       <div class="card-head" onclick="toggleCard(this)"><span>🔧</span><h3>機械系点検 (No.10〜31)</h3><span class="chevron">▾</span></div>
-      <div class="card-body" id="mech-body" style="padding:8px 16px"></div>
+      <div class="card-body" id="mech-body" style="padding:6px 16px"></div>
+    </div>
+    <div class="card">
+      <div class="card-head" onclick="toggleCard(this)"><span>🎛</span><h3>制御系点検 (No.42〜50)</h3><span class="chevron">▾</span></div>
+      <div class="card-body" id="ctrl-body" style="padding:6px 16px"></div>
     </div>
     <div class="card">
       <div class="card-head" onclick="toggleCard(this)"><span>❄️</span><h3>冷凍回路 (No.32〜41)</h3><span class="chevron">▾</span></div>
@@ -469,7 +379,11 @@ function renderFormPage(siteId){
     </div>
     <div class="card">
       <div class="card-head" onclick="toggleCard(this)"><span>🔬</span><h3>絶縁測定値 (No.78〜88)</h3><span class="chevron">▾</span></div>
-      <div class="card-body" id="ins-body" style="padding:8px 16px"></div>
+      <div class="card-body" id="ins-body" style="padding:6px 16px"></div>
+    </div>
+    <div class="card">
+      <div class="card-head" onclick="toggleCard(this)"><span>📐</span><h3>測定・校正 (No.56〜62)</h3><span class="chevron">▾</span></div>
+      <div class="card-body" id="meas-body"></div>
     </div>
     <div class="card">
       <div class="card-head" onclick="toggleCard(this)"><span>▶️</span><h3>運転状況記録 (No.51〜54)</h3><span class="chevron">▾</span></div>
@@ -477,331 +391,170 @@ function renderFormPage(siteId){
     </div>
     <div class="card">
       <div class="card-head" onclick="toggleCard(this)"><span>📝</span><h3>特記事項・作業時間</h3><span class="chevron">▾</span></div>
-      <div class="card-body">
-        <div class="grid2">
-          <div class="field"><label class="lbl">作業開始</label><input type="time" id="f_start"></div>
-          <div class="field"><label class="lbl">作業終了</label><input type="time" id="f_end"></div>
-          <div class="field full"><label class="lbl">特記事項</label><textarea id="f_notes"></textarea></div>
-        </div>
-      </div>
+      <div class="card-body"><div class="grid2">
+        <div class="field"><label class="lbl">作業開始</label><input type="time" id="f_start"></div>
+        <div class="field"><label class="lbl">作業終了</label><input type="time" id="f_end"></div>
+        <div class="field full"><label class="lbl">特記事項</label><textarea id="f_notes"></textarea></div>
+      </div></div>
     </div>
     <div class="actions-bar">
-      <button class="btn btn-primary" onclick="saveRecord()">💾 保存する</button>
-      <button class="btn" onclick="exportCSV()">📥 CSVエクスポート</button>
-      <button class="btn btn-danger" onclick="confirm2('クリア','入力内容をリセットしますか？',()=>renderFormPage(currentSite))">🗑 クリア</button>
+      <button class="btn btn-primary" onclick="saveRec()">💾 保存する</button>
+      <button class="btn btn-danger" onclick="confirm2('クリア','入力内容をリセットしますか？',()=>renderForm(currentSite))">🗑 クリア</button>
     </div>`;
-  buildCheckRows('elec-body',ELEC_ITEMS);
-  buildCheckRows('mech-body',MECH_ITEMS);
-  buildRefrig(); buildVolt(); buildIns(); buildOps();
+  buildChecks('elec-body',ELEC);buildChecks('mech-body',MECH);buildChecks('ctrl-body',CTRL);
+  buildRefrig();buildVolt();buildIns();buildMeas();buildOps();
   document.getElementById('f_date').value=new Date().toISOString().slice(0,10);
-  if(editingId) loadRecordIntoForm(editingId);
+  if(editingId)loadIntoForm(editingId);
 }
 
-function buildCheckRows(id,items){
+function buildChecks(id,items){
   document.getElementById(id).innerHTML=items.map(it=>`
     <div class="check-row" id="row${it.no}">
       <span class="cn">${it.no}</span>
       <span class="cname">${it.name}</span>
       <div class="status-group">
-        <label class="radio-lbl"><input type="radio" name="chk${it.no}" value="normal" onchange="updateRowColor(${it.no})"> 正常</label>
-        <label class="radio-lbl"><input type="radio" name="chk${it.no}" value="abnormal" onchange="updateRowColor(${it.no})"> 異常</label>
-        <label class="radio-lbl"><input type="radio" name="chk${it.no}" value="-" checked onchange="updateRowColor(${it.no})"> —</label>
+        <label class="radio-lbl"><input type="radio" name="chk${it.no}" value="normal" onchange="rowColor(${it.no})"> 正常</label>
+        <label class="radio-lbl"><input type="radio" name="chk${it.no}" value="abnormal" onchange="rowColor(${it.no})"> 異常</label>
+        <label class="radio-lbl"><input type="radio" name="chk${it.no}" value="-" checked onchange="rowColor(${it.no})"> —</label>
       </div>
-      <input type="text" class="memo-input" id="memo${it.no}" placeholder="メモ・対応内容">
+      <input type="text" class="memo-input" id="memo${it.no}" placeholder="メモ">
     </div>`).join('');
 }
-function updateRowColor(no){
-  const row=document.getElementById('row'+no); if(!row) return;
-  const v=document.querySelector(`input[name="chk${no}"]:checked`)?.value;
-  row.className='check-row'+(v==='abnormal'?' ng':'');
-}
-function buildRefrig(){
-  document.getElementById('refrig-body').innerHTML=REFRIG_ITEMS.map(it=>{
-    let valHtml='';
-    if(it.dual) valHtml=`<input type="number" id="r${it.no}_1" step="0.1" style="width:72px" placeholder="${it.labels[0]}"><span class="unit-lbl">${it.unit}</span><input type="number" id="r${it.no}_2" step="0.1" style="width:72px" placeholder="${it.labels[1]}"><span class="unit-lbl">${it.unit}</span>`;
-    else if(it.yesno) valHtml=`<label class="radio-lbl"><input type="radio" name="r${it.no}" value="有"> 有</label><label class="radio-lbl"><input type="radio" name="r${it.no}" value="無" checked> 無</label>`;
-    else valHtml=`<input type="number" id="r${it.no}" step="0.1" style="width:80px"><span class="unit-lbl">${it.unit}</span>`;
-    return `<div class="mrow"><span class="mno">${it.no}</span><span class="mname">${it.name}</span><div class="mval">${valHtml}</div><input type="text" class="mmemo" id="rmemo${it.no}" placeholder="メモ"></div>`;
-  }).join('');
-}
-function buildVolt(){
-  document.getElementById('volt-body').innerHTML=VOLT_ITEMS.map(it=>{
-    let valHtml='';
-    if(it.triple) valHtml=`<input type="number" id="v${it.no}_1" step="0.1" style="width:58px"><input type="number" id="v${it.no}_2" step="0.1" style="width:58px"><input type="number" id="v${it.no}_3" step="0.1" style="width:58px"><span class="unit-lbl">${it.unit}</span>`;
-    else if(it.rated) valHtml=`<span class="unit-lbl">実測</span><input type="number" id="v${it.no}_m" step="0.1" style="width:62px"><span class="unit-lbl">定格</span><input type="number" id="v${it.no}_r" step="0.1" style="width:62px"><span class="unit-lbl">${it.unit}</span>`;
-    else valHtml=`<input type="number" id="v${it.no}" step="0.1" style="width:80px"><span class="unit-lbl">${it.unit}</span>`;
-    return `<div class="mrow"><span class="mno">${it.no}</span><span class="mname">${it.name}</span><div class="mval">${valHtml}</div><input type="text" class="mmemo" id="vmemo${it.no}" placeholder="メモ"></div>`;
-  }).join('');
-}
-function buildIns(){
-  document.getElementById('ins-body').innerHTML=`
-    <div class="ins-row" style="font-weight:500;font-size:11px;color:var(--text2)">
-      <span></span><span>測定箇所</span><span style="text-align:center">2MΩ</span><span style="text-align:center">4MΩ</span><span style="text-align:center">6MΩ</span><span>メモ</span>
-    </div>`+
-    INS_ITEMS.map(it=>`
-    <div class="ins-row">
-      <span style="font-size:11px;color:var(--text3);font-family:'IBM Plex Mono',monospace;text-align:center">${it.no}</span>
-      <span style="font-size:12px">${it.name}</span>
-      <input type="number" id="ins${it.no}_2" step="0.01" placeholder="MΩ">
-      <input type="number" id="ins${it.no}_4" step="0.01" placeholder="MΩ">
-      <input type="number" id="ins${it.no}_6" step="0.01" placeholder="MΩ">
-      <input type="text" id="insmemo${it.no}" placeholder="メモ">
-    </div>`).join('');
-}
-function buildOps(){
-  document.getElementById('op-body').innerHTML=OP_CONDITIONS.map(op=>`
-    <div style="margin-bottom:20px;padding-bottom:16px;border-bottom:.5px solid var(--border)">
-      <div style="font-size:13px;font-weight:500;margin-bottom:10px;color:var(--accent)">${op.label}</div>
-      <div class="grid3">
-        <div class="field"><label class="lbl">日時</label><input type="datetime-local" id="op${op.no}_dt"></div>
-        <div class="field"><label class="lbl">天候</label><select id="op${op.no}_wx"><option>晴れ</option><option>曇り</option><option>雨</option></select></div>
-        <div class="field"><label class="lbl">外気温 ℃</label><input type="number" id="op${op.no}_ot" step="0.1"></div>
-        <div class="field"><label class="lbl">外気湿度 %</label><input type="number" id="op${op.no}_oh" step="0.1"></div>
-        <div class="field"><label class="lbl">設定温度（一次側）℃</label><input type="number" id="op${op.no}_st" step="0.1"></div>
-        <div class="field"><label class="lbl">制御温度（一次側）℃</label><input type="number" id="op${op.no}_ct" step="0.1"></div>
-        <div class="field"><label class="lbl">出側温度 ℃</label><input type="number" id="op${op.no}_out" step="0.1"></div>
-        <div class="field"><label class="lbl">高圧 bar</label><input type="number" id="op${op.no}_hp" step="0.1"></div>
-        <div class="field"><label class="lbl">低圧 bar</label><input type="number" id="op${op.no}_lp" step="0.1"></div>
-        <div class="field"><label class="lbl">コンプレッサ容量 %</label><input type="number" id="op${op.no}_comp" step="1"></div>
-        <div class="field"><label class="lbl">AF/INV</label><input type="text" id="op${op.no}_af"></div>
-        <div class="field"><label class="lbl">ドレン水</label><select id="op${op.no}_drain"><option>無</option><option>少</option><option>多</option></select></div>
-        <div class="field full"><label class="lbl">メモ</label><input type="text" id="op${op.no}_memo" placeholder="メモ"></div>
-      </div>
-    </div>`).join('');
-}
-function toggleCard(head){head.nextElementSibling.classList.toggle('hidden');head.classList.toggle('collapsed')}
+function rowColor(no){const row=document.getElementById('row'+no);if(!row)return;const v=document.querySelector(`input[name="chk${no}"]:checked`)?.value;row.className='check-row'+(v==='abnormal'?' ng':'');}
+function buildRefrig(){document.getElementById('refrig-body').innerHTML=REFRIG.map(it=>{let v='';if(it.dual)v=`<input type="number" id="r${it.no}_1" step="0.1" style="width:64px" placeholder="${it.labels[0]}"><span class="unit-lbl">${it.unit}</span><input type="number" id="r${it.no}_2" step="0.1" style="width:64px" placeholder="${it.labels[1]}"><span class="unit-lbl">${it.unit}</span>`;else if(it.yesno)v=`<label class="radio-lbl"><input type="radio" name="r${it.no}" value="有"> 有</label><label class="radio-lbl"><input type="radio" name="r${it.no}" value="無" checked> 無</label>`;else v=`<input type="number" id="r${it.no}" step="0.1" style="width:72px"><span class="unit-lbl">${it.unit}</span>`;return `<div class="mrow"><span class="mno">${it.no}</span><span class="mname">${it.name}</span><div class="mval">${v}</div><input type="text" class="mmemo" id="rmemo${it.no}" placeholder="メモ"></div>`;}).join('');}
+function buildVolt(){document.getElementById('volt-body').innerHTML=VOLT.map(it=>{let v='';if(it.triple)v=`<input type="number" id="v${it.no}_1" step="0.1" style="width:56px"><input type="number" id="v${it.no}_2" step="0.1" style="width:56px"><input type="number" id="v${it.no}_3" step="0.1" style="width:56px"><span class="unit-lbl">${it.unit}</span>`;else if(it.rated)v=`<span class="unit-lbl">実測</span><input type="number" id="v${it.no}_m" step="0.1" style="width:60px"><span class="unit-lbl">定格</span><input type="number" id="v${it.no}_r" step="0.1" style="width:60px"><span class="unit-lbl">${it.unit}</span>`;else v=`<input type="number" id="v${it.no}" step="0.1" style="width:72px"><span class="unit-lbl">${it.unit}</span>`;return `<div class="mrow"><span class="mno">${it.no}</span><span class="mname">${it.name}</span><div class="mval">${v}</div><input type="text" class="mmemo" id="vmemo${it.no}" placeholder="メモ"></div>`;}).join('');}
+function buildIns(){document.getElementById('ins-body').innerHTML=`<div class="ins-row" style="font-weight:500;font-size:11px;color:var(--text2)"><span></span><span>測定箇所</span><span style="text-align:center">2MΩ</span><span style="text-align:center">4MΩ</span><span style="text-align:center">6MΩ</span><span>メモ</span></div>`+INS.map(it=>`<div class="ins-row"><span style="font-size:11px;color:var(--text3);text-align:center;font-family:'IBM Plex Mono',monospace">${it.no}</span><span style="font-size:12px">${it.name}</span><input type="number" id="ins${it.no}_2" step="0.01" placeholder="MΩ"><input type="number" id="ins${it.no}_4" step="0.01" placeholder="MΩ"><input type="number" id="ins${it.no}_6" step="0.01" placeholder="MΩ"><input type="text" id="insmemo${it.no}" placeholder="メモ"></div>`).join('');}
+function buildMeas(){document.getElementById('meas-body').innerHTML=`
+  <div class="mrow"><span class="mno">56</span><span class="mname">日時・天候・外気温湿度</span><div class="mval"><input type="datetime-local" id="meas56_dt" style="width:auto"><select id="meas56_wx"><option>晴れ</option><option>曇り</option><option>雨</option></select></div></div>
+  <div class="mrow"><span class="mno">57</span><span class="mname">測温誤差 吸気/排気</span><div class="mval"><input type="number" id="meas57_1" step="0.1" style="width:64px" placeholder="吸気"><span class="unit-lbl">℃</span><input type="number" id="meas57_2" step="0.1" style="width:64px" placeholder="排気"><span class="unit-lbl">℃</span></div><input type="text" class="mmemo" id="meas57_m" placeholder="メモ"></div>
+  <div class="mrow"><span class="mno">58</span><span class="mname">温度校正値 一次側/出側</span><div class="mval"><input type="number" id="meas58_1" step="0.1" style="width:64px" placeholder="一次側"><span class="unit-lbl">℃</span><input type="number" id="meas58_2" step="0.1" style="width:64px" placeholder="出側"><span class="unit-lbl">℃</span></div><input type="text" class="mmemo" id="meas58_m" placeholder="メモ"></div>
+  <div class="mrow"><span class="mno">61</span><span class="mname">湿度制御（3℃差設定時）</span><div class="mval"><input type="number" id="meas61_pct" step="0.1" style="width:64px"><span class="unit-lbl">%</span><input type="number" id="meas61_out" step="0.1" style="width:64px" placeholder="出側℃"><span class="unit-lbl">℃</span></div><input type="text" class="mmemo" id="meas61_m" placeholder="メモ"></div>
+  <div class="mrow"><span class="mno">62</span><span class="mname">湿度制御（8℃差設定時）</span><div class="mval"><input type="number" id="meas62_pct" step="0.1" style="width:64px"><span class="unit-lbl">%</span><input type="number" id="meas62_out" step="0.1" style="width:64px" placeholder="出側℃"><span class="unit-lbl">℃</span></div><input type="text" class="mmemo" id="meas62_m" placeholder="メモ"></div>`;}
+function buildOps(){document.getElementById('op-body').innerHTML=OPS.map(op=>`<div style="margin-bottom:16px;padding-bottom:14px;border-bottom:.5px solid var(--border)"><div style="font-size:13px;font-weight:500;margin-bottom:8px;color:var(--accent)">${op.label}</div><div class="grid3"><div class="field"><label class="lbl">日時</label><input type="datetime-local" id="op${op.no}_dt"></div><div class="field"><label class="lbl">天候</label><select id="op${op.no}_wx"><option>晴れ</option><option>曇り</option><option>雨</option></select></div><div class="field"><label class="lbl">外気温℃</label><input type="number" id="op${op.no}_ot" step="0.1"></div><div class="field"><label class="lbl">外気湿度%</label><input type="number" id="op${op.no}_oh" step="0.1"></div><div class="field"><label class="lbl">設定温度℃</label><input type="number" id="op${op.no}_st" step="0.1"></div><div class="field"><label class="lbl">制御温度℃</label><input type="number" id="op${op.no}_ct" step="0.1"></div><div class="field"><label class="lbl">出側温度℃</label><input type="number" id="op${op.no}_out" step="0.1"></div><div class="field"><label class="lbl">高圧bar</label><input type="number" id="op${op.no}_hp" step="0.1"></div><div class="field"><label class="lbl">低圧bar</label><input type="number" id="op${op.no}_lp" step="0.1"></div><div class="field"><label class="lbl">コンプ%</label><input type="number" id="op${op.no}_comp" step="1"></div><div class="field"><label class="lbl">AF/INV</label><input type="text" id="op${op.no}_af"></div><div class="field"><label class="lbl">ドレン水</label><select id="op${op.no}_drain"><option>無</option><option>少</option><option>多</option></select></div><div class="field full"><label class="lbl">メモ</label><input type="text" id="op${op.no}_memo" placeholder="メモ"></div></div></div>`).join('');}
 
-// ═══ GATHER / LOAD ═══
 function gatherForm(){
   const checks={},memos={};
-  [...ELEC_ITEMS,...MECH_ITEMS].forEach(it=>{
-    const v=document.querySelector(`input[name="chk${it.no}"]:checked`);
-    checks[it.no]=v?v.value:'-';
-    memos[it.no]=document.getElementById('memo'+it.no)?.value||'';
-  });
-  const refrig={},refrigMemos={};
-  REFRIG_ITEMS.forEach(it=>{
-    if(it.dual) refrig[it.no]={v1:document.getElementById('r'+it.no+'_1')?.value||'',v2:document.getElementById('r'+it.no+'_2')?.value||''};
-    else if(it.yesno){const v=document.querySelector(`input[name="r${it.no}"]:checked`);refrig[it.no]=v?v.value:'無';}
-    else refrig[it.no]=document.getElementById('r'+it.no)?.value||'';
-    refrigMemos[it.no]=document.getElementById('rmemo'+it.no)?.value||'';
-  });
-  const voltage={},voltMemos={};
-  VOLT_ITEMS.forEach(it=>{
-    if(it.triple) voltage[it.no]={v1:document.getElementById('v'+it.no+'_1')?.value||'',v2:document.getElementById('v'+it.no+'_2')?.value||'',v3:document.getElementById('v'+it.no+'_3')?.value||''};
-    else if(it.rated) voltage[it.no]={m:document.getElementById('v'+it.no+'_m')?.value||'',r:document.getElementById('v'+it.no+'_r')?.value||''};
-    else voltage[it.no]=document.getElementById('v'+it.no)?.value||'';
-    voltMemos[it.no]=document.getElementById('vmemo'+it.no)?.value||'';
-  });
-  const insulation={},insMemos={};
-  INS_ITEMS.forEach(it=>{
-    insulation[it.no]={v2:document.getElementById('ins'+it.no+'_2')?.value||'',v4:document.getElementById('ins'+it.no+'_4')?.value||'',v6:document.getElementById('ins'+it.no+'_6')?.value||''};
-    insMemos[it.no]=document.getElementById('insmemo'+it.no)?.value||'';
-  });
+  [...ELEC,...MECH,...CTRL].forEach(it=>{const v=document.querySelector(`input[name="chk${it.no}"]:checked`);checks[it.no]=v?v.value:'-';memos[it.no]=document.getElementById('memo'+it.no)?.value||'';});
+  const refrig={},rMemos={};
+  REFRIG.forEach(it=>{if(it.dual)refrig[it.no]={v1:document.getElementById('r'+it.no+'_1')?.value||'',v2:document.getElementById('r'+it.no+'_2')?.value||''};else if(it.yesno){const v=document.querySelector(`input[name="r${it.no}"]:checked`);refrig[it.no]=v?v.value:'無';}else refrig[it.no]=document.getElementById('r'+it.no)?.value||'';rMemos[it.no]=document.getElementById('rmemo'+it.no)?.value||'';});
+  const voltage={},vMemos={};
+  VOLT.forEach(it=>{if(it.triple)voltage[it.no]={v1:document.getElementById('v'+it.no+'_1')?.value||'',v2:document.getElementById('v'+it.no+'_2')?.value||'',v3:document.getElementById('v'+it.no+'_3')?.value||''};else if(it.rated)voltage[it.no]={m:document.getElementById('v'+it.no+'_m')?.value||'',r:document.getElementById('v'+it.no+'_r')?.value||''};else voltage[it.no]=document.getElementById('v'+it.no)?.value||'';vMemos[it.no]=document.getElementById('vmemo'+it.no)?.value||'';});
+  const ins={},iMemos={};
+  INS.forEach(it=>{ins[it.no]={v2:document.getElementById('ins'+it.no+'_2')?.value||'',v4:document.getElementById('ins'+it.no+'_4')?.value||'',v6:document.getElementById('ins'+it.no+'_6')?.value||''};iMemos[it.no]=document.getElementById('insmemo'+it.no)?.value||'';});
+  const meas={meas56_dt:document.getElementById('meas56_dt')?.value||'',meas56_wx:document.getElementById('meas56_wx')?.value||'',meas57_1:document.getElementById('meas57_1')?.value||'',meas57_2:document.getElementById('meas57_2')?.value||'',meas57_m:document.getElementById('meas57_m')?.value||'',meas58_1:document.getElementById('meas58_1')?.value||'',meas58_2:document.getElementById('meas58_2')?.value||'',meas58_m:document.getElementById('meas58_m')?.value||'',meas61_pct:document.getElementById('meas61_pct')?.value||'',meas61_out:document.getElementById('meas61_out')?.value||'',meas61_m:document.getElementById('meas61_m')?.value||'',meas62_pct:document.getElementById('meas62_pct')?.value||'',meas62_out:document.getElementById('meas62_out')?.value||'',meas62_m:document.getElementById('meas62_m')?.value||''};
   const ops={};
-  OP_CONDITIONS.forEach(op=>{
-    ops[op.no]={};
-    ['dt','wx','ot','oh','st','ct','out','hp','lp','comp','af','drain','memo'].forEach(k=>{const el=document.getElementById('op'+op.no+'_'+k);if(el)ops[op.no][k]=el.value;});
-  });
-  return {id:editingId||Date.now().toString(),date:document.getElementById('f_date')?.value||'',staff:document.getElementById('f_staff')?.value||'',model:document.getElementById('f_model')?.value||'',serial:document.getElementById('f_serial')?.value||'',year:document.getElementById('f_year')?.value||'',drawing:document.getElementById('f_drawing')?.value||'',runtime:document.getElementById('f_runtime')?.value||'',start:document.getElementById('f_start')?.value||'',end:document.getElementById('f_end')?.value||'',notes:document.getElementById('f_notes')?.value||'',checks,memos,refrig,refrigMemos,voltage,voltMemos,insulation,insMemos,ops};
+  OPS.forEach(op=>{ops[op.no]={};['dt','wx','ot','oh','st','ct','out','hp','lp','comp','af','drain','memo'].forEach(k=>{const el=document.getElementById('op'+op.no+'_'+k);if(el)ops[op.no][k]=el.value;});});
+  return {id:editingId||Date.now().toString(),date:document.getElementById('f_date')?.value||'',staff:document.getElementById('f_staff')?.value||'',model:document.getElementById('f_model')?.value||'',serial:document.getElementById('f_serial')?.value||'',year:document.getElementById('f_year')?.value||'',drawing:document.getElementById('f_drawing')?.value||'',runtime:document.getElementById('f_runtime')?.value||'',start:document.getElementById('f_start')?.value||'',end:document.getElementById('f_end')?.value||'',notes:document.getElementById('f_notes')?.value||'',checks,memos,refrig,rMemos,voltage,vMemos,ins,iMemos,meas,ops};
 }
 
-function loadRecordIntoForm(rid){
-  const rec=(records[currentSite]||[]).find(r=>r.id===rid); if(!rec) return;
+function loadIntoForm(rid){
+  const rec=(records[currentSite]||[]).find(r=>r.id===rid);if(!rec)return;
   ['date','staff','model','serial','year','drawing','runtime','start','end','notes'].forEach(k=>{const el=document.getElementById('f_'+k);if(el)el.value=rec[k]||'';});
-  Object.entries(rec.checks||{}).forEach(([no,val])=>{const r=document.querySelector(`input[name="chk${no}"][value="${val}"]`);if(r){r.checked=true;updateRowColor(parseInt(no));}});
+  Object.entries(rec.checks||{}).forEach(([no,val])=>{const r=document.querySelector(`input[name="chk${no}"][value="${val}"]`);if(r){r.checked=true;rowColor(parseInt(no));}});
   Object.entries(rec.memos||{}).forEach(([no,val])=>{const el=document.getElementById('memo'+no);if(el)el.value=val;});
-  Object.entries(rec.refrig||{}).forEach(([no,val])=>{
-    if(typeof val==='object'&&val.v1!==undefined){const a=document.getElementById('r'+no+'_1');const b=document.getElementById('r'+no+'_2');if(a)a.value=val.v1;if(b)b.value=val.v2;}
-    else if(val==='有'||val==='無'){const r=document.querySelector(`input[name="r${no}"][value="${val}"]`);if(r)r.checked=true;}
-    else{const el=document.getElementById('r'+no);if(el)el.value=val;}
-  });
-  Object.entries(rec.refrigMemos||{}).forEach(([no,val])=>{const el=document.getElementById('rmemo'+no);if(el)el.value=val;});
-  Object.entries(rec.voltage||{}).forEach(([no,val])=>{
-    if(typeof val==='object'&&val.v1!==undefined){['1','2','3'].forEach(k=>{const el=document.getElementById('v'+no+'_'+k);if(el)el.value=val['v'+k];});}
-    else if(typeof val==='object'&&val.m!==undefined){['m','r'].forEach(k=>{const el=document.getElementById('v'+no+'_'+k);if(el)el.value=val[k];});}
-    else{const el=document.getElementById('v'+no);if(el)el.value=val;}
-  });
-  Object.entries(rec.voltMemos||{}).forEach(([no,val])=>{const el=document.getElementById('vmemo'+no);if(el)el.value=val;});
-  Object.entries(rec.insulation||{}).forEach(([no,val])=>{
-    ['2','4','6'].forEach(k=>{const el=document.getElementById('ins'+no+'_'+k);if(el)el.value=val['v'+k]||'';});
-  });
-  Object.entries(rec.insMemos||{}).forEach(([no,val])=>{const el=document.getElementById('insmemo'+no);if(el)el.value=val;});
+  Object.entries(rec.refrig||{}).forEach(([no,val])=>{if(typeof val==='object'&&val.v1!==undefined){const a=document.getElementById('r'+no+'_1');const b=document.getElementById('r'+no+'_2');if(a)a.value=val.v1;if(b)b.value=val.v2;}else if(val==='有'||val==='無'){const r=document.querySelector(`input[name="r${no}"][value="${val}"]`);if(r)r.checked=true;}else{const el=document.getElementById('r'+no);if(el)el.value=val;}});
+  Object.entries(rec.rMemos||{}).forEach(([no,val])=>{const el=document.getElementById('rmemo'+no);if(el)el.value=val;});
+  Object.entries(rec.voltage||{}).forEach(([no,val])=>{if(typeof val==='object'&&val.v1!==undefined){['1','2','3'].forEach(k=>{const el=document.getElementById('v'+no+'_'+k);if(el)el.value=val['v'+k];});}else if(typeof val==='object'&&val.m!==undefined){['m','r'].forEach(k=>{const el=document.getElementById('v'+no+'_'+k);if(el)el.value=val[k];});}else{const el=document.getElementById('v'+no);if(el)el.value=val;}});
+  Object.entries(rec.vMemos||{}).forEach(([no,val])=>{const el=document.getElementById('vmemo'+no);if(el)el.value=val;});
+  Object.entries(rec.ins||{}).forEach(([no,val])=>{['2','4','6'].forEach(k=>{const el=document.getElementById('ins'+no+'_'+k);if(el)el.value=val['v'+k]||'';});});
+  Object.entries(rec.iMemos||{}).forEach(([no,val])=>{const el=document.getElementById('insmemo'+no);if(el)el.value=val;});
+  if(rec.meas){Object.entries(rec.meas).forEach(([k,v])=>{const el=document.getElementById(k);if(el)el.value=v;});}
   Object.entries(rec.ops||{}).forEach(([no,op])=>{Object.entries(op).forEach(([k,v])=>{const el=document.getElementById('op'+no+'_'+k);if(el)el.value=v;});});
 }
 
-async function saveRecord(){
-  const date=document.getElementById('f_date')?.value;
-  if(!date){toast('⚠ 点検実施日を入力してください');return;}
+async function saveRec(){
+  const date=document.getElementById('f_date')?.value;if(!date){toast('⚠ 点検実施日を入力してください');return;}
   const rec=gatherForm();
-  const res=await api('saveRecord',{siteId:currentSite,record:rec}); if(!res) return;
-  editingId=null; toast('✓ 保存しました');
-  setTimeout(()=>renderHistoryPage(currentSite),600);
+  const res=await api('saveRecord',{siteId:currentSite,record:rec});if(!res)return;
+  editingId=null;toast('✓ 保存しました');
+  setTimeout(()=>renderHistory(currentSite),600);
 }
 
-function exportCSV(){
-  const rec=gatherForm();
+// ══ PDF・印刷 ══
+function doPrint(rid,mode){
+  const rec=(records[currentSite]||[]).find(r=>r.id===rid);if(!rec)return;
   const site=sites.find(s=>s.id===currentSite);
-  let csv='項目No.,点検項目,結果,メモ\n';
-  [...ELEC_ITEMS,...MECH_ITEMS].forEach(it=>{ csv+=`${it.no},"${it.name}","${rec.checks[it.no]||'—'}","${rec.memos[it.no]||''}"\n`; });
-  const blob=new Blob(['\ufeff'+csv],{type:'text/csv;charset=utf-8'});
-  const a=document.createElement('a'); a.href=URL.createObjectURL(blob);
-  a.download=`点検記録_${site?.name||''}_${rec.date||'日付未定'}.csv`; a.click();
-  toast('📥 CSVエクスポート完了');
-}
+  const allItems=[...ELEC,...MECH,...CTRL];
 
-// ═══ PDF PRINT ═══
-function printRecord(rid, mode='print'){
-  const rec=(records[currentSite]||[]).find(r=>r.id===rid); if(!rec) return;
-  const site=sites.find(s=>s.id===currentSite);
-  const allItems=[...ELEC_ITEMS,...MECH_ITEMS];
-
-  // 点検項目表
   const checkRows=allItems.map(it=>{
-    const v=rec.checks[it.no]||'-';
-    const isNg=v==='abnormal';
-    const memo=rec.memos?.[it.no]||'';
-    return `<tr class="${isNg?'pdf-ng':''}"><td class="td-no">${it.no}</td><td class="td-name">${it.name}</td><td class="td-result" style="text-align:center">${isNg?'<b style="color:#c84b1a">異常</b>':v==='normal'?'正常':'—'}</td><td class="td-memo">${memo}</td></tr>`;
+    const v=rec.checks?.[it.no]||'-';const isNg=v==='abnormal';const memo=rec.memos?.[it.no]||'';
+    return `<tr class="${isNg?'pt-ng':''}"><td class="tno">${it.no}</td><td class="tname">${it.name}</td><td class="tres">${isNg?'<b style="color:#c84b1a">異常</b>':v==='normal'?'正常':'—'}</td><td>${memo}</td></tr>`;
   }).join('');
 
+  const elecRows=ELEC.map(it=>{const v=rec.checks?.[it.no]||'-';const isNg=v==='abnormal';const memo=rec.memos?.[it.no]||'';return `<tr class="${isNg?'pt-ng':''}"><td class="tno">${it.no}</td><td class="tname">${it.name}</td><td class="tres">${isNg?'<b style="color:#c84b1a">異常</b>':v==='normal'?'正常':'—'}</td><td>${memo}</td></tr>`;}).join('');
+  const mechRows=MECH.map(it=>{const v=rec.checks?.[it.no]||'-';const isNg=v==='abnormal';const memo=rec.memos?.[it.no]||'';return `<tr class="${isNg?'pt-ng':''}"><td class="tno">${it.no}</td><td class="tname">${it.name}</td><td class="tres">${isNg?'<b style="color:#c84b1a">異常</b>':v==='normal'?'正常':'—'}</td><td>${memo}</td></tr>`;}).join('');
+  const ctrlRows=CTRL.map(it=>{const v=rec.checks?.[it.no]||'-';const isNg=v==='abnormal';const memo=rec.memos?.[it.no]||'';return `<tr class="${isNg?'pt-ng':''}"><td class="tno">${it.no}</td><td class="tname">${it.name}</td><td class="tres">${isNg?'<b style="color:#c84b1a">異常</b>':v==='normal'?'正常':'—'}</td><td>${memo}</td></tr>`;}).join('');
 
+  const refRows=REFRIG.map(it=>{const v=rec.refrig?.[it.no];const memo=rec.rMemos?.[it.no]||'';let val='—';if(it.dual)val=`${v?.v1||'—'} / ${v?.v2||'—'} ${it.unit}`;else if(it.yesno)val=v||'無';else if(v)val=`${v} ${it.unit}`;return `<tr><td class="ml">No.${it.no}　${it.name}</td><td class="mv">${val}</td><td class="mm">${memo}</td></tr>`;}).join('');
+  const vRows=VOLT.map(it=>{const v=rec.voltage?.[it.no];const memo=rec.vMemos?.[it.no]||'';let val='—';if(it.triple)val=`${v?.v1||'—'} / ${v?.v2||'—'} / ${v?.v3||'—'} ${it.unit}`;else if(it.rated)val=`実測:${v?.m||'—'}　定格:${v?.r||'—'} ${it.unit}`;else if(v)val=`${v} ${it.unit}`;return `<tr><td class="ml">No.${it.no}　${it.name}</td><td class="mv">${val}</td><td class="mm">${memo}</td></tr>`;}).join('');
+  const insRows=INS.map(it=>{const v=rec.ins?.[it.no]||{};const memo=rec.iMemos?.[it.no]||'';return `<tr><td style="text-align:left;padding:2pt 4pt">${it.no}</td><td style="text-align:left;padding:2pt 4pt">${it.name}</td><td>${v.v2||'—'}</td><td>${v.v4||'—'}</td><td>${v.v6||'—'}</td><td style="text-align:left">${memo}</td></tr>`;}).join('');
+  const m=rec.meas||{};
+  const measHtml=`<div class="pt-mea" style="font-size:7pt"><div style="padding:2pt 4pt;border:.5px solid #bbb;margin-bottom:1pt">No.56 日時: ${m.meas56_dt||'—'} / 天候: ${m.meas56_wx||'—'}</div><div style="padding:2pt 4pt;border:.5px solid #bbb;margin-bottom:1pt">No.57 測温誤差 吸気: ${m.meas57_1||'—'}℃ / 排気: ${m.meas57_2||'—'}℃　${m.meas57_m||''}</div><div style="padding:2pt 4pt;border:.5px solid #bbb;margin-bottom:1pt">No.58 温度校正 一次側: ${m.meas58_1||'—'}℃ / 出側: ${m.meas58_2||'—'}℃　${m.meas58_m||''}</div><div style="padding:2pt 4pt;border:.5px solid #bbb;margin-bottom:1pt">No.61 湿度制御（3℃差）: ${m.meas61_pct||'—'}% / 出側: ${m.meas61_out||'—'}℃　${m.meas61_m||''}</div><div style="padding:2pt 4pt;border:.5px solid #bbb">No.62 湿度制御（8℃差）: ${m.meas62_pct||'—'}% / 出側: ${m.meas62_out||'—'}℃　${m.meas62_m||''}</div></div>`;
+  const opRows=OPS.map(op=>{const o=rec.ops?.[op.no]||{};return `<tr><td style="text-align:left;padding:1pt 3pt;font-size:5.5pt">${op.label}</td><td>${o.dt||'—'}</td><td>${o.wx||'—'}</td><td>${o.ot||'—'}</td><td>${o.oh||'—'}</td><td>${o.st||'—'}</td><td>${o.ct||'—'}</td><td>${o.out||'—'}</td><td>${o.hp||'—'}</td><td>${o.lp||'—'}</td><td>${o.comp?o.comp+'%':'—'}</td><td style="text-align:left;font-size:5.5pt">${o.memo||''}</td></tr>`;}).join('');
 
-  // 絶縁測定値
-  const insRows=INS_ITEMS.map(it=>{
-    const v=rec.insulation?.[it.no]||{}; const memo=rec.insMemos?.[it.no]||'';
-    return `<tr><td style="text-align:left;padding:2pt 4pt">${it.no}</td><td style="text-align:left;padding:2pt 4pt">${it.name}</td><td>${v.v2||'—'}</td><td>${v.v4||'—'}</td><td>${v.v6||'—'}</td><td style="text-align:left;font-size:6.5pt">${memo}</td></tr>`;
-  }).join('');
-
-  // 運転状況
-  const opRows=OP_CONDITIONS.map(op=>{
-    const o=rec.ops?.[op.no]||{};
-    return `<tr><td style="text-align:left;padding:2pt 3pt;font-size:6pt">${op.label}</td><td>${o.dt||'—'}</td><td>${o.wx||'—'}</td><td>${o.ot||'—'}</td><td>${o.oh||'—'}</td><td>${o.st||'—'}</td><td>${o.ct||'—'}</td><td>${o.out||'—'}</td><td>${o.hp||'—'}</td><td>${o.lp||'—'}</td><td>${o.comp?o.comp+'%':'—'}</td><td style="text-align:left;font-size:6pt">${o.memo||''}</td></tr>`;
-  }).join('');
-
-  // 冷凍回路を表形式（2列）に変換
-  const refrigTableRows = REFRIG_ITEMS.map(it=>{
-    const v=rec.refrig?.[it.no]; const memo=rec.refrigMemos?.[it.no]||'';
-    let val='—';
-    if(it.dual) val=`${v?.v1||'—'} / ${v?.v2||'—'} ${it.unit}`;
-    else if(it.yesno) val=v||'無';
-    else if(v) val=`${v} ${it.unit}`;
-    return `<tr><td class="pm-label">No.${it.no}　${it.name}</td><td class="pm-val">${val}</td><td class="pm-memo">${memo}</td></tr>`;
-  }).join('');
-
-  // 電圧・電流を表形式（2列）に変換
-  const voltTableRows = VOLT_ITEMS.map(it=>{
-    const v=rec.voltage?.[it.no]; const memo=rec.voltMemos?.[it.no]||'';
-    let val='—';
-    if(it.triple) val=`${v?.v1||'—'} / ${v?.v2||'—'} / ${v?.v3||'—'} ${it.unit}`;
-    else if(it.rated) val=`実測:${v?.m||'—'}　定格:${v?.r||'—'} ${it.unit}`;
-    else if(v) val=`${v} ${it.unit}`;
-    return `<tr><td class="pm-label">No.${it.no}　${it.name}</td><td class="pm-val">${val}</td><td class="pm-memo">${memo}</td></tr>`;
-  }).join('');
-
-  document.getElementById('print-area').innerHTML=`
-<div class="pdf" style="margin:0;padding:0;background:#fff">
-  <div class="pdf-title">穀物冷却装置グラニフリガー 細密点検記録表</div>
-  <div class="pdf-subtitle">GRANIFRIGOR® Grain Cooler &amp; Grain Cooling System</div>
-  <div class="pdf-company">SANEI 株式会社サンエー</div>
-
-  <table class="pdf-header-table">
-    <tr>
-      <td class="lh">お客様名</td><td colspan="3">${site?.name||''} 殿</td>
-      <td class="lh">点検実施日</td><td>${rec.date||''}</td>
-    </tr>
-    <tr>
-      <td class="lh">所在地</td><td colspan="3">${site?.loc||''}</td>
-      <td class="lh">担当者</td><td>${rec.staff||''}</td>
-    </tr>
-    <tr>
-      <td class="lh">機械型式</td><td>${rec.model||''}</td>
-      <td class="lh">製造No.</td><td>${rec.serial||''}</td>
-      <td class="lh">製造年</td><td>${rec.year||''}</td>
-    </tr>
-    <tr>
-      <td class="lh">図番</td><td>${rec.drawing||''}</td>
-      <td class="lh">運転時間積算値</td><td colspan="3">${rec.runtime||''} 時間</td>
-    </tr>
+  document.getElementById('print-area').innerHTML=`<div class="pt" style="margin:0;padding:0;background:#fff">
+  <div class="pt-title">穀物冷却装置グラニフリガー 細密点検記録表</div>
+  <div class="pt-subtitle">GRANIFRIGOR® Grain Cooler &amp; Grain Cooling System</div>
+  <div class="pt-company">SANEI 株式会社サンエー</div>
+  <table class="pt-h">
+    <tr><td class="hl">お客様名</td><td colspan="3">${site?.name||''} 殿</td><td class="hl">点検実施日</td><td>${rec.date||''}</td></tr>
+    <tr><td class="hl">所在地</td><td colspan="3">${site?.loc||''}</td><td class="hl">担当者</td><td>${rec.staff||''}</td></tr>
+    <tr><td class="hl">機械型式</td><td>${rec.model||''}</td><td class="hl">製造No.</td><td>${rec.serial||''}</td><td class="hl">製造年</td><td>${rec.year||''}</td></tr>
+    <tr><td class="hl">図番</td><td>${rec.drawing||''}</td><td class="hl">運転時間積算値</td><td colspan="3">${rec.runtime||''} 時間</td></tr>
   </table>
-
-  <div class="pdf-section">■ 電気系・機械系 点検項目</div>
-  <table class="pdf-check-table">
-    <thead><tr><th style="width:16pt">No.</th><th>点検項目</th><th style="width:30pt">結果</th><th>メモ・対応内容</th></tr></thead>
-    <tbody>${checkRows}</tbody>
-  </table>
-
-  <div class="pdf-section">■ 冷凍回路 測定値 (No.32〜41)</div>
-  <table class="pdf-measure-table">
-    <tbody>${refrigTableRows}</tbody>
-  </table>
-
-  <div class="pdf-section">■ 電源電圧・電流値 (No.63〜77)</div>
-  <table class="pdf-measure-table">
-    <tbody>${voltTableRows}</tbody>
-  </table>
-
-  <div class="pdf-section">■ 絶縁測定値 (No.78〜88)</div>
-  <table class="pdf-ins-table">
-    <thead><tr><th style="width:16pt">No.</th><th style="text-align:left;padding:2pt 4pt">測定箇所</th><th style="width:40pt">2MΩ</th><th style="width:40pt">4MΩ</th><th style="width:40pt">6MΩ</th><th>メモ</th></tr></thead>
-    <tbody>${insRows}</tbody>
-  </table>
-
-  <div class="pdf-section">■ 運転状況記録 (No.51〜54)</div>
-  <table class="pdf-op-table">
-    <thead><tr><th>条件</th><th>日時</th><th>天候</th><th>外気温℃</th><th>湿度%</th><th>設定温度℃</th><th>制御温度℃</th><th>出側℃</th><th>高圧bar</th><th>低圧bar</th><th>コンプ%</th><th>メモ</th></tr></thead>
-    <tbody>${opRows}</tbody>
-  </table>
-
-  <div class="pdf-footer-grid">
-    <div class="pdf-sign-box">
-      <div class="psl">作業時間</div>
-      <div style="margin-top:4pt">${rec.start||'—'} 〜 ${rec.end||'—'}</div>
-    </div>
-    <div class="pdf-sign-box">
-      <div class="psl">お客様確認サイン</div>
-    </div>
-    <div class="pdf-notes-full">
-      <div class="psl">特記事項</div>
-      <div style="margin-top:4pt">${rec.notes||''}</div>
-    </div>
+  <div class="pt-sec">■ 点検項目</div>
+  <div style="display:flex;border:.5px solid #999;border-top:none">
+    <div style="writing-mode:vertical-rl;background:#d9d9d9;font-size:6.5pt;font-weight:700;padding:3pt 2pt;border-right:.5px solid #999;text-align:center;min-width:13pt">電気系</div>
+    <table class="pt-table" style="flex:1"><thead><tr><th style="width:14pt">No.</th><th>点検項目</th><th style="width:28pt">結果</th><th>メモ・対応内容</th></tr></thead><tbody>${elecRows}</tbody></table>
   </div>
-  <div style="margin-top:4pt;font-size:6.5pt;color:#999;text-align:right">ver. 20250610 / www.silo.jp</div>
+  <div style="display:flex;border:.5px solid #999;border-top:none">
+    <div style="writing-mode:vertical-rl;background:#d9d9d9;font-size:6.5pt;font-weight:700;padding:3pt 2pt;border-right:.5px solid #999;text-align:center;min-width:13pt">機械系</div>
+    <table class="pt-table" style="flex:1"><tbody>${mechRows}</tbody></table>
+  </div>
+  <div style="display:flex;border:.5px solid #999;border-top:none">
+    <div style="writing-mode:vertical-rl;background:#d9d9d9;font-size:6.5pt;font-weight:700;padding:3pt 2pt;border-right:.5px solid #999;text-align:center;min-width:13pt">制御系</div>
+    <table class="pt-table" style="flex:1"><tbody>${ctrlRows}</tbody></table>
+  </div>
+  <div class="pt-sec">■ 冷凍回路 測定値 (No.32〜41)</div>
+  <table class="pt-mea"><tbody>${refRows}</tbody></table>
+  <div class="pt-sec">■ 電源電圧・電流値 (No.63〜77)</div>
+  <table class="pt-mea"><tbody>${vRows}</tbody></table>
+  <div class="pt-sec">■ 絶縁測定値 (No.78〜88)</div>
+  <table class="pt-ins"><thead><tr><th style="width:14pt">No.</th><th style="text-align:left;padding:2pt 4pt">測定箇所</th><th style="width:38pt">2MΩ</th><th style="width:38pt">4MΩ</th><th style="width:38pt">6MΩ</th><th>メモ</th></tr></thead><tbody>${insRows}</tbody></table>
+  <div class="pt-sec">■ 測定・校正 (No.56〜62)</div>
+  ${measHtml}
+  <div class="pt-sec">■ 運転状況記録 (No.51〜54)</div>
+  <table class="pt-op"><thead><tr><th>条件</th><th>日時</th><th>天候</th><th>外気温℃</th><th>湿度%</th><th>設定温度℃</th><th>制御温度℃</th><th>出側℃</th><th>高圧bar</th><th>低圧bar</th><th>コンプ%</th><th>メモ</th></tr></thead><tbody>${opRows}</tbody></table>
+  <div class="pt-foot">
+    <div class="pt-sign"><div class="sl">作業時間</div><div style="margin-top:3pt">${rec.start||'—'} 〜 ${rec.end||'—'}</div></div>
+    <div class="pt-sign"><div class="sl">お客様確認サイン</div></div>
+    <div class="pt-notes"><div class="sl">特記事項</div><div style="margin-top:3pt">${rec.notes||''}</div></div>
+  </div>
+  <div style="margin-top:3pt;font-size:6pt;color:#999;text-align:right">ver. 20250611 / www.silo.jp</div>
 </div>`;
+
   if(mode==='pdf'){
-    // PDF保存: 印刷ダイアログで「PDFに保存」を選択するよう案内
-    const style = document.createElement('style');
-    style.id = 'pdf-hint-style';
-    style.textContent = '@media print{#pdf-hint{display:none!important}}';
-    document.head.appendChild(style);
-    const hint = document.createElement('div');
-    hint.id = 'pdf-hint';
-    hint.style.cssText = 'position:fixed;top:12px;left:50%;transform:translateX(-50%);background:#1a4f8a;color:#fff;padding:10px 20px;border-radius:8px;font-size:13px;z-index:9999;font-family:sans-serif';
-    hint.textContent = '印刷画面で「PDFに保存」を選択してください';
+    const hint=document.createElement('div');
+    hint.style.cssText='position:fixed;top:16px;left:50%;transform:translateX(-50%);background:#1a4f8a;color:#fff;padding:10px 20px;border-radius:8px;font-size:13px;z-index:9999';
+    hint.textContent='印刷画面で「PDFに保存」を選択してください';
     document.body.appendChild(hint);
-    setTimeout(()=>{
-      window.print();
-      setTimeout(()=>{ hint.remove(); style.remove(); },1000);
-    },300);
+    setTimeout(()=>{window.print();setTimeout(()=>hint.remove(),1500);},300);
   } else {
     window.print();
   }
 }
 
-// ═══ SITE MGMT ═══
 async function addSite(){
-  const name=document.getElementById('ns-name').value.trim();
-  if(!name){alert('現場名を入力してください');return;}
-  const res=await api('addSite',{name,loc:document.getElementById('ns-loc').value,memo:document.getElementById('ns-memo').value}); if(!res) return;
-  closeModal('modal-site');
-  ['ns-name','ns-loc','ns-memo'].forEach(id=>document.getElementById(id).value='');
+  const name=document.getElementById('ns-name').value.trim();if(!name){alert('現場名を入力してください');return;}
+  const res=await api('addSite',{name,loc:document.getElementById('ns-loc').value,memo:document.getElementById('ns-memo').value});if(!res)return;
+  closeModal('modal-site');['ns-name','ns-loc','ns-memo'].forEach(id=>document.getElementById(id).value='');
   toast('✓ 現場を登録しました');
-  const sres=await api('getSites'); if(!sres) return;
-  sites=sres.sites||[]; renderSidebarSites();
-  openSite(res.id);
+  const sres=await api('getSites');if(!sres)return;
+  sites=sres.sites||[];renderSideNav();openSite(res.id);
 }
 
-// ═══ INIT ═══
-showPage('home');
+// 起動
+gotoPage('home');
 </script>
 </body>
 </html>
