@@ -158,7 +158,7 @@ textarea{resize:vertical;min-height:60px}
 .pt-op td{border:.5px solid #bbb;padding:2pt 2pt;text-align:center}
 /* フッター */
 .pt-foot{display:grid;grid-template-columns:1fr 1fr;gap:3pt;margin-top:4pt}
-.pt-sign{border:.5px solid #999;padding:3pt;min-height:28pt;font-size:7pt}
+.pt-sign{border:.5px solid #999;padding:3pt;min-height:46pt;font-size:7pt}
 .pt-sign .sl{font-size:6.5pt;color:#555;font-weight:500;margin-bottom:2pt}
 .pt-notes{border:.5px solid #999;padding:3pt;min-height:20pt;margin-top:3pt;font-size:7pt;grid-column:1/-1}
 </style>
@@ -399,6 +399,18 @@ function renderForm(siteId){
         <div class="field full"><label class="lbl">特記事項</label><textarea id="f_notes"></textarea></div>
       </div></div>
     </div>
+    <div class="card">
+      <div class="card-head" onclick="toggleCard(this)"><span>✍️</span><h3>お客様確認サイン</h3><span class="chevron">▾</span></div>
+      <div class="card-body">
+        <p style="font-size:12px;color:var(--text2);margin-bottom:8px">下のエリアに指またはマウスでサインしてください</p>
+        <div style="border:1px solid var(--border2);border-radius:var(--radius);background:#fff;touch-action:none">
+          <canvas id="sign-canvas" width="600" height="180" style="width:100%;height:180px;display:block;cursor:crosshair"></canvas>
+        </div>
+        <div style="margin-top:8px;display:flex;gap:8px">
+          <button class="btn btn-sm" onclick="clearSignature()">🗑 サインをクリア</button>
+        </div>
+      </div>
+    </div>
     <div class="actions-bar">
       <button class="btn btn-primary" onclick="saveRec()">💾 保存する</button>
       <button class="btn btn-danger" onclick="confirm2('クリア','入力内容をリセットしますか？',()=>renderForm(currentSite))">🗑 クリア</button>
@@ -406,6 +418,7 @@ function renderForm(siteId){
   buildChecks('elec-body',ELEC);buildChecks('mech-body',MECH);buildChecks('ctrl-body',CTRL);
   buildRefrig();buildVolt();buildIns();buildMeas();buildOps();
   document.getElementById('f_date').value=new Date().toISOString().slice(0,10);
+  initSignatureCanvas();
   if(editingId)loadIntoForm(editingId);
 }
 
@@ -446,7 +459,81 @@ function gatherForm(){
   const meas={meas56_dt:document.getElementById('meas56_dt')?.value||'',meas56_wx:document.getElementById('meas56_wx')?.value||'',meas57_1:document.getElementById('meas57_1')?.value||'',meas57_2:document.getElementById('meas57_2')?.value||'',meas57_m:document.getElementById('meas57_m')?.value||'',meas58_1:document.getElementById('meas58_1')?.value||'',meas58_2:document.getElementById('meas58_2')?.value||'',meas58_m:document.getElementById('meas58_m')?.value||'',meas61_pct:document.getElementById('meas61_pct')?.value||'',meas61_out:document.getElementById('meas61_out')?.value||'',meas61_m:document.getElementById('meas61_m')?.value||'',meas62_pct:document.getElementById('meas62_pct')?.value||'',meas62_out:document.getElementById('meas62_out')?.value||'',meas62_m:document.getElementById('meas62_m')?.value||''};
   const ops={};
   OPS.forEach(op=>{ops[op.no]={};['dt','wx','ot','oh','st','ct','out','hp','lp','comp','af','drain','memo'].forEach(k=>{const el=document.getElementById('op'+op.no+'_'+k);if(el)ops[op.no][k]=el.value;});});
-  return {id:editingId||Date.now().toString(),date:document.getElementById('f_date')?.value||'',staff:document.getElementById('f_staff')?.value||'',model:document.getElementById('f_model')?.value||'',serial:document.getElementById('f_serial')?.value||'',year:document.getElementById('f_year')?.value||'',drawing:document.getElementById('f_drawing')?.value||'',runtime:document.getElementById('f_runtime')?.value||'',start:document.getElementById('f_start')?.value||'',end:document.getElementById('f_end')?.value||'',notes:document.getElementById('f_notes')?.value||'',checks,memos,refrig,rMemos,voltage,vMemos,ins,iMemos,meas,ops};
+  return {id:editingId||Date.now().toString(),date:document.getElementById('f_date')?.value||'',staff:document.getElementById('f_staff')?.value||'',model:document.getElementById('f_model')?.value||'',serial:document.getElementById('f_serial')?.value||'',year:document.getElementById('f_year')?.value||'',drawing:document.getElementById('f_drawing')?.value||'',runtime:document.getElementById('f_runtime')?.value||'',start:document.getElementById('f_start')?.value||'',end:document.getElementById('f_end')?.value||'',notes:document.getElementById('f_notes')?.value||'',checks,memos,refrig,rMemos,voltage,vMemos,ins,iMemos,meas,ops,signature:getSignatureData()};
+}
+
+// ══ サインキャンバス ══
+let signPad=null;
+function initSignatureCanvas(){
+  const canvas=document.getElementById('sign-canvas');
+  if(!canvas) return;
+  // 表示サイズに合わせて実ピクセルを設定（高解像度対応）
+  const ratio=window.devicePixelRatio||1;
+  const rect=canvas.getBoundingClientRect();
+  canvas.width=rect.width*ratio;
+  canvas.height=180*ratio;
+  const ctx=canvas.getContext('2d');
+  ctx.scale(ratio,ratio);
+  ctx.strokeStyle='#000000';
+  ctx.lineWidth=3.5;
+  ctx.lineCap='round';
+  ctx.lineJoin='round';
+  let drawing=false,lastX=0,lastY=0;
+
+  function pos(e){
+    const r=canvas.getBoundingClientRect();
+    const cx=(e.touches?e.touches[0].clientX:e.clientX)-r.left;
+    const cy=(e.touches?e.touches[0].clientY:e.clientY)-r.top;
+    return {x:cx,y:cy};
+  }
+  function start(e){e.preventDefault();drawing=true;const p=pos(e);lastX=p.x;lastY=p.y;}
+  function move(e){
+    if(!drawing) return;
+    e.preventDefault();
+    const p=pos(e);
+    ctx.beginPath();
+    ctx.moveTo(lastX,lastY);
+    ctx.lineTo(p.x,p.y);
+    ctx.stroke();
+    lastX=p.x;lastY=p.y;
+  }
+  function end(){drawing=false;}
+
+  canvas.addEventListener('mousedown',start);
+  canvas.addEventListener('mousemove',move);
+  canvas.addEventListener('mouseup',end);
+  canvas.addEventListener('mouseleave',end);
+  canvas.addEventListener('touchstart',start,{passive:false});
+  canvas.addEventListener('touchmove',move,{passive:false});
+  canvas.addEventListener('touchend',end);
+
+  signPad={canvas,ctx,ratio};
+}
+function clearSignature(){
+  if(!signPad) return;
+  const {canvas,ctx,ratio}=signPad;
+  ctx.clearRect(0,0,canvas.width/ratio,canvas.height/ratio);
+}
+function getSignatureData(){
+  const canvas=document.getElementById('sign-canvas');
+  if(!canvas) return '';
+  // 空白チェック：何も描かれていなければ空文字を返す
+  const ctx=canvas.getContext('2d');
+  const imgData=ctx.getImageData(0,0,canvas.width,canvas.height).data;
+  let hasContent=false;
+  for(let i=3;i<imgData.length;i+=4){ if(imgData[i]>0){hasContent=true;break;} }
+  if(!hasContent) return '';
+  return canvas.toDataURL('image/png');
+}
+function loadSignatureData(dataUrl){
+  if(!dataUrl||!signPad) return;
+  const img=new Image();
+  img.onload=()=>{
+    const {canvas,ctx,ratio}=signPad;
+    ctx.clearRect(0,0,canvas.width/ratio,canvas.height/ratio);
+    ctx.drawImage(img,0,0,canvas.width/ratio,canvas.height/ratio);
+  };
+  img.src=dataUrl;
 }
 
 function loadIntoForm(rid){
@@ -462,6 +549,7 @@ function loadIntoForm(rid){
   Object.entries(rec.iMemos||{}).forEach(([no,val])=>{const el=document.getElementById('insmemo'+no);if(el)el.value=val;});
   if(rec.meas){Object.entries(rec.meas).forEach(([k,v])=>{const el=document.getElementById(k);if(el)el.value=v;});}
   Object.entries(rec.ops||{}).forEach(([no,op])=>{Object.entries(op).forEach(([k,v])=>{const el=document.getElementById('op'+no+'_'+k);if(el)el.value=v;});});
+  if(rec.signature) loadSignatureData(rec.signature);
 }
 
 async function saveRec(){
@@ -558,7 +646,7 @@ async function doPrint(rid,mode,siteId){
     <table class="pt-op"><thead><tr><th>条件</th><th>日時</th><th>天候</th><th>外気温℃</th><th>湿度%</th><th>設定温度℃</th><th>制御温度℃</th><th>出側℃</th><th>高圧bar</th><th>低圧bar</th><th>コンプ%</th><th>メモ</th></tr></thead><tbody>${opRows}</tbody></table>
     <div class="pt-foot">
       <div class="pt-sign"><div class="sl">作業時間</div><div style="margin-top:3pt">${rec.start||'—'} 〜 ${rec.end||'—'}</div></div>
-      <div class="pt-sign"><div class="sl">お客様確認サイン</div></div>
+      <div class="pt-sign"><div class="sl">お客様確認サイン</div>${rec.signature?`<img src="${rec.signature}" style="max-height:40pt;max-width:100%;margin-top:2pt;filter:contrast(1.4) brightness(0.9)">`:''}</div>
       <div class="pt-notes"><div class="sl">特記事項</div><div style="margin-top:3pt">${rec.notes||''}</div></div>
     </div>
     <div style="margin-top:3pt;font-size:6pt;color:#999;text-align:right">ver. 20250611 / www.silo.jp</div>
