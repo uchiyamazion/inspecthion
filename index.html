@@ -175,6 +175,7 @@ textarea{resize:vertical;min-height:60px}
     <div class="nav-item active" id="nav-home" onclick="gotoPage('home')">🏠 ダッシュボード</div>
     <div class="nav-item" id="nav-sites" onclick="gotoPage('sites')">🏢 現場一覧</div>
     <div class="nav-item" id="nav-settings" onclick="gotoPage('settings')">⚙️ API設定</div>
+    <div class="nav-item" id="nav-manual" onclick="gotoPage('manual')">📖 操作マニュアル</div>
     <div class="nav-section" style="margin-top:8px">現場</div>
     <div id="sidebar-sites"></div>
   </div>
@@ -250,6 +251,7 @@ async function gotoPage(page,siteId){
   if(page==='home') await renderHome();
   else if(page==='sites') await renderSites();
   else if(page==='settings') renderSettings();
+  else if(page==='manual') renderManual();
   else if(page==='form') renderForm(siteId);
   else if(page==='history') await renderHistory(siteId);
 }
@@ -299,6 +301,105 @@ function renderSettings(){
         <div style="margin-top:12px;display:flex;gap:8px">
           <button class="btn" onclick="testGas()">接続テスト</button>
         </div>
+      </div>
+    </div>`;
+}
+
+function renderManual(){
+  navAct('nav-manual');
+  setTop('操作マニュアル');
+  document.getElementById('main-content').innerHTML=`
+    <div class="card" style="max-width:760px">
+      <div class="card-body" style="font-size:13px;line-height:1.9">
+
+        <h2 style="font-size:16px;color:var(--accent);margin-bottom:6px">グラニフリガー 細密点検記録システム</h2>
+        <p style="color:var(--text2);margin-bottom:18px">操作マニュアル — SANEI 株式会社サンエー</p>
+
+        <h3 style="font-size:14px;border-bottom:2px solid var(--border);padding-bottom:6px;margin-top:20px">1. このシステムについて</h3>
+        <p>本システムは、グラニフリガー（穀物冷却装置）の細密点検記録を、スマートフォン・タブレット・パソコンのどの端末からでも入力・保存・確認できるWebアプリです。</p>
+        <div style="background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:10px 14px;margin:10px 0">
+          <div style="font-weight:600;color:var(--accent);margin-bottom:4px">主な特長</div>
+          <ul style="margin:0;padding-left:18px">
+            <li>現場（お客様）ごとに点検記録を分けて管理できます</li>
+            <li>入力したデータはGoogleスプレッドシートに保存され、どの端末からでも同じデータを確認できます</li>
+            <li>点検結果は元の紙の点検記録表と同じ書式でPDF・印刷出力できます</li>
+            <li>お客様の確認サインを画面上で手書きし、記録に残せます</li>
+          </ul>
+        </div>
+
+        <h3 style="font-size:14px;border-bottom:2px solid var(--border);padding-bottom:6px;margin-top:20px">2. 基本の使い方</h3>
+        <p>画面の構成は次の3つです。</p>
+        <table style="width:100%;border-collapse:collapse;margin:10px 0;font-size:12.5px">
+          <tr><th style="background:var(--accent-light);border:1px solid var(--border2);padding:5px 8px;text-align:left">画面</th><th style="background:var(--accent-light);border:1px solid var(--border2);padding:5px 8px;text-align:left">内容</th></tr>
+          <tr><td style="border:1px solid var(--border);padding:5px 8px">ダッシュボード</td><td style="border:1px solid var(--border);padding:5px 8px">登録現場の概要、最近の点検記録、異常件数の一覧を表示します</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:5px 8px">現場一覧</td><td style="border:1px solid var(--border);padding:5px 8px">登録済みの現場をすべて一覧表示します。タップすると各現場の点検履歴に移動します</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:5px 8px">点検入力 / 履歴</td><td style="border:1px solid var(--border);padding:5px 8px">選択した現場の点検記録一覧、または新規入力フォームを表示します</td></tr>
+        </table>
+        <p>画面左側（スマートフォンでは左上の「☰」ボタン）からいつでもメニューを開いて移動できます。</p>
+
+        <h3 style="font-size:14px;border-bottom:2px solid var(--border);padding-bottom:6px;margin-top:20px">3. 現場の登録</h3>
+        <ol style="padding-left:18px">
+          <li>ダッシュボードまたは現場一覧の画面で「＋ 新規現場登録」ボタンをタップします。</li>
+          <li>「現場名 / お客様名」に正式名称を入力します（必須項目です）。</li>
+          <li>「所在地」「備考」は分かる範囲で入力します（省略可）。</li>
+          <li>「登録する」をタップすると現場が作成され、自動的にその現場の点検記録画面に移動します。</li>
+        </ol>
+        <div style="background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:10px 14px;margin:10px 0">
+          <div style="font-weight:600;color:var(--accent);margin-bottom:4px">ポイント</div>
+          <p style="margin:0">登録した現場名と所在地は、PDF出力時の「お客様名」「所在地」欄にそのまま反映されます。誤字がないか登録時に確認してください。</p>
+        </div>
+
+        <h3 style="font-size:14px;border-bottom:2px solid var(--border);padding-bottom:6px;margin-top:20px">4. 点検記録の入力</h3>
+        <p>現場の履歴画面で「＋ 新規点検記録」をタップすると、点検入力フォームが開きます。各カードのタイトル部分をタップすると開閉できます。</p>
+        <table style="width:100%;border-collapse:collapse;margin:10px 0;font-size:12px">
+          <tr><th style="background:var(--accent-light);border:1px solid var(--border2);padding:4px 6px;text-align:left">セクション</th><th style="background:var(--accent-light);border:1px solid var(--border2);padding:4px 6px;text-align:left">内容</th></tr>
+          <tr><td style="border:1px solid var(--border);padding:4px 6px">基本情報</td><td style="border:1px solid var(--border);padding:4px 6px">点検実施日、担当者、機械型式、製造No.など</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:4px 6px">電気系点検 (No.2〜9)</td><td style="border:1px solid var(--border);padding:4px 6px">配線、スイッチ、表示ランプなどの点検</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:4px 6px">機械系点検 (No.10〜31)</td><td style="border:1px solid var(--border);padding:4px 6px">ダクト、フィルター、コンデンサーなどの点検</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:4px 6px">制御系点検 (No.42〜50)</td><td style="border:1px solid var(--border);padding:4px 6px">パラメータ設定、各種手動制御の確認</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:4px 6px">冷凍回路 (No.32〜41)</td><td style="border:1px solid var(--border);padding:4px 6px">高圧・低圧、冷媒量、各部温度など</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:4px 6px">電源電圧・電流値 (No.63〜77)</td><td style="border:1px solid var(--border);padding:4px 6px">電圧、各モーター・コンプレッサーの電流値</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:4px 6px">絶縁測定値 (No.78〜88)</td><td style="border:1px solid var(--border);padding:4px 6px">各機器の絶縁抵抗（2/4/6MΩ）</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:4px 6px">測定・校正 (No.56〜62)</td><td style="border:1px solid var(--border);padding:4px 6px">外気温湿度、測温誤差、温度校正値など</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:4px 6px">運転状況記録 (No.51〜54)</td><td style="border:1px solid var(--border);padding:4px 6px">4つの運転条件ごとの温度・圧力</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:4px 6px">特記事項・作業時間</td><td style="border:1px solid var(--border);padding:4px 6px">作業時刻、気になった点の自由記入</td></tr>
+        </table>
+        <div style="background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:10px 14px;margin:10px 0">
+          <div style="font-weight:600;color:var(--accent);margin-bottom:4px">点検項目の入力方法</div>
+          <p style="margin:0">各項目には「正常」「異常」「－（未確認）」のいずれかを選びます。<strong>「異常」を選んだ項目は赤色で表示され、PDF出力時にも強調されます。</strong>右側のメモ欄には対応内容を自由に記入できます。</p>
+        </div>
+
+        <h3 style="font-size:14px;border-bottom:2px solid var(--border);padding-bottom:6px;margin-top:20px">5. お客様確認サインの記入</h3>
+        <p>フォーム最後の「お客様確認サイン」セクションで、画面上に指やマウスで直接サインを描けます。</p>
+        <ol style="padding-left:18px">
+          <li>白い枠の中を指でなぞって署名します。</li>
+          <li>書き直したい場合は「🗑 サインをクリア」をタップすると消去できます。</li>
+          <li>記入したサインは「保存する」を押した時点で記録に保存されます。</li>
+        </ol>
+        <p style="color:var(--text2)">保存済みの記録を編集する際は、以前記入したサインが自動的に表示されます。</p>
+
+        <h3 style="font-size:14px;border-bottom:2px solid var(--border);padding-bottom:6px;margin-top:20px">6. 記録の保存</h3>
+        <p>入力が完了したら、フォーム下部の「💾 保存する」ボタンをタップします。点検実施日が未入力の場合は保存できません。保存後は自動的に現場の点検履歴画面に移動します。</p>
+        <div style="background:var(--accent2-light);border:1px solid #e8c4b8;border-radius:8px;padding:10px 14px;margin:10px 0">
+          <div style="font-weight:600;color:var(--accent2);margin-bottom:4px">注意</div>
+          <p style="margin:0">通信状態が悪い場所では保存に失敗することがあります。保存後は必ず履歴画面で記録が反映されているか確認してください。</p>
+        </div>
+
+        <h3 style="font-size:14px;border-bottom:2px solid var(--border);padding-bottom:6px;margin-top:20px">7. 印刷・PDF保存</h3>
+        <p>履歴画面の各記録には「🖨 印刷」「📄 PDF」の2つのボタンがあります。「📄 PDF」をタップすると印刷ダイアログが開くので、印刷先で「PDFに保存」を選んでください。</p>
+        <p style="color:var(--text2)">出力されるPDFは、もとの紙の点検記録表と同じ3ページ構成（点検項目／測定値／運転状況記録）で、お客様名・型式などのヘッダー情報が各ページに繰り返し表示されます。手書きサインも反映されます。</p>
+
+        <h3 style="font-size:14px;border-bottom:2px solid var(--border);padding-bottom:6px;margin-top:20px">8. 記録の編集・削除</h3>
+        <p>履歴画面で各記録の「編集」「削除」ボタンから操作します。現場自体を削除する場合は、現場一覧で各現場カードの「削除」ボタンを使います。<strong>現場を削除すると、その現場の点検記録もすべて削除されます。</strong></p>
+
+        <h3 style="font-size:14px;border-bottom:2px solid var(--border);padding-bottom:6px;margin-top:20px">9. よくある質問・トラブル対応</h3>
+        <p><strong>Q. 画面が真っ白で何も表示されない</strong><br>通信エラーの可能性があります。電波・Wi-Fi状況を確認し、再読み込みしてください。</p>
+        <p><strong>Q. 入力したデータが反映されない</strong><br>ブラウザのキャッシュを消去してから再度開いてください。</p>
+        <p><strong>Q. PDFでお客様名や所在地が空欄だった</strong><br>現場登録時の情報が反映されます。現場一覧で情報を確認し、誤りがあれば現場を削除して再登録してください。</p>
+        <p><strong>Q. サインがうまく描けない</strong><br>白い枠内をしっかりタップ＆ドラッグしてください。枠の外から描き始めると反応しません。</p>
+        <p><strong>Q. 複数の端末で同じデータを見たい</strong><br>同じURLを開けば、どの端末からも同じ現場・記録を確認できます。特別な設定は不要です。</p>
+
+        <p style="text-align:center;color:var(--text3);font-size:11px;margin-top:24px">グラニフリガー細密点検記録システム 操作マニュアル　ver. 1.0<br>SANEI 株式会社サンエー</p>
       </div>
     </div>`;
 }
