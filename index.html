@@ -438,7 +438,21 @@ async function renderHistory(siteId){
   }).join('');
 }
 
-function startNew(){editingId=null;renderForm(currentSite)}
+function startNew(){
+  editingId=null;
+  renderForm(currentSite);
+  // 前回記録から機器情報を自動入力
+  const recs=records[currentSite]||[];
+  if(recs.length>0){
+    const last=recs[recs.length-1];
+    const fields=['model','serial','year','drawing'];
+    fields.forEach(k=>{
+      const el=document.getElementById('f_'+k);
+      if(el && last[k]) el.value=last[k];
+    });
+    toast('💡 前回の機器情報を自動入力しました');
+  }
+}
 function editRec(rid){editingId=rid;renderForm(currentSite)}
 async function delRec(rid){confirm2('記録を削除','この点検記録を削除しますか？',async()=>{await api('deleteRecord',{id:rid});toast('削除しました');await renderHistory(currentSite)})}
 
