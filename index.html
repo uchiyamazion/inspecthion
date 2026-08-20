@@ -217,7 +217,7 @@ const GAS_URL='https://script.google.com/macros/s/AKfycbzGhzIf74QQc2qG3VWWZvsERs
 const ELEC=[{no:2,name:'キャビネットBOX内の異物・ゴミ'},{no:3,name:'コネクター・端子・ねじのゆるみ'},{no:4,name:'部品の変色・変形・劣化など'},{no:5,name:'電線の変色・変形・劣化など'},{no:6,name:'スイッチ動作・接点'},{no:7,name:'ディスプレイ表示'},{no:8,name:'運転ランプ・異常ランプ点灯'},{no:9,name:'温度コントローラー'}];
 const MECH=[{no:10,name:'フレキシブルダクト（蛇腹ダクト）・ベルト'},{no:11,name:'エアフィルター'},{no:12,name:'フィルターBOX・目詰まり検出器'},{no:13,name:'ドレン板・ドレンホース'},{no:14,name:'マノメーターUチューブ・静圧計'},{no:15,name:'温度センサー'},{no:16,name:'本体外観（汚れ・穴あき）'},{no:17,name:'本体設置状態'},{no:18,name:'ドレンホース処理'},{no:19,name:'静圧計パッキン劣化'},{no:20,name:'惰性回転中の異音'},{no:21,name:'オイル交換'},{no:22,name:'加温ヒーター'},{no:23,name:'コンデンサー本体'},{no:24,name:'コンデンサーファン（インバータ型式 VLT・FC）'},{no:25,name:'コンデンサー汚れ'},{no:26,name:'レシーバータンク'},{no:27,name:'フィルタードライヤー'},{no:28,name:'膨張弁'},{no:29,name:'錆（ハンドバルブ等）'},{no:30,name:'本体外観汚れ'},{no:31,name:'底板の錆（エバポレータ二次側）'}];
 const CTRL=[{no:42,name:'パラメータ設定値'},{no:43,name:'キー入力・タッチパネル入力'},{no:44,name:'手動：送風ファン制御'},{no:45,name:'手動：モーターバルブ制御'},{no:46,name:'手動：エアフラップ制御'},{no:47,name:'手動：INV制御'},{no:48,name:'手動：コンプレッサー制御'},{no:49,name:'手動：コンデンサーファン連動'},{no:50,name:'手動：ハイグロサーム・ヒーター制御'}];
-const REFRIG=[{no:32,name:'高圧・低圧圧力',dual:true,labels:['高圧','低圧'],unit:'bar'},{no:33,name:'冷媒量',single:true,unit:'kg'},{no:35,name:'吐出配管温度（No.52条件）',single:true,unit:'℃'},{no:36,name:'吸入配管温度（No.52条件）',single:true,unit:'℃'},{no:37,name:'膨張弁直後配管温度（No.52条件）',single:true,unit:'℃'},{no:38,name:'逆流防止弁温度（一次側/二次側）',dual:true,labels:['一次側','二次側'],unit:'℃'},{no:39,name:'高圧・低圧圧力（No.52条件）',dual:true,labels:['高圧','低圧'],unit:'bar'},{no:40,name:'高圧異常停止圧力値',single:true,unit:'bar'},{no:41,name:'冷媒ガス漏れ/オイル漏れ',yesno:true}];
+const REFRIG=[{no:32,name:'高圧・低圧圧力',dualText:true,labels:['高圧','低圧'],unit:'bar'},{no:33,name:'冷媒量',single:true,unit:'kg'},{no:35,name:'吐出配管温度（No.52条件）',single:true,unit:'℃'},{no:36,name:'吸入配管温度（No.52条件）',single:true,unit:'℃'},{no:37,name:'膨張弁直後配管温度（No.52条件）',single:true,unit:'℃'},{no:38,name:'逆流防止弁温度（一次側/二次側）',dual:true,labels:['一次側','二次側'],unit:'℃'},{no:39,name:'高圧・低圧圧力（No.52条件）',dualText:true,labels:['高圧','低圧'],unit:'bar'},{no:40,name:'高圧異常停止圧力値',single:true,unit:'bar'},{no:41,name:'冷媒ガス漏れ/オイル漏れ',yesno:true}];
 const VOLT=[{no:63,name:'主電源電圧（待機中）R-S/S-T/R-T',triple:true,unit:'V'},{no:64,name:'制御電源電圧（待機中）',single:true,unit:'V'},{no:65,name:'主電源電圧（運転中）R-S/S-T/R-T',triple:true,unit:'V'},{no:66,name:'制御電源電圧（運転中）',single:true,unit:'V'},{no:67,name:'総消費電流 R相/S相/T相',triple:true,unit:'A'},{no:68,name:'漏れ電流値（ヒーター100%時）',single:true,unit:'mA'},{no:69,name:'クランクケースヒーター',single:true,unit:'A'},{no:70,name:'主ファンモーター（低速時）',rated:true,unit:'A'},{no:71,name:'主ファンモーター（高速時）',rated:true,unit:'A'},{no:72,name:'コンプレッサー（100%起動時）',rated:true,unit:'A'},{no:73,name:'コンデンサーファン1（下段）',rated:true,unit:'A'},{no:74,name:'コンデンサーファン2（上段）',rated:true,unit:'A'},{no:75,name:'コンデンサーファン3（KK400/500のみ）',rated:true,unit:'A'},{no:76,name:'コンデンサーファン4（KK400/500のみ）',rated:true,unit:'A'},{no:77,name:'コンプレッサー2（KK220or容量制御時）',rated:true,unit:'A'}];
 const INS=[{no:78,name:'主ファンモーター'},{no:79,name:'コンプレッサー'},{no:80,name:'コンプレッサー2（KK220型のみ）'},{no:81,name:'電気ヒーター1'},{no:82,name:'電気ヒーター2'},{no:83,name:'電気ヒーター3'},{no:84,name:'電気ヒーター4（KK400/500のみ）'},{no:85,name:'コンデンサーファン1（下段）'},{no:86,name:'コンデンサーファン2（上段）'},{no:87,name:'コンデンサーファン3（KK400/500のみ）'},{no:88,name:'コンデンサーファン4（KK400/500のみ）'}];
 const MEAS=[{no:56,name:'日時・天候・外気温度・湿度'},{no:57,name:'測温誤差（大気開放・外気運転全風量）吸気/排気',dual2:true,labels:['吸気','排気'],unit:'℃'},{no:58,name:'温度校正値（一次側/出側）',dual2:true,labels:['一次側','出側'],unit:'℃'},{no:61,name:'湿度制御（3℃差設定時の湿度）',pct:true},{no:62,name:'湿度制御（8℃差設定時の湿度）',pct:true}];
@@ -440,17 +440,50 @@ async function renderHistory(siteId){
 
 function startNew(){
   editingId=null;
-  renderForm(currentSite);
-  // 前回記録から機器情報を自動入力
   const recs=records[currentSite]||[];
-  if(recs.length>0){
-    const last=recs[recs.length-1];
-    const fields=['model','serial','year','drawing'];
-    fields.forEach(k=>{
+
+  // 既存記録から機器一覧を構築（型式+製造No.をキーに重複排除）
+  const machineMap={};
+  recs.forEach(r=>{
+    const key=(r.model||'')+'__'+(r.serial||'');
+    if(key!=='__' && !machineMap[key]){
+      machineMap[key]={model:r.model||'',serial:r.serial||'',year:r.year||'',drawing:r.drawing||''};
+    }
+  });
+  const machines=Object.values(machineMap);
+
+  if(machines.length>0){
+    const msg=document.createElement('div');
+    msg.style.cssText='position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:500;display:flex;align-items:center;justify-content:center;padding:16px';
+    const machineButtons=machines.map((m,i)=>`
+      <button onclick="applyMachine(${i})" style="display:block;width:100%;text-align:left;padding:10px 12px;border-radius:8px;border:.5px solid #ddd9d0;background:#f8f7f4;color:#1a1916;font-size:12px;cursor:pointer;font-family:inherit;margin-bottom:6px;line-height:1.7">
+        <div style="font-weight:600;font-size:13px">${m.model||'型式未入力'}</div>
+        <div style="color:#6b6760">製造No. ${m.serial||'—'} / 製造年 ${m.year||'—'} / 図番 ${m.drawing||'—'}</div>
+      </button>`).join('');
+    msg.innerHTML=`<div style="background:#fff;border-radius:12px;padding:24px;width:420px;max-width:100%;max-height:80vh;overflow-y:auto;box-shadow:0 8px 32px rgba(0,0,0,.2)">
+      <h3 style="font-size:15px;font-weight:500;margin-bottom:4px">機器を選択してください</h3>
+      <p style="font-size:12px;color:#6b6760;margin-bottom:14px">過去の記録から構築しました</p>
+      ${machineButtons}
+      <button onclick="applyMachine(-1)" style="display:block;width:100%;padding:10px;border-radius:8px;border:.5px solid #c8c3b8;background:#fff;color:#1a1916;font-size:13px;cursor:pointer;font-family:inherit;margin-top:4px">✏️ 新しい機器を手入力する</button>
+    </div>`;
+    document.body.appendChild(msg);
+    window._machineDialog=msg;
+    window._machines=machines;
+  } else {
+    renderForm(currentSite);
+  }
+}
+
+function applyMachine(idx){
+  if(window._machineDialog) window._machineDialog.remove();
+  renderForm(currentSite);
+  if(idx>=0 && window._machines && window._machines[idx]){
+    const m=window._machines[idx];
+    ['model','serial','year','drawing'].forEach(k=>{
       const el=document.getElementById('f_'+k);
-      if(el && last[k]) el.value=last[k];
+      if(el) el.value=m[k]||'';
     });
-    toast('💡 前回の機器情報を自動入力しました');
+    toast('📋 機器情報を引用しました');
   }
 }
 function editRec(rid){editingId=rid;renderForm(currentSite)}
@@ -551,7 +584,7 @@ function buildChecks(id,items){
     </div>`).join('');
 }
 function rowColor(no){const row=document.getElementById('row'+no);if(!row)return;const v=document.querySelector(`input[name="chk${no}"]:checked`)?.value;row.className='check-row'+(v==='abnormal'?' ng':'');}
-function buildRefrig(){document.getElementById('refrig-body').innerHTML=REFRIG.map(it=>{let v='';if(it.dual)v=`<input type="number" id="r${it.no}_1" step="0.1" style="width:64px" placeholder="${it.labels[0]}"><span class="unit-lbl">${it.unit}</span><input type="number" id="r${it.no}_2" step="0.1" style="width:64px" placeholder="${it.labels[1]}"><span class="unit-lbl">${it.unit}</span>`;else if(it.yesno)v=`<label class="radio-lbl"><input type="radio" name="r${it.no}" value="有"> 有</label><label class="radio-lbl"><input type="radio" name="r${it.no}" value="無" checked> 無</label>`;else v=`<input type="number" id="r${it.no}" step="0.1" style="width:72px"><span class="unit-lbl">${it.unit}</span>`;return `<div class="mrow"><span class="mno">${it.no}</span><span class="mname">${it.name}</span><div class="mval">${v}</div><input type="text" class="mmemo" id="rmemo${it.no}" placeholder="メモ"></div>`;}).join('');}
+function buildRefrig(){document.getElementById('refrig-body').innerHTML=REFRIG.map(it=>{let v='';if(it.dualText)v=`<span class="unit-lbl">${it.labels[0]}</span><input type="text" id="r${it.no}_1" style="width:72px" placeholder="例: 15"><span class="unit-lbl">${it.unit}</span><span class="unit-lbl" style="margin-left:6px">${it.labels[1]}</span><input type="text" id="r${it.no}_2" style="width:72px" placeholder="例: 3.8"><span class="unit-lbl">${it.unit}</span>`;else if(it.dual)v=`<input type="number" id="r${it.no}_1" step="0.1" style="width:64px" placeholder="${it.labels[0]}"><span class="unit-lbl">${it.unit}</span><input type="number" id="r${it.no}_2" step="0.1" style="width:64px" placeholder="${it.labels[1]}"><span class="unit-lbl">${it.unit}</span>`;else if(it.yesno)v=`<label class="radio-lbl"><input type="radio" name="r${it.no}" value="有"> 有</label><label class="radio-lbl"><input type="radio" name="r${it.no}" value="無" checked> 無</label>`;else v=`<input type="number" id="r${it.no}" step="0.1" style="width:72px"><span class="unit-lbl">${it.unit}</span>`;return `<div class="mrow"><span class="mno">${it.no}</span><span class="mname">${it.name}</span><div class="mval">${v}</div><input type="text" class="mmemo" id="rmemo${it.no}" placeholder="メモ"></div>`;}).join('');}
 function buildVolt(){document.getElementById('volt-body').innerHTML=VOLT.map(it=>{let v='';if(it.triple)v=`<input type="number" id="v${it.no}_1" step="0.1" style="width:56px"><input type="number" id="v${it.no}_2" step="0.1" style="width:56px"><input type="number" id="v${it.no}_3" step="0.1" style="width:56px"><span class="unit-lbl">${it.unit}</span>`;else if(it.rated)v=`<span class="unit-lbl">実測</span><input type="number" id="v${it.no}_m" step="0.1" style="width:60px"><span class="unit-lbl">定格</span><input type="number" id="v${it.no}_r" step="0.1" style="width:60px"><span class="unit-lbl">${it.unit}</span>`;else v=`<input type="number" id="v${it.no}" step="0.1" style="width:72px"><span class="unit-lbl">${it.unit}</span>`;return `<div class="mrow"><span class="mno">${it.no}</span><span class="mname">${it.name}</span><div class="mval">${v}</div><input type="text" class="mmemo" id="vmemo${it.no}" placeholder="メモ"></div>`;}).join('');}
 function buildIns(){document.getElementById('ins-body').innerHTML=`<div class="ins-row" style="font-weight:500;font-size:11px;color:var(--text2)"><span></span><span>測定箇所</span><span style="text-align:center">2MΩ</span><span style="text-align:center">4MΩ</span><span style="text-align:center">6MΩ</span><span>メモ</span></div>`+INS.map(it=>`<div class="ins-row"><span style="font-size:11px;color:var(--text3);text-align:center;font-family:'IBM Plex Mono',monospace">${it.no}</span><span style="font-size:12px">${it.name}</span><input type="number" id="ins${it.no}_2" step="0.01" placeholder="MΩ"><input type="number" id="ins${it.no}_4" step="0.01" placeholder="MΩ"><input type="number" id="ins${it.no}_6" step="0.01" placeholder="MΩ"><input type="text" id="insmemo${it.no}" placeholder="メモ"></div>`).join('');}
 function buildMeas(){document.getElementById('meas-body').innerHTML=`
@@ -566,7 +599,7 @@ function gatherForm(){
   const checks={},memos={};
   [...ELEC,...MECH,...CTRL].forEach(it=>{const v=document.querySelector(`input[name="chk${it.no}"]:checked`);checks[it.no]=v?v.value:'-';memos[it.no]=document.getElementById('memo'+it.no)?.value||'';});
   const refrig={},rMemos={};
-  REFRIG.forEach(it=>{if(it.dual)refrig[it.no]={v1:document.getElementById('r'+it.no+'_1')?.value||'',v2:document.getElementById('r'+it.no+'_2')?.value||''};else if(it.yesno){const v=document.querySelector(`input[name="r${it.no}"]:checked`);refrig[it.no]=v?v.value:'無';}else refrig[it.no]=document.getElementById('r'+it.no)?.value||'';rMemos[it.no]=document.getElementById('rmemo'+it.no)?.value||'';});
+  REFRIG.forEach(it=>{if(it.dual||it.dualText)refrig[it.no]={v1:document.getElementById('r'+it.no+'_1')?.value||'',v2:document.getElementById('r'+it.no+'_2')?.value||''};else if(it.yesno){const v=document.querySelector(`input[name="r${it.no}"]:checked`);refrig[it.no]=v?v.value:'無';}else refrig[it.no]=document.getElementById('r'+it.no)?.value||'';rMemos[it.no]=document.getElementById('rmemo'+it.no)?.value||'';});
   const voltage={},vMemos={};
   VOLT.forEach(it=>{if(it.triple)voltage[it.no]={v1:document.getElementById('v'+it.no+'_1')?.value||'',v2:document.getElementById('v'+it.no+'_2')?.value||'',v3:document.getElementById('v'+it.no+'_3')?.value||''};else if(it.rated)voltage[it.no]={m:document.getElementById('v'+it.no+'_m')?.value||'',r:document.getElementById('v'+it.no+'_r')?.value||''};else voltage[it.no]=document.getElementById('v'+it.no)?.value||'';vMemos[it.no]=document.getElementById('vmemo'+it.no)?.value||'';});
   const ins={},iMemos={};
@@ -656,7 +689,7 @@ function loadIntoForm(rid){
   ['date','staff','model','serial','year','drawing','runtime','start','end','notes'].forEach(k=>{const el=document.getElementById('f_'+k);if(el)el.value=rec[k]||'';});
   Object.entries(rec.checks||{}).forEach(([no,val])=>{const r=document.querySelector(`input[name="chk${no}"][value="${val}"]`);if(r){r.checked=true;rowColor(parseInt(no));}});
   Object.entries(rec.memos||{}).forEach(([no,val])=>{const el=document.getElementById('memo'+no);if(el)el.value=val;});
-  Object.entries(rec.refrig||{}).forEach(([no,val])=>{if(typeof val==='object'&&val.v1!==undefined){const a=document.getElementById('r'+no+'_1');const b=document.getElementById('r'+no+'_2');if(a)a.value=val.v1;if(b)b.value=val.v2;}else if(val==='有'||val==='無'){const r=document.querySelector(`input[name="r${no}"][value="${val}"]`);if(r)r.checked=true;}else{const el=document.getElementById('r'+no);if(el)el.value=val;}});
+  Object.entries(rec.refrig||{}).forEach(([no,val])=>{if(typeof val==='object'&&val.v1!==undefined){const a=document.getElementById('r'+no+'_1');const b=document.getElementById('r'+no+'_2');if(a)a.value=val.v1||'';if(b)b.value=val.v2||'';}else if(val==='有'||val==='無'){const r=document.querySelector(`input[name="r${no}"][value="${val}"]`);if(r)r.checked=true;}else{const el=document.getElementById('r'+no);if(el)el.value=val;}});
   Object.entries(rec.rMemos||{}).forEach(([no,val])=>{const el=document.getElementById('rmemo'+no);if(el)el.value=val;});
   Object.entries(rec.voltage||{}).forEach(([no,val])=>{if(typeof val==='object'&&val.v1!==undefined){['1','2','3'].forEach(k=>{const el=document.getElementById('v'+no+'_'+k);if(el)el.value=val['v'+k];});}else if(typeof val==='object'&&val.m!==undefined){['m','r'].forEach(k=>{const el=document.getElementById('v'+no+'_'+k);if(el)el.value=val[k];});}else{const el=document.getElementById('v'+no);if(el)el.value=val;}});
   Object.entries(rec.vMemos||{}).forEach(([no,val])=>{const el=document.getElementById('vmemo'+no);if(el)el.value=val;});
