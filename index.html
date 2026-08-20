@@ -438,8 +438,13 @@ async function renderHistory(siteId){
   }).join('');
 }
 
-function startNew(){
+async function startNew(){
   editingId=null;
+  // recordsが未ロードの場合はGASから取得
+  if(!records[currentSite]){
+    const res=await api('getRecords',{siteId:currentSite});
+    if(res) records[currentSite]=res.records||[];
+  }
   const recs=records[currentSite]||[];
 
   // 既存記録から機器一覧を構築（型式+製造No.をキーに重複排除）
@@ -474,6 +479,60 @@ function startNew(){
   }
 }
 
+async function showMachineDialog(){
+  // recordsが未ロードの場合はGASから取得
+  if(!records[currentSite]){
+    const res=await api('getRecords',{siteId:currentSite});
+    if(res) records[currentSite]=res.records||[];
+  }
+  const recs=records[currentSite]||[];
+
+  // 既存記録から機器一覧を構築（型式+製造No.をキーに重複排除）
+  const machineMap={};
+  recs.forEach(r=>{
+    const key=(r.model||'')+'__'+(r.serial||'');
+    if(!machineMap[key]){
+      machineMap[key]={model:r.model||'',serial:r.serial||'',year:r.year||'',drawing:r.drawing||''};
+    }
+  });
+  // 型式か製造No.のどちらかがある機器のみ表示
+  const machines=Object.values(machineMap).filter(m=>m.model||m.serial);
+
+  if(machines.length===0){
+    toast('過去の記録に機器情報がありません。手入力してください。');
+    return;
+  }
+
+  const msg=document.createElement('div');
+  msg.style.cssText='position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:500;display:flex;align-items:center;justify-content:center;padding:16px';
+  const machineButtons=machines.map((m,i)=>`
+    <button onclick="selectMachineInfo(${i})" style="display:block;width:100%;text-align:left;padding:10px 12px;border-radius:8px;border:.5px solid #ddd9d0;background:#f8f7f4;color:#1a1916;font-size:12px;cursor:pointer;font-family:inherit;margin-bottom:6px;line-height:1.7">
+      <div style="font-weight:600;font-size:13px">${m.model||'型式未入力'}</div>
+      <div style="color:#6b6760">製造No. ${m.serial||'—'} / 製造年 ${m.year||'—'} / 図番 ${m.drawing||'—'}</div>
+    </button>`).join('');
+  msg.innerHTML=`<div style="background:#fff;border-radius:12px;padding:24px;width:420px;max-width:100%;max-height:80vh;overflow-y:auto;box-shadow:0 8px 32px rgba(0,0,0,.2)">
+    <h3 style="font-size:15px;font-weight:500;margin-bottom:4px">機器を選択</h3>
+    <p style="font-size:12px;color:#6b6760;margin-bottom:14px">過去の記録から構築しました</p>
+    ${machineButtons}
+    <button onclick="selectMachineInfo(-1)" style="display:block;width:100%;padding:10px;border-radius:8px;border:.5px solid #c8c3b8;background:#fff;color:#1a1916;font-size:13px;cursor:pointer;font-family:inherit;margin-top:4px">✕ キャンセル</button>
+  </div>`;
+  document.body.appendChild(msg);
+  window._machineDialog=msg;
+  window._machines=machines;
+}
+
+function selectMachineInfo(idx){
+  if(window._machineDialog) window._machineDialog.remove();
+  if(idx>=0 && window._machines && window._machines[idx]){
+    const m=window._machines[idx];
+    ['model','serial','year','drawing'].forEach(k=>{
+      const el=document.getElementById('f_'+k);
+      if(el) el.value=m[k]||'';
+    });
+    toast('📋 機器情報を引用しました');
+  }
+}
+
 function applyMachine(idx){
   if(window._machineDialog) window._machineDialog.remove();
   renderForm(currentSite);
@@ -488,55 +547,7 @@ function applyMachine(idx){
 }
 function editRec(rid){
   editingId=rid;
-  const recs=records[currentSite]||[];
-
-  // 既存記録から機器一覧を構築
-  const machineMap={};
-  recs.forEach(r=>{
-    const key=(r.model||'')+'__'+(r.serial||'');
-    if(key!=='__' && !machineMap[key]){
-      machineMap[key]={model:r.model||'',serial:r.serial||'',year:r.year||'',drawing:r.drawing||''};
-    }
-  });
-  const machines=Object.values(machineMap);
-
-  if(machines.length>0){
-    const msg=document.createElement('div');
-    msg.style.cssText='position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:500;display:flex;align-items:center;justify-content:center;padding:16px';
-    const machineButtons=machines.map((m,i)=>`
-      <button onclick="applyMachineEdit(${i})" style="display:block;width:100%;text-align:left;padding:10px 12px;border-radius:8px;border:.5px solid #ddd9d0;background:#f8f7f4;color:#1a1916;font-size:12px;cursor:pointer;font-family:inherit;margin-bottom:6px;line-height:1.7">
-        <div style="font-weight:600;font-size:13px">${m.model||'型式未入力'}</div>
-        <div style="color:#6b6760">製造No. ${m.serial||'—'} / 製造年 ${m.year||'—'} / 図番 ${m.drawing||'—'}</div>
-      </button>`).join('');
-    msg.innerHTML=`<div style="background:#fff;border-radius:12px;padding:24px;width:420px;max-width:100%;max-height:80vh;overflow-y:auto;box-shadow:0 8px 32px rgba(0,0,0,.2)">
-      <h3 style="font-size:15px;font-weight:500;margin-bottom:4px">機器を選択してください</h3>
-      <p style="font-size:12px;color:#6b6760;margin-bottom:14px">記録済みの機器情報から変更できます</p>
-      ${machineButtons}
-      <button onclick="applyMachineEdit(-1)" style="display:block;width:100%;padding:10px;border-radius:8px;border:.5px solid #c8c3b8;background:#fff;color:#1a1916;font-size:13px;cursor:pointer;font-family:inherit;margin-top:4px">✏️ 機器情報をそのまま編集する</button>
-    </div>`;
-    document.body.appendChild(msg);
-    window._machineDialog=msg;
-    window._machines=machines;
-  } else {
-    renderForm(currentSite);
-  }
-}
-
-function applyMachineEdit(idx){
-  if(window._machineDialog) window._machineDialog.remove();
-  window._skipAutoLoad=true; // renderForm内の自動読み込みをスキップ
   renderForm(currentSite);
-  // 編集中の記録データを読み込む
-  if(editingId) loadIntoForm(editingId);
-  // 選択した機器情報で上書き
-  if(idx>=0 && window._machines && window._machines[idx]){
-    const m=window._machines[idx];
-    ['model','serial','year','drawing'].forEach(k=>{
-      const el=document.getElementById('f_'+k);
-      if(el) el.value=m[k]||'';
-    });
-    toast('📋 機器情報を変更しました');
-  }
 }
 async function delRec(rid){confirm2('記録を削除','この点検記録を削除しますか？',async()=>{await api('deleteRecord',{id:rid});toast('削除しました');await renderHistory(currentSite)})}
 
@@ -548,15 +559,20 @@ function renderForm(siteId){
   document.getElementById('main-content').innerHTML=`
     <div class="card">
       <div class="card-head" onclick="toggleCard(this)"><span>📋</span><h3>基本情報</h3><span class="chevron">▾</span></div>
-      <div class="card-body"><div class="grid3">
-        <div class="field"><label class="lbl">点検実施日 *</label><input type="date" id="f_date"></div>
-        <div class="field"><label class="lbl">担当者</label><input type="text" id="f_staff"></div>
-        <div class="field"><label class="lbl">運転時間積算値</label><input type="text" id="f_runtime" placeholder="時間"></div>
-        <div class="field"><label class="lbl">機械型式</label><input type="text" id="f_model" placeholder="例: KK220"></div>
-        <div class="field"><label class="lbl">製造No.</label><input type="text" id="f_serial"></div>
-        <div class="field"><label class="lbl">製造年</label><input type="text" id="f_year"></div>
-        <div class="field"><label class="lbl">図番</label><input type="text" id="f_drawing"></div>
-      </div></div>
+      <div class="card-body">
+        <div style="margin-bottom:10px">
+          <button class="btn" style="font-size:12px" onclick="showMachineDialog()">📋 機器情報を呼び出す</button>
+        </div>
+        <div class="grid3">
+          <div class="field"><label class="lbl">点検実施日 *</label><input type="date" id="f_date"></div>
+          <div class="field"><label class="lbl">担当者</label><input type="text" id="f_staff"></div>
+          <div class="field"><label class="lbl">運転時間積算値</label><input type="text" id="f_runtime" placeholder="時間"></div>
+          <div class="field"><label class="lbl">機械型式</label><input type="text" id="f_model" placeholder="例: KK220"></div>
+          <div class="field"><label class="lbl">製造No.</label><input type="text" id="f_serial"></div>
+          <div class="field"><label class="lbl">製造年</label><input type="text" id="f_year"></div>
+          <div class="field"><label class="lbl">図番</label><input type="text" id="f_drawing"></div>
+        </div>
+      </div>
     </div>
     <div class="card">
       <div class="card-head" onclick="toggleCard(this)"><span>⚡</span><h3>電気系点検 (No.2〜9)</h3><span class="chevron">▾</span></div>
@@ -618,8 +634,7 @@ function renderForm(siteId){
   buildRefrig();buildVolt();buildIns();buildMeas();buildOps();
   document.getElementById('f_date').value=new Date().toISOString().slice(0,10);
   initSignatureCanvas();
-  if(editingId && !window._skipAutoLoad) loadIntoForm(editingId);
-  window._skipAutoLoad=false;
+  if(editingId) loadIntoForm(editingId);
 }
 
 function buildChecks(id,items){
